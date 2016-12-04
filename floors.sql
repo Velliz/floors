@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2016-12-03 15:34:37
+Date: 2016-12-04 18:14:04
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -70,7 +70,25 @@ CREATE TABLE `avatars` (
   `extensions` varchar(100) NOT NULL,
   `filedata` longblob NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Table structure for broker
+-- ----------------------------
+DROP TABLE IF EXISTS `broker`;
+CREATE TABLE `broker` (
+  `id` int(11) NOT NULL,
+  `brokerid` varchar(255) NOT NULL,
+  `config` text NOT NULL,
+  `servicename` varchar(255) NOT NULL,
+  `servicedesc` text NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
+  `cuid` int(11) NOT NULL,
+  `muid` int(11) NOT NULL,
+  `dflag` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for credentials
