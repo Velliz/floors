@@ -1,0 +1,18 @@
+{
+    "name": "velliz/puko",
+    "description": "PSR 4 modular based MVC Puko Framework",
+    "license": "MIT",
+    "require": {
+        "puko/framework": "dev-master"
+    },
+    "require-dev": {
+        "puko/framework": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "controller\\": "controller/",
+            "model\\": "model/",
+            "config\\": "config/"
+        }
+    }
+}
