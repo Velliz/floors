@@ -4,6 +4,6 @@ return array(
     'host' => 'localhost',
     'user' => 'root',
     'pass' => '',
-    'dbName' => '',
+    'dbName' => 'floors',
     'port' => 3306
 );

@@ -7,6 +7,6 @@ require __DIR__ . '/vendor/autoload.php';
 $framework = new \pukoframework\Framework();
 $framework->RouteMapping(array(
     'fb/callbacks' => 'login/callbacks',
-    'login' => 'login/singlesign',
+    //'login' => 'login/singlesign',
 ));
 $framework->Start();
