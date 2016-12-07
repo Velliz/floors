@@ -5,12 +5,14 @@
     "require": {
         "puko/framework": "dev-master",
         "facebook/graph-sdk" : "~5.0",
-        "google/apiclient": "^2.0"
+        "google/apiclient": "^2.0",
+        "abraham/twitteroauth": "0.7.1"
     },
     "require-dev": {
         "puko/framework": "dev-master",
         "facebook/graph-sdk" : "~5.0",
-        "google/apiclient": "^2.0"
+        "google/apiclient": "^2.0",
+        "abraham/twitteroauth": "0.7.1"
 
     },
     "autoload": {
