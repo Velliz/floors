@@ -4,7 +4,6 @@ namespace controller;
 
 use Facebook\Exceptions\FacebookResponseException;
 use Facebook\Exceptions\FacebookSDKException;
-use Facebook\FacebookRequest;
 use model\BrokerModel;
 use pukoframework\pte\View;
 use Facebook\Facebook;
@@ -37,7 +36,7 @@ class login extends View
 
     public function singlesign()
     {
-        
+
     }
 
     /**
@@ -50,26 +49,26 @@ class login extends View
 
         $helper = $this->fbObject->getRedirectLoginHelper();
         $permissions = ['email', 'user_about_me', 'public_profile', 'user_hometown', 'user_location', 'user_birthday']; // optional
-        $loginUrl = $helper->getLoginUrl('http://localhost/floors/fb/callbacks', $permissions);
+        $loginUrl = $helper->getLoginUrl(BASE_URL . 'facebook/callbacks', $permissions);
 
         echo '<a href="' . $loginUrl . '">Log in with Facebook!</a>';
     }
-    
+
     public function callbacks()
     {
         $helper = $this->fbObject->getRedirectLoginHelper();
         try {
             $accessToken = $helper->getAccessToken();
-        } catch(FacebookResponseException $e) {
+        } catch (FacebookResponseException $e) {
             echo 'Graph returned an error: ' . $e->getMessage();
             exit;
-        } catch(FacebookSDKException $e) {
+        } catch (FacebookSDKException $e) {
             echo 'Facebook SDK returned an error: ' . $e->getMessage();
             exit;
         }
 
         if (isset($accessToken)) {
-            $_SESSION['facebook_access_token'] = (string) $accessToken;
+            $_SESSION['facebook_access_token'] = (string)$accessToken;
         }
 
         // Sets the default fallback access token so we don't have to pass it to each request
@@ -78,10 +77,10 @@ class login extends View
         try {
             $response = $this->fbObject->get('/me?fields=id,name,email,hometown,location');
             $userNode = $response->getGraphUser();
-        } catch(FacebookResponseException $e) {
+        } catch (FacebookResponseException $e) {
             echo 'Graph returned an error: ' . $e->getMessage();
             exit;
-        } catch(FacebookSDKException $e) {
+        } catch (FacebookSDKException $e) {
             echo 'Facebook SDK returned an error: ' . $e->getMessage();
             exit;
         }
