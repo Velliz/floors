@@ -18,29 +18,34 @@ class main extends View
      */
     public function __construct()
     {
+        session_start();
+
         $client_id = '1005207926551-mlkrqhc44semjmrh2f5hvi2kudfb773m.apps.googleusercontent.com';
-        $client_secret = 'AIzaSyCKb3uol201Ti8hMtcdPPGwDAqLVVl1JUA';
+        $client_secret = 'V84Hpob97ZyrRwTU_quMjcVI';
 
         $this->client = new Google_Client();
         $this->client->setClientId($client_id);
         $this->client->setClientSecret($client_secret);
-        $this->client->setRedirectUri(BASE_URL . 'floors/google/callbacks');
+        $this->client->setRedirectUri(BASE_URL . 'google/callbacks');
         $this->client->addScope("email");
         $this->client->addScope("profile");
     }
 
-    public function main()
+    /**
+     * #Template html false
+     */
+    public function callbacks()
     {
         $service = new Google_Service_Oauth2($this->client);
 
         if (isset($_GET['code'])) {
             $this->client->authenticate($_GET['code']);
             $_SESSION['access_token'] = $this->client->getAccessToken();
-            header('Location: ' . filter_var(BASE_URL . 'floors/google/callbacks', FILTER_SANITIZE_URL));
+            header('Location: ' . filter_var(BASE_URL . 'google/callbacks', FILTER_SANITIZE_URL));
             exit;
         }
 
-        if (isset($_SESSION['access_token']) && $_SESSION['access_token']) $this->client->setAccessToken($_SESSION['access_token']);
+        $this->client->setAccessToken($_SESSION['access_token']);
 
         $user = $service->userinfo->get();
         echo '<img src="'.$user->picture.'" style="float: right;margin-top: 33px;" />';

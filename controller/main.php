@@ -44,8 +44,9 @@ class main extends View implements Auth
         ]);
 
         $client_id = '1005207926551-mlkrqhc44semjmrh2f5hvi2kudfb773m.apps.googleusercontent.com';
-        $client_secret = 'AIzaSyCKb3uol201Ti8hMtcdPPGwDAqLVVl1JUA';
-        $redirect_uri = BASE_URL . 'floors/google/callbacks';
+        $client_secret = 'V84Hpob97ZyrRwTU_quMjcVI';
+        
+        $redirect_uri = BASE_URL . 'google/callbacks';
 
         $this->client = new Google_Client();
         $this->client->setClientId($client_id);
@@ -60,7 +61,7 @@ class main extends View implements Auth
     {
         $helper = $this->fbObject->getRedirectLoginHelper();
         $permissions = ['email', 'user_about_me', 'public_profile', 'user_hometown', 'user_location', 'user_birthday'];
-        $vars['FacebookLoginUrl'] = $helper->getLoginUrl(BASE_URL . 'floors/facebook/callbacks', $permissions);
+        $vars['FacebookLoginUrl'] = $helper->getLoginUrl(BASE_URL . 'facebook/callbacks', $permissions);
 
         $vars['GoogleLoginUrl'] = $this->client->createAuthUrl();
         
