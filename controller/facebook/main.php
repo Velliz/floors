@@ -83,6 +83,7 @@ class main extends View implements Auth
                 'type' => 'Facebook',
                 'credentials' => $userNode->getId(),
                 'created' => DBI::NOW(),
+                'profilepic' => (string)"https://graph.facebook.com/" . $userNode->getId() . "/picture?width=400&height=400",
             ));
 
             Session::Get($this)->Login($userId, 'id', Auth::EXPIRED_1_MONTH);

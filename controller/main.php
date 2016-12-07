@@ -23,10 +23,7 @@ class main extends View implements Auth
      * @var Google_Client
      */
     var $client;
-
-    /**
-     * login constructor.
-     */
+    
     public function __construct()
     {
         session_start();
