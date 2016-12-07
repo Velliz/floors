@@ -4,6 +4,7 @@ namespace controller;
 
 use Exception;
 use Facebook\Facebook;
+use Google_Client;
 use model\BrokerModel;
 use model\Credentials;
 use pukoframework\auth\Auth;
@@ -17,6 +18,11 @@ class main extends View implements Auth
      * @var Facebook
      */
     var $fbObject;
+
+    /**
+     * @var Google_Client
+     */
+    var $client;
 
     /**
      * login constructor.
@@ -36,6 +42,18 @@ class main extends View implements Auth
             'app_secret' => $broker['config'],
             'default_graph_version' => $broker['version'],
         ]);
+
+        $client_id = '1005207926551-mlkrqhc44semjmrh2f5hvi2kudfb773m.apps.googleusercontent.com';
+        $client_secret = 'AIzaSyCKb3uol201Ti8hMtcdPPGwDAqLVVl1JUA';
+        $redirect_uri = BASE_URL . 'floors/google/callbacks';
+
+        $this->client = new Google_Client();
+        $this->client->setClientId($client_id);
+        $this->client->setClientSecret($client_secret);
+        $this->client->setRedirectUri($redirect_uri);
+        $this->client->addScope("email");
+        $this->client->addScope("profile");
+
     }
 
     public function main()
@@ -44,6 +62,8 @@ class main extends View implements Auth
         $permissions = ['email', 'user_about_me', 'public_profile', 'user_hometown', 'user_location', 'user_birthday'];
         $vars['FacebookLoginUrl'] = $helper->getLoginUrl(BASE_URL . 'floors/facebook/callbacks', $permissions);
 
+        $vars['GoogleLoginUrl'] = $this->client->createAuthUrl();
+        
         return $vars;
     }
 

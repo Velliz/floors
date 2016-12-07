@@ -85,7 +85,7 @@ class main extends View implements Auth
                 'created' => DBI::NOW(),
             ));
 
-            Session::Get($this)->Login($userNode->getId(), 'id', Auth::EXPIRED_1_MONTH);
+            Session::Get($this)->Login($userId, 'id', Auth::EXPIRED_1_MONTH);
         };
 
         $data = Session::Get($this)->GetLoginData();
