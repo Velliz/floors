@@ -30,28 +30,34 @@ class main extends View implements Auth
 
         if (isset($_GET['sso'])) Session::Get($this)->PutSession('sso', $_GET['sso'], Auth::EXPIRED_1_WEEK);
 
-        $broker = BrokerModel::GetCode('FB');
-        if (sizeof($broker) == 0) throw new Exception('FB broker is not set.');
-        else $broker = $broker[0];
+        $fBroker = BrokerModel::GetCode('FB');
+        if (sizeof($fBroker) == 0) throw new Exception('FB broker is not set.');
+        else $fBroker = $fBroker[0];
 
         $this->fbObject = new Facebook([
-            'app_id' => $broker['brokerid'],
-            'app_secret' => $broker['config'],
-            'default_graph_version' => $broker['version'],
+            'app_id' => $fBroker['brokerid'],
+            'app_secret' => $fBroker['config'],
+            'default_graph_version' => $fBroker['version'],
         ]);
 
-        $client_id = '1005207926551-mlkrqhc44semjmrh2f5hvi2kudfb773m.apps.googleusercontent.com';
-        $client_secret = 'V84Hpob97ZyrRwTU_quMjcVI';
+        $gBroker = BrokerModel::GetCode('G');
+        if (sizeof($gBroker) == 0) throw new Exception('G broker is not set.');
+        else $gBroker = $gBroker[0];
         
         $redirect_uri = BASE_URL . 'google/callbacks';
 
         $this->client = new Google_Client();
-        $this->client->setClientId($client_id);
-        $this->client->setClientSecret($client_secret);
+        $this->client->setClientId($gBroker['brokerid']);
+        $this->client->setClientSecret($gBroker['config']);
         $this->client->setRedirectUri($redirect_uri);
         $this->client->addScope("email");
         $this->client->addScope("profile");
 
+    }
+    
+    public function profile()
+    {
+        var_dump(Session::Get($this)->GetLoginData());
     }
 
     public function main()
@@ -83,4 +89,21 @@ class main extends View implements Auth
     {
         return Credentials::GetUserID($id)[0];
     }
+
+    /*
+    public function Encrypt($string)
+    {
+        $key = hash('sha256', $this->key);
+        $iv = substr(hash('sha256', $this->identifier), 0, 16);
+        $output = openssl_encrypt($string, $this->method, $key, 0, $iv);
+        return base64_encode($output);
+    }
+    
+    public function Decrypt($string)
+    {
+        $key = hash('sha256', $this->key);
+        $iv = substr(hash('sha256', $this->identifier), 0, 16);
+        return openssl_decrypt(base64_decode($string), $this->method, $key, 0, $iv);
+    }
+    */
 }

@@ -132,21 +132,4 @@ class main extends View implements Auth
     {
         return Credentials::GetUserID($id)[0];
     }
-
-    /*
-    public function Encrypt($string)
-    {
-        $key = hash('sha256', $this->key);
-        $iv = substr(hash('sha256', $this->identifier), 0, 16);
-        $output = openssl_encrypt($string, $this->method, $key, 0, $iv);
-        return base64_encode($output);
-    }
-
-    public function Decrypt($string)
-    {
-        $key = hash('sha256', $this->key);
-        $iv = substr(hash('sha256', $this->identifier), 0, 16);
-        return openssl_decrypt(base64_decode($string), $this->method, $key, 0, $iv);
-    }
-    */
 }

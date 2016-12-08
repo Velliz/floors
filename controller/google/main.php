@@ -1,9 +1,11 @@
 <?php
 namespace controller\google;
 
+use Exception;
 use Google_Client;
 use Google_Service_Oauth2;
 use model\Applications;
+use model\BrokerModel;
 use model\Credentials;
 use model\Users;
 use pukoframework\auth\Auth;
@@ -23,13 +25,16 @@ class main extends View implements Auth
     {
         session_start();
 
-        $client_id = '1005207926551-mlkrqhc44semjmrh2f5hvi2kudfb773m.apps.googleusercontent.com';
-        $client_secret = 'V84Hpob97ZyrRwTU_quMjcVI';
+        $gBroker = BrokerModel::GetCode('G');
+        if (sizeof($gBroker) == 0) throw new Exception('G broker is not set.');
+        else $gBroker = $gBroker[0];
+
+        $redirect_uri = BASE_URL . 'google/callbacks';
 
         $this->client = new Google_Client();
-        $this->client->setClientId($client_id);
-        $this->client->setClientSecret($client_secret);
-        $this->client->setRedirectUri(BASE_URL . 'google/callbacks');
+        $this->client->setClientId($gBroker['brokerid']);
+        $this->client->setClientSecret($gBroker['config']);
+        $this->client->setRedirectUri($redirect_uri);
         $this->client->addScope("email");
         $this->client->addScope("profile");
     }
