@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : Local Database
+Source Server         : PC Local
 Source Server Version : 50505
 Source Host           : localhost:3306
 Source Database       : floors
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2016-12-04 18:14:04
+Date: 2016-12-09 17:11:16
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -31,8 +31,9 @@ CREATE TABLE `applications` (
   `ip` varchar(50) NOT NULL,
   `uri` varchar(255) NOT NULL,
   `token` varchar(255) NOT NULL,
+  `identifier` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for authorization
@@ -79,14 +80,17 @@ DROP TABLE IF EXISTS `broker`;
 CREATE TABLE `broker` (
   `id` int(11) NOT NULL,
   `brokerid` varchar(255) NOT NULL,
-  `config` text NOT NULL,
-  `servicename` varchar(255) NOT NULL,
-  `servicedesc` text NOT NULL,
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
   `cuid` int(11) NOT NULL,
   `muid` int(11) NOT NULL,
   `dflag` tinyint(1) NOT NULL,
+  `servicename` varchar(255) NOT NULL,
+  `servicedesc` text NOT NULL,
+  `code` varchar(25) NOT NULL,
+  `config` text NOT NULL,
+  `version` varchar(24) NOT NULL,
+  `callbackurl` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -106,8 +110,9 @@ CREATE TABLE `credentials` (
   `sflag` tinyint(1) NOT NULL,
   `remark` text NOT NULL,
   `expired` datetime NOT NULL,
+  `profilepic` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for logs
@@ -168,4 +173,4 @@ CREATE TABLE `users` (
   `birthday` datetime DEFAULT NULL,
   `descriptions` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;

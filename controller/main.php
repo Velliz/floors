@@ -5,7 +5,7 @@ namespace controller;
 use Exception;
 use Facebook\Facebook;
 use Google_Client;
-use model\BrokerModel;
+use model\Broker;
 use model\Credentials;
 use pukoframework\auth\Auth;
 use pukoframework\auth\Session;
@@ -30,7 +30,7 @@ class main extends View implements Auth
 
         if (isset($_GET['sso'])) Session::Get($this)->PutSession('sso', $_GET['sso'], Auth::EXPIRED_1_WEEK);
 
-        $fBroker = BrokerModel::GetCode('FB');
+        $fBroker = Broker::GetCode('FB');
         if (sizeof($fBroker) == 0) throw new Exception('FB broker is not set.');
         else $fBroker = $fBroker[0];
 
@@ -40,7 +40,7 @@ class main extends View implements Auth
             'default_graph_version' => $fBroker['version'],
         ]);
 
-        $gBroker = BrokerModel::GetCode('G');
+        $gBroker = Broker::GetCode('G');
         if (sizeof($gBroker) == 0) throw new Exception('G broker is not set.');
         else $gBroker = $gBroker[0];
         
@@ -89,21 +89,5 @@ class main extends View implements Auth
     {
         return Credentials::GetUserID($id)[0];
     }
-
-    /*
-    public function Encrypt($string)
-    {
-        $key = hash('sha256', $this->key);
-        $iv = substr(hash('sha256', $this->identifier), 0, 16);
-        $output = openssl_encrypt($string, $this->method, $key, 0, $iv);
-        return base64_encode($output);
-    }
     
-    public function Decrypt($string)
-    {
-        $key = hash('sha256', $this->key);
-        $iv = substr(hash('sha256', $this->identifier), 0, 16);
-        return openssl_decrypt(base64_decode($string), $this->method, $key, 0, $iv);
-    }
-    */
 }

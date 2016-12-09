@@ -5,7 +5,7 @@ use Exception;
 use Google_Client;
 use Google_Service_Oauth2;
 use model\Applications;
-use model\BrokerModel;
+use model\Broker;
 use model\Credentials;
 use model\Users;
 use pukoframework\auth\Auth;
@@ -25,7 +25,7 @@ class main extends View implements Auth
     {
         session_start();
 
-        $gBroker = BrokerModel::GetCode('G');
+        $gBroker = Broker::GetCode('G');
         if (sizeof($gBroker) == 0) throw new Exception('G broker is not set.');
         else $gBroker = $gBroker[0];
 
@@ -55,14 +55,8 @@ class main extends View implements Auth
         }
 
         $this->client->setAccessToken($_SESSION['access_token']);
-
         $user = $service->userinfo->get();
-
-        /*
-        echo '<img src="'.$user->picture.'" style="float: right;margin-top: 33px;" />';
-        var_dump($user->id, $user->name, $user->email, $user->link, $user->picture);
-        */
-
+        
         if (!Session::Get($this)->Login($user->id, 'credentials', Auth::EXPIRED_1_MONTH)) {
             $userId = Users::Create(array(
                 'created' => DBI::NOW(),

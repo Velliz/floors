@@ -6,7 +6,7 @@ use Facebook\Exceptions\FacebookResponseException;
 use Facebook\Exceptions\FacebookSDKException;
 use Facebook\Facebook;
 use model\Applications;
-use model\BrokerModel;
+use model\Broker;
 use model\Credentials;
 use model\Users;
 use pukoframework\auth\Auth;
@@ -26,7 +26,7 @@ class main extends View implements Auth
     {
         session_start();
 
-        $broker = BrokerModel::GetCode('FB');
+        $broker = Broker::GetCode('FB');
         if (sizeof($broker) == 0) throw new \Exception('FB broker is not set.');
         else $broker = $broker[0];
 

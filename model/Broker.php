@@ -4,7 +4,7 @@ namespace model;
 
 use pukoframework\pda\DBI;
 
-class BrokerModel
+class Broker
 {
 
     public static function Create($data)
