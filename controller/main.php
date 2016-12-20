@@ -61,6 +61,16 @@ class main extends View implements Auth
     {
 
     }
+
+    /**
+     * #Template html false
+     * #Auth true
+     */
+    public function userlogout()
+    {
+        Session::Get($this)->Logout();
+        $this->RedirectTo(BASE_URL);
+    }
     
     public function profile()
     {

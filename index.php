@@ -11,5 +11,6 @@ $framework->RouteMapping(array(
     'google/callbacks' => 'google/main/callbacks',
     'profile' => 'main/profile',
     'beranda' => 'main/beranda',
+    'logout' => 'main/userlogout',
 ));
 $framework->Start();
