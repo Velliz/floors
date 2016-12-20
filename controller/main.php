@@ -52,6 +52,13 @@ class main extends View implements Auth
         $this->client->setRedirectUri($redirect_uri);
         $this->client->addScope("email");
         $this->client->addScope("profile");
+    }
+
+    /**
+     * #Auth true
+     */
+    public function beranda()
+    {
 
     }
     

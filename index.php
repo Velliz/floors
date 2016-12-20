@@ -10,5 +10,6 @@ $framework->RouteMapping(array(
     'facebook/callbacks' => 'facebook/main/callbacks',
     'google/callbacks' => 'google/main/callbacks',
     'profile' => 'main/profile',
+    'beranda' => 'main/beranda',
 ));
 $framework->Start();
