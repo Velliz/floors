@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2016-12-20 23:10:22
+Date: 2016-12-24 16:55:08
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -113,6 +113,7 @@ CREATE TABLE `broker` (
 -- ----------------------------
 INSERT INTO `broker` VALUES ('1', '1', '275993869100221', '2016-12-06 16:57:27', '0000-00-00 00:00:00', '1', '1', '0', 'Mondo', 'Facebook Login', 'FB', 'f51a824c1ba2dcc83892c503e530f7d6', 'v2.5', '');
 INSERT INTO `broker` VALUES ('2', '1', '1005207926551-mlkrqhc44semjmrh2f5hvi2kudfb773m.apps.googleusercontent.com', '2016-12-08 08:36:01', '0000-00-00 00:00:00', '0', '0', '0', 'Single Sign On', 'Google Login', 'G', 'V84Hpob97ZyrRwTU_quMjcVI', 'v2.0', '');
+INSERT INTO `broker` VALUES ('3', '1', '4xeR9cmSTzEgFEozk07DoMnJP', '2016-12-24 15:19:22', '0000-00-00 00:00:00', '0', '0', '0', 'Unlimited Worship', 'Twitter Login', 'T', 'fSb9PHsYvzkdUaUphuzudAlUB9o1n85NVLiZ6GPVRrptaVpkiq', 'v1.0', '');
 
 -- ----------------------------
 -- Table structure for credentials
