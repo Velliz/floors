@@ -9,6 +9,7 @@ $framework->RouteMapping(array(
     'floors/callbacks' => 'floors/main/callbacks',
     'facebook/callbacks' => 'facebook/main/callbacks',
     'google/callbacks' => 'google/main/callbacks',
+    'twitter/callbacks' => 'twitter/main/callbacks',
     'profile' => 'main/profile',
     'beranda' => 'main/beranda',
     'logout' => 'main/userlogout',

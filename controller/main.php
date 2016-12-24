@@ -2,6 +2,7 @@
 
 namespace controller;
 
+use Abraham\TwitterOAuth\TwitterOAuth;
 use Exception;
 use Facebook\Facebook;
 use Google_Client;
@@ -23,7 +24,12 @@ class main extends View implements Auth
      * @var Google_Client
      */
     var $client;
-    
+
+    /**
+     * @var TwitterOAuth
+     */
+    var $tObject;
+
     public function __construct()
     {
         session_start();
@@ -43,7 +49,7 @@ class main extends View implements Auth
         $gBroker = Broker::GetCode('G');
         if (sizeof($gBroker) == 0) throw new Exception('G broker is not set.');
         else $gBroker = $gBroker[0];
-        
+
         $redirect_uri = BASE_URL . 'google/callbacks';
 
         $this->client = new Google_Client();
@@ -52,6 +58,12 @@ class main extends View implements Auth
         $this->client->setRedirectUri($redirect_uri);
         $this->client->addScope("email");
         $this->client->addScope("profile");
+
+        $tBroker = Broker::GetCode('T');
+        if (sizeof($tBroker) == 0) throw new Exception('T broker is not set.');
+        else $tBroker = $tBroker[0];
+
+        $this->tObject = new TwitterOAuth($tBroker['brokerid'], $tBroker['config']);
     }
 
     /**
@@ -71,7 +83,7 @@ class main extends View implements Auth
         Session::Get($this)->Logout();
         $this->RedirectTo(BASE_URL);
     }
-    
+
     public function profile()
     {
         var_dump(Session::Get($this)->GetLoginData());
@@ -84,7 +96,19 @@ class main extends View implements Auth
         $vars['FacebookLoginUrl'] = $helper->getLoginUrl(BASE_URL . 'facebook/callbacks', $permissions);
 
         $vars['GoogleLoginUrl'] = $this->client->createAuthUrl();
-        
+
+        $tCredentials = $this->tObject->oauth(
+            'oauth/request_token',
+            array("oauth_callback" => 'http://localhost/floors/twitter/callbacks')
+        );
+        $_SESSION['t_oauth_token'] = $tCredentials['oauth_token'];
+        $_SESSION['t_oauth_token_secret'] = $tCredentials['oauth_token_secret'];
+
+        $vars['TwitterLoginUrl'] = $this->tObject->url(
+            "oauth/authorize",
+            array("oauth_token" => $tCredentials['oauth_token'])
+        );
+
         return $vars;
     }
 
@@ -106,5 +130,5 @@ class main extends View implements Auth
     {
         return Credentials::GetUserID($id)[0];
     }
-    
+
 }
