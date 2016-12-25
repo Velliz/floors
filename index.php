@@ -13,5 +13,7 @@ $framework->RouteMapping(array(
     'profile' => 'main/profile',
     'beranda' => 'main/beranda',
     'logout' => 'main/userlogout',
+    'tos' => 'main/tos',
+    'policy' => 'main/policy',
 ));
 $framework->Start();

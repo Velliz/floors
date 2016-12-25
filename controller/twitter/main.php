@@ -3,8 +3,13 @@ namespace controller\twitter;
 
 use Abraham\TwitterOAuth\TwitterOAuth;
 use Exception;
+use model\Applications;
 use model\Broker;
+use model\Credentials;
+use model\Users;
 use pukoframework\auth\Auth;
+use pukoframework\auth\Session;
+use pukoframework\pda\DBI;
 use pukoframework\pte\View;
 
 class main extends View implements Auth
@@ -38,17 +43,57 @@ class main extends View implements Auth
         if (sizeof($tBroker) == 0) throw new Exception('T broker is not set.');
         else $tBroker = $tBroker[0];
 
-        if (isset($_SESSION['t_oauth_token'])) {
+        if (isset($_SESSION['oauth_token'])) {
 
             $params = array("oauth_verifier" => $_GET['oauth_verifier'], "oauth_token" => $_GET['oauth_token']);
             $access_token = $this->tObject->oauth("oauth/access_token", $params);
 
             $this->tObject = new TwitterOAuth($tBroker['brokerid'], $tBroker['config'],
-                $access_token['t_oauth_token'], $access_token['t_oauth_token_secret']);
+                $access_token['oauth_token'], $access_token['oauth_token_secret']);
 
-            $content = $this->tObject->get("account/verify_credentials");
+            $userNode = $this->tObject->get("account/verify_credentials");
 
-            print_r($content);
+            $userNode = (array)$userNode;
+
+            if (!Session::Get($this)->Login($userNode['id_str'], 'credentials', Auth::EXPIRED_1_MONTH)) {
+                $userId = Users::Create(array(
+                    'created' => DBI::NOW(),
+                    'fullname' => $userNode['name'],
+                    'firstemail' => '',
+                    'descriptions' => 'Facebook Login',
+                ));
+                Credentials::Create(array(
+                    'userid' => $userId,
+                    'type' => 'Facebook',
+                    'credentials' => $userNode['id_str'],
+                    'created' => DBI::NOW(),
+                    'profilepic' => (string)$userNode['profile_image_url'],
+                ));
+
+                Session::Get($this)->Login($userId, 'id', Auth::EXPIRED_1_MONTH);
+            };
+
+            $data = Session::Get($this)->GetLoginData();
+
+            $appToken = Session::Get($this)->GetSession('sso');
+            $appToken = Applications::GetByToken($appToken);
+            if (sizeof($appToken) == 0)
+                $this->RedirectTo(BASE_URL);
+
+            $appToken = $appToken[0];
+
+            $key = hash('sha256', $appToken['token']);
+            $iv = substr(hash('sha256', $appToken['identifier']), 0, 16);
+            $output = openssl_encrypt(json_encode(
+                array(
+                    'id' => $data['id'],
+                    'name' => $data['fullname'],
+                    'email' => $data['firstemail'],
+                )
+            ), 'AES-256-CBC', $key, 0, $iv);
+            $output = base64_encode($output);
+
+            $this->RedirectTo($appToken['uri'] . "?token=" . $output . "&app=" . $appToken['token']);
         }
     }
 

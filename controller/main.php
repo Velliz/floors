@@ -1,5 +1,4 @@
 <?php
-
 namespace controller;
 
 use Abraham\TwitterOAuth\TwitterOAuth;
@@ -50,7 +49,7 @@ class main extends View implements Auth
         if (sizeof($gBroker) == 0) throw new Exception('G broker is not set.');
         else $gBroker = $gBroker[0];
 
-        $redirect_uri = BASE_URL . 'google/callbacks';
+        $redirect_uri = $gBroker['callbackurl'];
 
         $this->client = new Google_Client();
         $this->client->setClientId($gBroker['brokerid']);
@@ -97,12 +96,10 @@ class main extends View implements Auth
 
         $vars['GoogleLoginUrl'] = $this->client->createAuthUrl();
 
-        $tCredentials = $this->tObject->oauth(
-            'oauth/request_token',
-            array("oauth_callback" => 'http://localhost/floors/twitter/callbacks')
-        );
-        $_SESSION['t_oauth_token'] = $tCredentials['oauth_token'];
-        $_SESSION['t_oauth_token_secret'] = $tCredentials['oauth_token_secret'];
+        $tCredentials = $this->tObject->oauth('oauth/request_token');
+
+        $_SESSION['oauth_token'] = $tCredentials['oauth_token'];
+        $_SESSION['oauth_token_secret'] = $tCredentials['oauth_token_secret'];
 
         $vars['TwitterLoginUrl'] = $this->tObject->url(
             "oauth/authorize",
@@ -111,6 +108,10 @@ class main extends View implements Auth
 
         return $vars;
     }
+
+    public function tos(){}
+
+    public function policy(){}
 
     public function Login($username, $password)
     {
