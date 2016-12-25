@@ -5,6 +5,7 @@ use Abraham\TwitterOAuth\TwitterOAuth;
 use Exception;
 use Facebook\Facebook;
 use Google_Client;
+use model\Applications;
 use model\Broker;
 use model\Credentials;
 use pukoframework\auth\Auth;
@@ -70,7 +71,8 @@ class main extends View implements Auth
      */
     public function beranda()
     {
-
+        $vars['Applications'] = Applications::GetAll();
+        return $vars;
     }
 
     /**

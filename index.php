@@ -10,10 +10,20 @@ $framework->RouteMapping(array(
     'facebook/callbacks' => 'facebook/main/callbacks',
     'google/callbacks' => 'google/main/callbacks',
     'twitter/callbacks' => 'twitter/main/callbacks',
+
     'profile' => 'main/profile',
     'beranda' => 'main/beranda',
     'logout' => 'main/userlogout',
     'tos' => 'main/tos',
     'policy' => 'main/policy',
+
+    'application' => 'app/applications/list',
+    'applications' => 'app/applications/main',
+    'applications/create' => 'app/applications/create',
+    'applications/edit' => 'app/applications/edit',
+
+    'application/broker' => 'app/broker/main',
+    'application/broker/create' => 'app/broker/create',
+
 ));
 $framework->Start();
