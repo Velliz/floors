@@ -17,7 +17,7 @@ class Applications
 
     public static function GetAll()
     {
-        return DBI::Prepare("SELECT * FROM `applications`")->GetData();
+        return DBI::Prepare("SELECT * FROM `applications` WHERE (dflag = 0)")->GetData();
     }
 
     public static function GetID($id)

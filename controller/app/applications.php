@@ -19,12 +19,30 @@ use pukoframework\Request;
 class applications extends View implements Auth
 {
 
+    /**
+     * @return mixed
+     * #Value title Applications
+     */
     public function main()
     {
         $vars['Applications'] = \model\Applications::GetAll();
         return $vars;
     }
 
+    /**
+     * #Value title Detail Application
+     *
+     * @param $appId
+     */
+    public function detail($appId)
+    {
+        $vars['Application'] = \model\Applications::GetID($appId);
+        return $vars;
+    }
+
+    /**
+     * #Value title New Application
+     */
     public function create()
     {
         $data = Session::Get($this)->GetLoginData();
@@ -49,6 +67,57 @@ class applications extends View implements Auth
 
             $this->RedirectTo(BASE_URL . 'applications');
         }
+    }
+
+    /**
+     * #Value title Edit Application
+     * @param $appId
+     * @return array
+     */
+    public function edit($appId)
+    {
+        $data = Session::Get($this)->GetLoginData();
+
+        if (Request::IsPost()) {
+            $appName = Request::Post('appname', null);
+            $appDesc = Request::Post('appdesc', null);
+            $ip = Request::Post('ip', null);
+            $uri = Request::Post('uri', null);
+            $identifier = Request::Post('identifier', null);
+
+            $app = array(
+                'cuid' => $data['id'],
+                'modified' => DBI::NOW(),
+                'appname' => $appName,
+                'appdesc' => $appDesc,
+                'ip' => $ip,
+                'uri' => $uri,
+                'identifier' => $identifier,
+            );
+            var_dump($app);
+            die();
+
+            \model\Applications::Update(array('id' => $appId), $app);
+
+            $this->RedirectTo(BASE_URL . 'applications');
+        }
+
+        $vars['Application'] = \model\Applications::GetID($appId);
+        return $vars;
+    }
+
+    /**
+     * #Template master false
+     * @param $appId
+     */
+    public function delete($appId)
+    {
+        \model\Applications::Update(array('id' => $appId),
+            array(
+                'dflag' => 1,
+            )
+        );
+        $this->RedirectTo(BASE_URL . 'applications');
     }
 
     public function Login($username, $password)
