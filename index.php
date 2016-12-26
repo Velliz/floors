@@ -17,10 +17,10 @@ $framework->RouteMapping(array(
     'tos' => 'main/tos',
     'policy' => 'main/policy',
 
-    'application' => 'app/applications/list',
-    'applications' => 'app/applications/main',
     'applications/create' => 'app/applications/create',
     'applications/edit' => 'app/applications/edit',
+    'applications' => 'app/applications/main',
+    'application' => 'app/applications/list',
 
     'application/broker' => 'app/broker/main',
     'application/broker/create' => 'app/broker/create',

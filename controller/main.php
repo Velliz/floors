@@ -8,6 +8,8 @@ use Google_Client;
 use model\Applications;
 use model\Broker;
 use model\Credentials;
+use model\Operator;
+use model\Users;
 use pukoframework\auth\Auth;
 use pukoframework\auth\Session;
 use pukoframework\pte\View;
@@ -111,27 +113,40 @@ class main extends View implements Auth
         return $vars;
     }
 
-    public function tos(){}
+    public function tos()
+    {
+    }
 
-    public function policy(){}
+    public function policy()
+    {
+    }
 
     public function Login($username, $password)
     {
-        $credentials = Credentials::GetUserID($username);
-        if (sizeof($credentials) == 0) return false;
-
-        $credentials = $credentials[0];
-        return $credentials['id'];
+        $userAccount = explode('\\', $username);
+        if (count($userAccount) == 2) {
+            $username = $userAccount[1];
+            $roles = $userAccount[0];
+            $loginResult = Operator::GetUser($username, $password, $roles);
+            return (isset($loginResult[0]['id'])) ? $roles . '\\' . $loginResult[0]['id'] : false;
+        } else {
+            $loginResult = Users::GetUser($username, $password);
+            return (isset($loginResult[0]['id'])) ? $loginResult[0]['id'] : false;
+        }
     }
 
     public function Logout()
     {
-
     }
 
     public function GetLoginData($id)
     {
-        return Credentials::GetUserID($id)[0];
+        $userAccount = explode('\\', $id);
+        if (count($userAccount) == 2) {
+            return Operator::GetID($userAccount[1])[0];
+        } else {
+            return Users::GetID($userAccount[1])[0];
+        }
     }
 
 }
