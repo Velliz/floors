@@ -23,8 +23,9 @@ $framework->RouteMapping(array(
     'applications' => 'app/applications/main',
     'application' => 'app/applications/detail',
 
-    'application/broker' => 'app/broker/main',
-    'application/broker/create' => 'app/broker/create',
+    'broker/create' => 'app/broker/create',
+    'broker/edit' => 'app/broker/edit',
+    'broker/delete' => 'app/broker/delete',
 
 ));
 $framework->Start();
