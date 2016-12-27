@@ -1,7 +1,6 @@
 <?php
 namespace controller\app;
 
-use model\Credentials;
 use model\Operator;
 use model\Users;
 use pukoframework\auth\Auth;
@@ -62,6 +61,7 @@ class applications extends View implements Auth
                 'ip' => $ip,
                 'uri' => $uri,
                 'identifier' => $identifier,
+                'apptoken' => md5($appName . $uri . $identifier),
             );
             \model\Applications::Create($app);
 
@@ -79,6 +79,7 @@ class applications extends View implements Auth
         $data = Session::Get($this)->GetLoginData();
 
         if (Request::IsPost()) {
+            var_dump('true XX');
             $appName = Request::Post('appname', null);
             $appDesc = Request::Post('appdesc', null);
             $ip = Request::Post('ip', null);
@@ -94,8 +95,6 @@ class applications extends View implements Auth
                 'uri' => $uri,
                 'identifier' => $identifier,
             );
-            var_dump($app);
-            die();
 
             \model\Applications::Update(array('id' => $appId), $app);
 
