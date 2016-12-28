@@ -94,6 +94,9 @@ class main extends View implements Auth
         var_dump(Session::Get($this)->GetLoginData());
     }
 
+    /**
+     * #Value title Welcome
+     */
     public function main()
     {
         /*

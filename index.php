@@ -27,5 +27,9 @@ $framework->RouteMapping(array(
     'broker/edit' => 'app/broker/edit',
     'broker/delete' => 'app/broker/delete',
 
+    'permissions/create' => 'app/permissions/create',
+    'permissions/edit' => 'app/permissions/edit',
+    'permissions/delete' => 'app/permissions/delete',
+
 ));
 $framework->Start();

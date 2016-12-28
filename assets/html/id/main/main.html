@@ -1,19 +1,27 @@
-<h1>Floors - Single sign on</h1>
+{!CSS}
+<link href="{URL}assets/global/css/login.css" rel="stylesheet">
+{/CSS}
 
-<div class="box login">
-    <form action="{URL}floors/callbacks" method="POST">
-        <input type="text" name="fu" placeholder="username or email">
+<div class="login-page">
+    <div class="form">
+        <p>Masuk ke single-sign-on Floors</p>
+        <hr>
+        <div class="box login">
+            <form action="{URL}floors/callbacks" method="POST">
+                <input type="text" name="fu" placeholder="username or email">
+                <input type="password" name="fp" placeholder="password">
+                <input type="hidden" name="_submit" value="_submit">
+                <input type="hidden" name="token" value="{!token}">
+                <button type="submit" name="submit">Login</button>
+            </form>
+        </div>
         <br>
-        <input type="password" name="fp" placeholder="password">
+        <a href="{!FacebookLoginUrl}">Log in with Facebook!</a>
         <br>
-        <input type="hidden" name="_submit" value="_submit">
-        <input type="hidden" name="token" value="{!token}">
-        <input type="submit" name="submit" value="login">
-    </form>
+        <a href="{!GoogleLoginUrl}">Log in with Google!</a>
+        <br>
+        <a href="{!TwitterLoginUrl}">Log in with Twitter!</a>
+    </div>
 </div>
-<br>
-<a href="{!FacebookLoginUrl}">Log in with Facebook!</a>
-<br>
-<a href="{!GoogleLoginUrl}">Log in with Google!</a>
-<br>
-<a href="{!TwitterLoginUrl}">Log in with Twitter!</a>
+{!JS}
+{/JS}
