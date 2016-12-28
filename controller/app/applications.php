@@ -3,6 +3,7 @@ namespace controller\app;
 
 use model\Broker;
 use model\Operator;
+use model\Permissions;
 use model\Users;
 use pukoframework\auth\Auth;
 use pukoframework\auth\Session;
@@ -38,6 +39,7 @@ class applications extends View implements Auth
     {
         $vars['Application'] = \model\Applications::GetID($appId);
         $vars['Broker'] = Broker::GetByApp($appId);
+        $vars['Permissions'] = Permissions::GetByApp($appId);
         return $vars;
     }
 

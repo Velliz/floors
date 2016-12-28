@@ -18,7 +18,7 @@ class Permissions
 
     public static function GetAll()
     {
-        return DBI::Prepare("SELECT * FROM `permissions`")->GetData();
+        return DBI::Prepare("SELECT * FROM `permissions` WHERE (dflag = 0)")->GetData();
     }
 
     public static function GetID($id)
@@ -29,5 +29,10 @@ class Permissions
     public static function GetByToken($token)
     {
         return DBI::Prepare("SELECT * FROM `permissions` WHERE (`token` = @1) AND (dflag = 0);")->GetData($token);
+    }
+
+    public static function GetByApp($appId)
+    {
+        return DBI::Prepare("SELECT * FROM `permissions` WHERE (`dflag` = 0) AND (appid = @1);")->GetData($appId);
     }
 }

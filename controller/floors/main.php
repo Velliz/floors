@@ -38,7 +38,7 @@ class main extends View implements Auth
                 throw new Exception('password not defined');
             }
 
-            $login = Session::Get($this)->Login($username, md5($password));
+            $login = Session::Get($this)->Login($username, md5($password), Auth::EXPIRED_1_MONTH);
             if($login) {
                 $this->RedirectTo(BASE_URL . 'beranda');
             } else {
