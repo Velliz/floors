@@ -1,6 +1,7 @@
 <?php
 namespace controller\app;
 
+use model\Broker;
 use model\Operator;
 use model\Users;
 use pukoframework\auth\Auth;
@@ -36,6 +37,7 @@ class applications extends View implements Auth
     public function detail($appId)
     {
         $vars['Application'] = \model\Applications::GetID($appId);
+        $vars['Broker'] = Broker::GetByApp($appId);
         return $vars;
     }
 
@@ -79,7 +81,6 @@ class applications extends View implements Auth
         $data = Session::Get($this)->GetLoginData();
 
         if (Request::IsPost()) {
-            var_dump('true XX');
             $appName = Request::Post('appname', null);
             $appDesc = Request::Post('appdesc', null);
             $ip = Request::Post('ip', null);
@@ -87,7 +88,7 @@ class applications extends View implements Auth
             $identifier = Request::Post('identifier', null);
 
             $app = array(
-                'cuid' => $data['id'],
+                'muid' => $data['id'],
                 'modified' => DBI::NOW(),
                 'appname' => $appName,
                 'appdesc' => $appDesc,

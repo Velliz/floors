@@ -25,5 +25,23 @@
 <!--{/Application}-->
 
 <h1>Broker</h1>
-
+<!--{!Broker}-->
+<div>
+    Name: {!servicename}
+    <br>
+    Desc: {!servicedesc}
+    <br>
+    API Key: {!brokerid}
+    <br>
+    Secret: {!config}
+    <br>
+    Alias: {!code}
+</div>
+<div>
+    <a href="{URL}broker/edit/{!id}">Edit</a>
+    -
+    <a href="{URL}broker/delete/{!id}">Delete</a>
+</div>
+<hr>
+<!--{/Broker}-->
 <h1>Permissions</h1>

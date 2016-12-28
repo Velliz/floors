@@ -38,6 +38,7 @@ class main extends View implements Auth
 
         if (isset($_GET['sso'])) Session::Get($this)->PutSession('sso', $_GET['sso'], Auth::EXPIRED_1_WEEK);
 
+        /*
         $fBroker = Broker::GetCode('FB');
         if (sizeof($fBroker) == 0) throw new Exception('FB broker is not set.');
         else $fBroker = $fBroker[0];
@@ -66,6 +67,7 @@ class main extends View implements Auth
         else $tBroker = $tBroker[0];
 
         $this->tObject = new TwitterOAuth($tBroker['brokerid'], $tBroker['config']);
+        */
     }
 
     /**
@@ -94,6 +96,7 @@ class main extends View implements Auth
 
     public function main()
     {
+        /*
         $helper = $this->fbObject->getRedirectLoginHelper();
         $permissions = ['email', 'user_about_me', 'public_profile', 'user_hometown', 'user_location', 'user_birthday'];
         $vars['FacebookLoginUrl'] = $helper->getLoginUrl(BASE_URL . 'facebook/callbacks', $permissions);
@@ -111,6 +114,7 @@ class main extends View implements Auth
         );
 
         return $vars;
+        */
     }
 
     public function tos()

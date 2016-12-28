@@ -1,5 +1,23 @@
-<div>
-    <input type="text" name="brokerid" placeholder="API Keys / Credentials">
-    <br>
-    <input type="text" name="config" placeholder="API Secret / Password">
-</div>
+<form action="" method="POST">
+    <div>
+        <input type="text" name="brokerid" placeholder="API Keys / Credentials">
+        <br>
+        <input type="text" name="config" placeholder="API Secret / Password">
+        <br>
+        <input type="text" name="servicename" placeholder="Broker Name">
+        <br>
+        <input type="text" name="servicedesc" placeholder="Broker Description">
+        <br>
+        <input type="text" name="version" placeholder="API Version">
+        <br>
+        <select name="code" id="">
+            <option value="FB">Facebook</option>
+            <option value="G">Google</option>
+            <option value="T">Twitter</option>
+            <option value="F">Floors</option>
+        </select>
+        <br>
+        <input type="hidden" name="token" value="{!token}">
+        <input type="submit" name="_submit" value="Simpan">
+    </div>
+</form>

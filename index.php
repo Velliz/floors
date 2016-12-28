@@ -20,8 +20,8 @@ $framework->RouteMapping(array(
     'application/create' => 'app/applications/create',
     'application/edit' => 'app/applications/edit',
     'application/delete' => 'app/applications/delete',
+    'application/detail' => 'app/applications/detail',
     'applications' => 'app/applications/main',
-    'application' => 'app/applications/detail',
 
     'broker/create' => 'app/broker/create',
     'broker/edit' => 'app/broker/edit',

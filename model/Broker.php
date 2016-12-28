@@ -19,17 +19,17 @@ class Broker
 
     public static function GetAll()
     {
-        return DBI::Prepare("SELECT * FROM `broker`")->GetData();
+        return DBI::Prepare("SELECT * FROM `broker` WHERE (dflag = 0);")->GetData();
     }
 
     public static function GetID($id)
     {
-        return DBI::Prepare("SELECT * FROM `broker` WHERE `id` = @1")->GetData($id);
+        return DBI::Prepare("SELECT * FROM `broker` WHERE (dflag = 0) AND (`id` = @1)")->GetData($id);
     }
 
-    public static function GetCode($code)
+    public static function GetByApp($appId)
     {
-        return DBI::Prepare("SELECT * FROM `broker` WHERE `code` = @1")->GetData($code);
+        return DBI::Prepare("SELECT * FROM `broker` WHERE (dflag = 0) AND (`appid` = @1)")->GetData($appId);
     }
 
 }
