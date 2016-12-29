@@ -31,5 +31,11 @@ $framework->RouteMapping(array(
     'permissions/edit' => 'app/permissions/edit',
     'permissions/delete' => 'app/permissions/delete',
 
+    'user/create' => 'app/users/create',
+    'user/edit' => 'app/users/edit',
+    'user/delete' => 'app/users/delete',
+    'user/detail' => 'app/users/detail',
+    'users' => 'app/users/main',
+
 ));
 $framework->Start();
