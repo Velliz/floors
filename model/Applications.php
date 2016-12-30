@@ -27,6 +27,6 @@ class Applications
 
     public static function GetByToken($token)
     {
-        return DBI::Prepare("SELECT * FROM `applications` WHERE (`token` = @1) AND (dflag = 0);")->GetData($token);
+        return DBI::Prepare("SELECT * FROM `applications` WHERE (`apptoken` = @1) AND (dflag = 0);")->GetData($token);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 namespace controller\app;
 
+use model\Credentials;
 use model\Operator;
 use pukoframework\auth\Auth;
 use pukoframework\pte\View;
@@ -22,6 +23,28 @@ class users extends View implements Auth
     {
         $vars['Users'] = \model\Users::GetAll();
         return $vars;
+    }
+
+    /**
+     * #Value title Detail User
+     *
+     * @param $userId
+     */
+    public function detail($userId)
+    {
+        $vars['Users'] = \model\Users::GetID($userId);
+        $vars['Credentials'] = Credentials::GetCredentialsByUserID($userId);
+        return $vars;
+    }
+
+    public function edit()
+    {
+
+    }
+
+    public function delete()
+    {
+
     }
 
     public function Login($username, $password)

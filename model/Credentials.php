@@ -25,6 +25,14 @@ class Credentials
         return DBI::Prepare("SELECT * FROM `credentials` WHERE (`id` = @1) AND (dflag = 0);")->GetData($id);
     }
 
+    public static function GetCredentialsByUserID($id)
+    {
+        return DBI::Prepare("SELECT c.* FROM credentials c
+        LEFT JOIN users u ON (c.userid = u.id)
+        WHERE (c.userid = @1) AND (c.dflag = 0);")->GetData($id);
+    }
+
+    //user have credentials
     public static function GetUserID($id)
     {
         return DBI::Prepare("SELECT u.* FROM credentials c 

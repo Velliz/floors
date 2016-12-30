@@ -26,7 +26,7 @@ class main extends View implements Auth
     {
         session_start();
 
-        $broker = Broker::GetCode('FB');
+        $broker = Broker::GetAppCode(1, 'FB');
         if (sizeof($broker) == 0) throw new \Exception('FB broker is not set.');
         else $broker = $broker[0];
 

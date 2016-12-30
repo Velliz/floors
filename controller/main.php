@@ -13,6 +13,7 @@ use model\Users;
 use pukoframework\auth\Auth;
 use pukoframework\auth\Session;
 use pukoframework\pte\View;
+use pukoframework\Request;
 
 class main extends View implements Auth
 {
@@ -36,10 +37,18 @@ class main extends View implements Auth
     {
         session_start();
 
-        if (isset($_GET['sso'])) Session::Get($this)->PutSession('sso', $_GET['sso'], Auth::EXPIRED_1_WEEK);
+        $sso = Request::Get('sso', null);
+        if (isset($sso)) {
+            Session::Get($this)->PutSession('sso', $sso, Auth::EXPIRED_1_WEEK);
+        }
+
+        $ssoCache = Session::Get($this)->GetSession('sso');
+        $app = Applications::GetByToken($ssoCache);
+        if (count($app) == 0) $app = 1;
+        $app = (int)$app[0]['id'];
 
         /*
-        $fBroker = Broker::GetCode('FB');
+        $fBroker = Broker::GetCode($app, 'FB');
         if (sizeof($fBroker) == 0) throw new Exception('FB broker is not set.');
         else $fBroker = $fBroker[0];
 
