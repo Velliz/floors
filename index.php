@@ -6,6 +6,9 @@ require __DIR__ . '/vendor/autoload.php';
 
 $framework = new \pukoframework\Framework();
 $framework->RouteMapping(array(
+
+    'exchange' => 'service/exchange',
+
     'floors/callbacks' => 'floors/main/callbacks',
     'facebook/callbacks' => 'facebook/main/callbacks',
     'google/callbacks' => 'google/main/callbacks',

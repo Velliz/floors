@@ -26,6 +26,7 @@ class main extends View implements Auth
     {
         session_start();
 
+        //TODO:link to app code
         $broker = Broker::GetAppCode(1, 'FB');
         if (sizeof($broker) == 0) throw new \Exception('FB broker is not set.');
         else $broker = $broker[0];
@@ -98,7 +99,7 @@ class main extends View implements Auth
 
         $appToken = $appToken[0];
 
-        $key = hash('sha256', $appToken['token']);
+        $key = hash('sha256', $appToken['apptoken']);
         $iv = substr(hash('sha256', $appToken['identifier']), 0, 16);
         $output = openssl_encrypt(json_encode(
             array(

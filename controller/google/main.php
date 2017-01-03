@@ -25,6 +25,7 @@ class main extends View implements Auth
     {
         session_start();
 
+        //TODO:link to app code
         $gBroker = Broker::GetCode('G');
         if (sizeof($gBroker) == 0) throw new Exception('G broker is not set.');
         else $gBroker = $gBroker[0];

@@ -39,6 +39,7 @@ class main extends View implements Auth
      */
     public function callbacks()
     {
+        //TODO:link to app code
         $tBroker = Broker::GetCode('T');
         if (sizeof($tBroker) == 0) throw new Exception('T broker is not set.');
         else $tBroker = $tBroker[0];
@@ -82,7 +83,7 @@ class main extends View implements Auth
 
             $appToken = $appToken[0];
 
-            $key = hash('sha256', $appToken['token']);
+            $key = hash('sha256', $appToken['apptoken']);
             $iv = substr(hash('sha256', $appToken['identifier']), 0, 16);
             $output = openssl_encrypt(json_encode(
                 array(
