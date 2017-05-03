@@ -7,7 +7,6 @@ use Facebook\Facebook;
 use Google_Client;
 use model\Applications;
 use model\Broker;
-use model\Credentials;
 use model\Operator;
 use model\Users;
 use pukoframework\auth\Auth;
@@ -109,6 +108,7 @@ class main extends View implements Auth
 
     /**
      * #Value title Welcome
+     * #Template master false
      */
     public function main()
     {
@@ -118,7 +118,6 @@ class main extends View implements Auth
         $vars['FacebookLoginUrl'] = $helper->getLoginUrl(BASE_URL . 'facebook/callbacks', $permissions);
 
         $vars['GoogleLoginUrl'] = $this->client->createAuthUrl();
-        echo 'SELAMAT';
 
         $tCredentials = $this->tObject->oauth('oauth/request_token');
 
@@ -131,7 +130,6 @@ class main extends View implements Auth
         );
 
         return $vars;
-
     }
 
     public function tos()

@@ -1,27 +1,69 @@
-{!CSS}
-<link href="{URL}assets/global/css/login.css" rel="stylesheet">
-{/CSS}
-
-<div class="login-page">
-    <div class="form">
-        <p>Masuk ke single-sign-on Floors</p>
-        <hr>
-        <div class="box login">
-            <form action="{URL}floors/callbacks" method="POST">
-                <input type="text" name="fu" placeholder="username or email">
-                <input type="password" name="fp" placeholder="password">
-                <input type="hidden" name="_submit" value="_submit">
-                <input type="hidden" name="token" value="{!token}">
-                <button type="submit" name="submit">Login</button>
-            </form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta name="description" content="open source login as a service platform build on top puko framework">
+    <meta name="author" content="Didit Velliz">
+    <title>{!title}</title>
+    <link href="{URL}assets/global/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
+    <link href="{URL}assets/global/adminlte/css/AdminLTE.css" rel="stylesheet">
+    <link href="{URL}assets/global/plugins/iCheck/square/red.css" rel="stylesheet">
+    <link href="{URL}assets/customs/css/login.css" rel="stylesheet">
+</head>
+<body class="hold-transition login-page">
+<div class="login-box">
+    <div class="login-logo">
+        <a href="#"><b>App</b>Name</a>
+    </div>
+    <div class="login-box-body">
+        <p class="login-box-msg">Sign in to start your session</p>
+        <form action="{URL}floors/callbacks" method="post">
+            <input type="hidden" name="token" value="{!token}">
+            <input type="hidden" name="_submit" value="_submit">
+            <div class="form-group has-feedback">
+                <input type="email" name="fu" class="form-control" placeholder="Email">
+                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <input type="password" name="fp" class="form-control" placeholder="Password">
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+            <div class="row">
+                <div class="col-xs-8">
+                    <div class="checkbox icheck">
+                        <label>
+                            <input type="checkbox"> Remember Me
+                        </label>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                </div>
+            </div>
+        </form>
+        <div class="social-auth-links text-center">
+            <a href="{!FacebookLoginUrl}" class="btn btn-block btn-social btn-facebook btn-flat">
+                <i class="fa fa-facebook"></i> Sign in using Facebook
+            </a>
+            <a href="{!GoogleLoginUrl}" class="btn btn-block btn-social btn-google btn-flat">
+                <i class="fa fa-google-plus"></i> Sign in using Google
+            </a>
+            <a href="{!TwitterLoginUrl}" class="btn btn-block btn-social btn-twitter btn-flat">
+                <i class="fa fa-twitter"></i> Sign in using Twitter
+            </a>
         </div>
-        <br>
-        <a href="{!FacebookLoginUrl}">Log in with Facebook!</a>
-        <br>
-        <a href="{!GoogleLoginUrl}">Log in with Google!</a>
-        <br>
-        <a href="{!TwitterLoginUrl}">Log in with Twitter!</a>
+        <a href="#">I forgot my password</a><br>
+        <a href="#" class="text-center">Register a new membership</a>
     </div>
 </div>
-{!JS}
-{/JS}
+<script src="{URL}assets/global/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="{URL}assets/global/bootstrap/js/bootstrap.js"></script>
+<script src="{URL}assets/global/adminlte/js/app.js"></script>
+<script src="{URL}assets/global/plugins/iCheck/icheck.min.js"></script>
+<script src="{URL}assets/customs/js/login.js"></script>
+</body>
+</html>
