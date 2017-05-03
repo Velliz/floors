@@ -26,7 +26,7 @@ class main extends View implements Auth
     {
         session_start();
 
-        $tBroker = Broker::GetCode('T');
+        $tBroker = Broker::GetAppCode('T');
         if (sizeof($tBroker) == 0) throw new Exception('T broker is not set.');
         else $tBroker = $tBroker[0];
 
@@ -40,7 +40,7 @@ class main extends View implements Auth
     public function callbacks()
     {
         //TODO:link to app code
-        $tBroker = Broker::GetCode('T');
+        $tBroker = Broker::GetAppCode('T');
         if (sizeof($tBroker) == 0) throw new Exception('T broker is not set.');
         else $tBroker = $tBroker[0];
 

@@ -34,6 +34,7 @@ class applications extends View implements Auth
      * #Value title Detail Application
      *
      * @param $appId
+     * @return mixed
      */
     public function detail($appId)
     {

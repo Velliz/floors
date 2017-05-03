@@ -29,6 +29,7 @@ class users extends View implements Auth
      * #Value title Detail User
      *
      * @param $userId
+     * @return mixed
      */
     public function detail($userId)
     {

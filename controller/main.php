@@ -33,8 +33,14 @@ class main extends View implements Auth
      */
     var $tObject;
 
+    public function OnInitialize()
+    {
+        return array();
+    }
+
     public function __construct()
     {
+        parent::__construct();
         session_start();
 
         $sso = Request::Get('sso', null);
@@ -47,8 +53,9 @@ class main extends View implements Auth
         if (count($app) == 0) $app = 1;
         $app = (int)$app[0]['id'];
 
-        /*
-        $fBroker = Broker::GetCode($app, 'FB');
+        $app = 1; //todo: hotfix app selected
+
+        $fBroker = Broker::GetAppCode($app, 'FB');
         if (sizeof($fBroker) == 0) throw new Exception('FB broker is not set.');
         else $fBroker = $fBroker[0];
 
@@ -58,25 +65,22 @@ class main extends View implements Auth
             'default_graph_version' => $fBroker['version'],
         ]);
 
-        $gBroker = Broker::GetCode('G');
+        $gBroker = Broker::GetAppCode($app, 'G');
         if (sizeof($gBroker) == 0) throw new Exception('G broker is not set.');
         else $gBroker = $gBroker[0];
-
-        $redirect_uri = $gBroker['callbackurl'];
 
         $this->client = new Google_Client();
         $this->client->setClientId($gBroker['brokerid']);
         $this->client->setClientSecret($gBroker['config']);
-        $this->client->setRedirectUri($redirect_uri);
+        $this->client->setRedirectUri(BASE_URL . 'google/callbacks');
         $this->client->addScope("email");
         $this->client->addScope("profile");
 
-        $tBroker = Broker::GetCode('T');
+        $tBroker = Broker::GetAppCode($app, 'T');
         if (sizeof($tBroker) == 0) throw new Exception('T broker is not set.');
         else $tBroker = $tBroker[0];
 
         $this->tObject = new TwitterOAuth($tBroker['brokerid'], $tBroker['config']);
-        */
     }
 
     /**
@@ -108,12 +112,13 @@ class main extends View implements Auth
      */
     public function main()
     {
-        /*
+
         $helper = $this->fbObject->getRedirectLoginHelper();
         $permissions = ['email', 'user_about_me', 'public_profile', 'user_hometown', 'user_location', 'user_birthday'];
         $vars['FacebookLoginUrl'] = $helper->getLoginUrl(BASE_URL . 'facebook/callbacks', $permissions);
 
         $vars['GoogleLoginUrl'] = $this->client->createAuthUrl();
+        echo 'SELAMAT';
 
         $tCredentials = $this->tObject->oauth('oauth/request_token');
 
@@ -126,7 +131,7 @@ class main extends View implements Auth
         );
 
         return $vars;
-        */
+
     }
 
     public function tos()
