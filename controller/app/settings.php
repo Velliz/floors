@@ -4,13 +4,16 @@ namespace controller\app;
 use pukoframework\pte\View;
 
 /**
- * Class roles
+ * Class settings
  * @package controller\app
  *
  * #Auth true
  * #Master master.html
  */
-class roles extends View
+class settings extends View
 {
+    public function main()
+    {
 
+    }
 }

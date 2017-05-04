@@ -40,5 +40,8 @@ $framework->RouteMapping(array(
     'user/detail' => 'app/users/detail',
     'users' => 'app/users/main',
 
+    'operators' => 'app/operator/main',
+    'settings' => 'app/settings/main',
+
 ));
 $framework->Start();

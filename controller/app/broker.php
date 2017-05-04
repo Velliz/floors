@@ -14,6 +14,7 @@ use pukoframework\Request;
  * @package controller\app
  *
  * #Auth true
+ * #Master master.html
  */
 class broker extends View implements Auth
 {

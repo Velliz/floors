@@ -16,6 +16,7 @@ use pukoframework\Request;
  * @package controller\app
  *
  * #Auth true
+ * #Master master.html
  */
 class applications extends View implements Auth
 {

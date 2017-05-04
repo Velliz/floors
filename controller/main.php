@@ -14,6 +14,12 @@ use pukoframework\auth\Session;
 use pukoframework\pte\View;
 use pukoframework\Request;
 
+/**
+ * Class main
+ * @package controller
+ *
+ * #Master master.html
+ */
 class main extends View implements Auth
 {
 

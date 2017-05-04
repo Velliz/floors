@@ -199,7 +199,6 @@ a:focus {
   -o-transition: margin-left 0.3s ease-in-out;
   transition: margin-left 0.3s ease-in-out;
   margin-bottom: 0;
-  margin-left: 230px;
   border: none;
   min-height: 50px;
   border-radius: 0;
@@ -1044,7 +1043,6 @@ a:focus {
 }
 .navbar-nav > .messages-menu > .dropdown-menu > li .menu > li > a > h4 {
   padding: 0;
-  margin: 0 0 0 45px;
   color: #444444;
   font-size: 15px;
   position: relative;
@@ -1057,7 +1055,6 @@ a:focus {
   right: 0;
 }
 .navbar-nav > .messages-menu > .dropdown-menu > li .menu > li > a > p {
-  margin: 0 0 0 45px;
   font-size: 12px;
   color: #888888;
 }
@@ -3238,9 +3235,12 @@ table.text-center th {
 .register-page {
   background: #d2d6de;
 }
-.login-box,
-.register-box {
+.login-box {
   width: 360px;
+  margin: 7% auto;
+}
+.register-page {
+  width: 560px;
   margin: 7% auto;
 }
 @media (max-width: 768px) {

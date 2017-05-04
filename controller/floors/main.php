@@ -19,7 +19,8 @@ class main extends View implements Auth
 
     public function __construct()
     {
-
+        parent::__construct();
+        session_start();
     }
 
     /**
@@ -42,10 +43,10 @@ class main extends View implements Auth
             if($login) {
                 $this->RedirectTo(BASE_URL . 'beranda');
             } else {
-                throw new Exception('login data not found');
+                throw new Exception('wrong username or password');
             }
         } else {
-            throw new Exception('data error');
+            throw new Exception('submitted data error');
         }
     }
 

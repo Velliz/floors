@@ -11,6 +11,7 @@ use pukoframework\pte\View;
  * @package controller\app
  *
  * #Auth true
+ * #Master master.html
  */
 class users extends View implements Auth
 {

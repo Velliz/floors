@@ -1,12 +1,12 @@
 <?php
+use pukoframework\pte\View;
 
 /**
- * Created by PhpStorm.
- * User: Didit Velliz
- * Date: 12/19/2016
- * Time: 8:55 AM
+ * Class authorizations
+ *
+ * #Master master.html
  */
-class authorizations
+class authorizations extends View
 {
 
 }
