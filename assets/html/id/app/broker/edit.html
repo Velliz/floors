@@ -1,25 +1,42 @@
 <!--{!Broker}-->
-<form action="" method="POST">
-    <div>
-        <input type="text" name="brokerid" value="{!brokerid}" placeholder="API Keys / Credentials">
-        <br>
-        <input type="text" name="config" value="{!config}" placeholder="API Secret / Password">
-        <br>
-        <input type="text" name="servicename" value="{!servicename}" placeholder="Broker Name">
-        <br>
-        <input type="text" name="servicedesc" value="{!servicedesc}" placeholder="Broker Description">
-        <br>
-        <input type="text" name="version" value="{!version}" placeholder="API Version">
-        <br>
-        <select name="code" id="">
-            <option value="FB">Facebook</option>
-            <option value="G">Google</option>
-            <option value="T">Twitter</option>
-            <option value="F">Floors</option>
-        </select>
-        <br>
-        <input type="hidden" name="token" value="{!token}">
-        <input type="submit" name="_submit" value="Simpan">
+<form action="" method="post">
+    <div class="box box-default">
+        <div class="box-body">
+            <div class="form-group">
+                <label for="brokerid">Broker Identity / Credentials</label>
+                <input type="text" name="brokerid" class="form-control" id="brokerid" placeholder="Enter Broker Identity / Credentials" value="{!brokerid}" required>
+            </div>
+            <div class="form-group">
+                <label for="config">Broker Secret / Password</label>
+                <input type="text" name="config" class="form-control" id="config" placeholder="Enter Broker Secret / Password" value="{!config}" required>
+            </div>
+            <div class="form-group">
+                <label for="servicename">Service Name</label>
+                <input type="text" name="servicename" class="form-control" id="servicename" placeholder="Enter Service Name" value="{!servicename}" required>
+            </div>
+            <div class="form-group">
+                <label for="servicedesc">Description</label>
+                <textarea name="servicedesc" id="servicedesc" cols="2" rows="3" class="form-control" required>{!servicedesc}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="version">API Version</label>
+                <input type="text" name="version" class="form-control" id="version" placeholder="Enter API Version" value="{!version}" required>
+            </div>
+            <div class="form-group">
+                <label for="code">Type</label>
+                <select name="code" id="code" class="form-control" data-item="{!code}">
+                    <option value="FB">Facebook</option>
+                    <option value="G">Google</option>
+                    <option value="T">Twitter</option>
+                    <option value="F">Floors</option>
+                </select>
+            </div>
+        </div>
+        <div class="box-footer">
+            <input type="hidden" name="token" value="{!token}">
+            <input class="btn btn-danger" type="submit" name="_submit" value="Simpan">
+            <a href="{URL}applications" class="btn btn-primary pull-right">Kembali</a>
+        </div>
     </div>
 </form>
 <!--{/Broker}-->

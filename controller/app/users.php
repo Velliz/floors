@@ -18,7 +18,7 @@ class users extends View implements Auth
 
     /**
      * @return mixed
-     * #Value title Users
+     * #Value title User
      */
     public function main()
     {

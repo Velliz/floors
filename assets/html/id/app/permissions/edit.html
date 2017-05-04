@@ -1,14 +1,25 @@
 <!--{!Permissions}-->
-<form action="" method="POST">
-    <div>
-        <input type="text" name="pname" value="{!pname}" placeholder="Permission Name">
-        <br>
-        <input type="text" name="pcode" value="{!pcode}" placeholder="Permission Code">
-        <br>
-        <input type="text" name="description" value="{!description}" placeholder="Description">
-        <br>
-        <input type="hidden" name="token" value="{!token}">
-        <input type="submit" name="_submit" value="Simpan">
+<form action="" method="post">
+    <div class="box box-default">
+        <div class="box-body">
+            <div class="form-group">
+                <label for="pname">Permission Name</label>
+                <input type="text" name="pname" class="form-control" id="pname" placeholder="Enter Permission Name" value="{!pname}" required>
+            </div>
+            <div class="form-group">
+                <label for="pcode">Permission Code</label>
+                <input type="text" name="pcode" class="form-control" id="pcode" placeholder="Enter Permission Code" value="{!pcode}" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea name="description" id="description" cols="2" rows="3" class="form-control" required>{!description}</textarea>
+            </div>
+        </div>
+        <div class="box-footer">
+            <input type="hidden" name="token" value="{!token}">
+            <input class="btn btn-danger" type="submit" name="_submit" value="Simpan">
+            <a href="{URL}applications" class="btn btn-primary pull-right">Kembali</a>
+        </div>
     </div>
 </form>
 <!--{/Permissions}-->
