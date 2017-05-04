@@ -39,7 +39,7 @@ class applications extends View implements Auth
      */
     public function detail($appId)
     {
-        $vars['Application'] = \model\Applications::GetID($appId);
+        $vars['Application'][0] = \model\Applications::GetID($appId);
         $vars['Broker'] = Broker::GetByApp($appId);
         $vars['Permissions'] = Permissions::GetByApp($appId);
         return $vars;
