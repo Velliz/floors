@@ -34,7 +34,8 @@ class Broker
 
     public static function GetAppCode($appId, $code)
     {
-        return DBI::Prepare("SELECT * FROM `broker` WHERE (dflag = 0) AND (`appid` = @1) AND (`code` = @2)")->GetData($appId, $code);
+        return DBI::Prepare("SELECT * FROM `broker` WHERE (dflag = 0) AND (appid = @1) AND (code = @2) LIMIT 1")
+            ->FirstRow($appId, $code);
     }
 
 }

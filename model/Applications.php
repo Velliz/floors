@@ -3,6 +3,10 @@ namespace model;
 
 use pukoframework\pda\DBI;
 
+/**
+ * Class Applications
+ * @package model
+ */
 class Applications
 {
     public static function Create($data)
@@ -17,16 +21,16 @@ class Applications
 
     public static function GetAll()
     {
-        return DBI::Prepare("SELECT * FROM `applications` WHERE (dflag = 0)")->GetData();
+        return DBI::Prepare("SELECT * FROM applications WHERE (dflag = 0)")->GetData();
     }
 
     public static function GetID($id)
     {
-        return DBI::Prepare("SELECT * FROM `applications` WHERE (`id` = @1) AND (dflag = 0);")->GetData($id);
+        return DBI::Prepare("SELECT * FROM applications WHERE (`id` = @1) AND (dflag = 0) LIMIT 1;")->FirstRow($id);
     }
 
     public static function GetByToken($token)
     {
-        return DBI::Prepare("SELECT * FROM `applications` WHERE (`apptoken` = @1) AND (dflag = 0);")->GetData($token);
+        return DBI::Prepare("SELECT * FROM applications WHERE (apptoken = @1) AND (dflag = 0) LIMIT 1;")->FirstRow($token);
     }
 }

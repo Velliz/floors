@@ -42,44 +42,53 @@ class main extends View implements Auth
         parent::__construct();
         session_start();
 
+        //http://localhost/floors/?sso=b57b22e6deed7ce29d6e08e096ea3180ad13d005
         $sso = Request::Get('sso', null);
-        if (isset($sso)) {
-            Session::Get($this)->PutSession('sso', $sso, Auth::EXPIRED_1_WEEK);
+        if ($sso != null) {
+            Session::Get($this)->PutSession('sso', $sso, Auth::EXPIRED_1_MONTH);
         }
 
         $ssoCache = Session::Get($this)->GetSession('sso');
+        if ($ssoCache == false) {
+            throw new Exception('app token not set. set with ' . BASE_URL . '?sso=[YOUR_APP_TOKEN]');
+        }
         $app = Applications::GetByToken($ssoCache);
-        if (count($app) == 0) $app = 1;
-        $app = (int)$app[0]['id'];
+        if ($app == null) {
+            throw new Exception('app specified by token ' . $ssoCache . ' not found on floors server');
+        }
 
-        $app = 1; //todo: hotfix app selected
-
-        $fBroker = Broker::GetAppCode($app, 'FB');
-        if (sizeof($fBroker) == 0) throw new Exception('FB broker is not set.');
-        else $fBroker = $fBroker[0];
-
+        //setup facebook login SDK
+        $fBroker = Broker::GetAppCode($app['id'], 'FB');
+        if ($fBroker == null) {
+            throw new Exception('facebook broker is not registered.');
+        }
         $this->fbObject = new Facebook([
             'app_id' => $fBroker['brokerid'],
             'app_secret' => $fBroker['config'],
             'default_graph_version' => $fBroker['version'],
         ]);
+        //end setup facebook login SDK
 
-        $gBroker = Broker::GetAppCode($app, 'G');
-        if (sizeof($gBroker) == 0) throw new Exception('G broker is not set.');
-        else $gBroker = $gBroker[0];
-
+        //setup google login SDK
+        $gBroker = Broker::GetAppCode($app['id'], 'G');
+        if ($gBroker == false) {
+            throw new Exception('google broker is not set.');
+        }
         $this->client = new Google_Client();
         $this->client->setClientId($gBroker['brokerid']);
         $this->client->setClientSecret($gBroker['config']);
         $this->client->setRedirectUri(BASE_URL . 'google/callbacks');
         $this->client->addScope("email");
         $this->client->addScope("profile");
+        //end setup google login SDK
 
-        $tBroker = Broker::GetAppCode($app, 'T');
-        if (sizeof($tBroker) == 0) throw new Exception('T broker is not set.');
-        else $tBroker = $tBroker[0];
-
+        //setup twitter login SDK
+        $tBroker = Broker::GetAppCode($app['id'], 'T');
+        if (sizeof($tBroker) == 0) {
+            throw new Exception('twitter broker is not set.');
+        }
         $this->tObject = new TwitterOAuth($tBroker['brokerid'], $tBroker['config']);
+        //end setup twitter login SDK
     }
 
     /**
@@ -112,22 +121,23 @@ class main extends View implements Auth
      */
     public function main()
     {
-
+        //begin facebook LOGIN button
         $helper = $this->fbObject->getRedirectLoginHelper();
-        $permissions = ['email', 'user_about_me', 'public_profile', 'user_hometown', 'user_location', 'user_birthday'];
+        $permissions = ['email', 'public_profile', 'user_friends'];
         $vars['FacebookLoginUrl'] = $helper->getLoginUrl(BASE_URL . 'facebook/callbacks', $permissions);
+        //end facebook LOGIN button
 
+        //begin google LOGIN button
         $vars['GoogleLoginUrl'] = $this->client->createAuthUrl();
+        //end google LOGIN button
 
+        //begin twitter LOGIN button
         $tCredentials = $this->tObject->oauth('oauth/request_token');
-
-        $_SESSION['oauth_token'] = $tCredentials['oauth_token'];
-        $_SESSION['oauth_token_secret'] = $tCredentials['oauth_token_secret'];
-
         $vars['TwitterLoginUrl'] = $this->tObject->url(
             "oauth/authorize",
             array("oauth_token" => $tCredentials['oauth_token'])
         );
+        //end twitter LOGIN button
 
         return $vars;
     }

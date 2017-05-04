@@ -1,4 +1,5 @@
 <?php
+
 namespace controller\twitter;
 
 use Abraham\TwitterOAuth\TwitterOAuth;
@@ -14,6 +15,12 @@ use pukoframework\pte\View;
 
 class main extends View implements Auth
 {
+
+    /**
+     * @var string
+     */
+    var $app;
+
     /**
      * @var TwitterOAuth
      */
@@ -24,12 +31,21 @@ class main extends View implements Auth
      */
     public function __construct()
     {
+        parent::__construct();
         session_start();
 
-        $tBroker = Broker::GetAppCode('T');
-        if (sizeof($tBroker) == 0) throw new Exception('T broker is not set.');
-        else $tBroker = $tBroker[0];
-
+        $ssoCache = Session::Get($this)->GetSession('sso');
+        if ($ssoCache == false) {
+            throw new Exception('app token not set. set with ' . BASE_URL . '?sso=[YOUR_APP_TOKEN]');
+        }
+        $this->app = Applications::GetByToken($ssoCache);
+        if ($this->app == null) {
+            throw new Exception('app specified by token ' . $ssoCache . ' not found on floors server');
+        }
+        $tBroker = Broker::GetAppCode($this->app['id'], 'T');
+        if ($tBroker == false) {
+            throw new Exception('T broker is not set.');
+        }
         $this->tObject = new TwitterOAuth($tBroker['brokerid'], $tBroker['config']);
     }
 
@@ -39,10 +55,11 @@ class main extends View implements Auth
      */
     public function callbacks()
     {
-        //TODO:link to app code
-        $tBroker = Broker::GetAppCode('T');
-        if (sizeof($tBroker) == 0) throw new Exception('T broker is not set.');
-        else $tBroker = $tBroker[0];
+
+        $tBroker = Broker::GetAppCode($this->app['id'], 'T');
+        if ($tBroker == false) {
+            throw new Exception('T broker is not set.');
+        }
 
         if (isset($_SESSION['oauth_token'])) {
 
@@ -52,20 +69,20 @@ class main extends View implements Auth
             $this->tObject = new TwitterOAuth($tBroker['brokerid'], $tBroker['config'],
                 $access_token['oauth_token'], $access_token['oauth_token_secret']);
 
-            $userNode = $this->tObject->get("account/verify_credentials");
-
+            $params = array('include_email' => 'true', 'include_entities' => 'false', 'skip_status' => 'true');
+            $userNode = $this->tObject->get("account/verify_credentials", $params);
             $userNode = (array)$userNode;
 
             if (!Session::Get($this)->Login($userNode['id_str'], 'credentials', Auth::EXPIRED_1_MONTH)) {
                 $userId = Users::Create(array(
                     'created' => DBI::NOW(),
                     'fullname' => $userNode['name'],
-                    'firstemail' => '',
-                    'descriptions' => 'Facebook Login',
+                    'firstemail' => $userNode['email'],
+                    'descriptions' => 'Twitter',
                 ));
                 Credentials::Create(array(
                     'userid' => $userId,
-                    'type' => 'Facebook',
+                    'type' => 'Twitter',
                     'credentials' => $userNode['id_str'],
                     'created' => DBI::NOW(),
                     'profilepic' => (string)$userNode['profile_image_url'],
@@ -76,15 +93,8 @@ class main extends View implements Auth
 
             $data = Session::Get($this)->GetLoginData();
 
-            $appToken = Session::Get($this)->GetSession('sso');
-            $appToken = Applications::GetByToken($appToken);
-            if (sizeof($appToken) == 0)
-                $this->RedirectTo(BASE_URL);
-
-            $appToken = $appToken[0];
-
-            $key = hash('sha256', $appToken['apptoken']);
-            $iv = substr(hash('sha256', $appToken['identifier']), 0, 16);
+            $key = hash('sha256', $this->app['apptoken']);
+            $iv = substr(hash('sha256', $this->app['identifier']), 0, 16);
             $output = openssl_encrypt(json_encode(
                 array(
                     'id' => $data['id'],
@@ -94,22 +104,28 @@ class main extends View implements Auth
             ), 'AES-256-CBC', $key, 0, $iv);
             $output = base64_encode($output);
 
-            $this->RedirectTo($appToken['uri'] . "?token=" . $output . "&app=" . $appToken['token']);
+            $this->RedirectTo($this->app['uri'] . "?token=" . $output);
         }
     }
 
     public function Login($username, $password)
     {
-        // TODO: Implement Login() method.
+        $credentials = array();
+        if ($password == 'id') $credentials = Credentials::GetUserID($username);
+        if ($password == 'credentials') $credentials = Credentials::GetUserByCredentialsID($username);
+        if (sizeof($credentials) == 0) return false;
+
+        $credentials = $credentials[0];
+        return $credentials['id'];
     }
 
     public function Logout()
     {
-        // TODO: Implement Logout() method.
+
     }
 
     public function GetLoginData($id)
     {
-        // TODO: Implement GetLoginData() method.
+        return Credentials::GetUserID($id)[0];
     }
 }

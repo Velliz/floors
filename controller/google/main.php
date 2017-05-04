@@ -17,25 +17,38 @@ class main extends View implements Auth
 {
 
     /**
+     * @var string
+     */
+    var $app;
+
+    /**
      * @var Google_Client
      */
     var $client;
 
     public function __construct()
     {
+        parent::__construct();
         session_start();
 
-        //TODO:link to app code
-        $gBroker = Broker::GetAppCode('G');
-        if (sizeof($gBroker) == 0) throw new Exception('G broker is not set.');
-        else $gBroker = $gBroker[0];
+        $ssoCache = Session::Get($this)->GetSession('sso');
+        if ($ssoCache == false) {
+            throw new Exception('app token not set. set with ' . BASE_URL . '?sso=[YOUR_APP_TOKEN]');
+        }
+        $this->app = Applications::GetByToken($ssoCache);
+        if ($this->app == null) {
+            throw new Exception('app specified by token ' . $ssoCache . ' not found on floors server');
+        }
 
-        $redirect_uri = BASE_URL . 'google/callbacks';
+        $gBroker = Broker::GetAppCode($this->app['id'],'G');
+        if ($gBroker == false) {
+            throw new Exception('G broker is not set.');
+        }
 
         $this->client = new Google_Client();
         $this->client->setClientId($gBroker['brokerid']);
         $this->client->setClientSecret($gBroker['config']);
-        $this->client->setRedirectUri($redirect_uri);
+        $this->client->setRedirectUri(BASE_URL . 'google/callbacks');
         $this->client->addScope("email");
         $this->client->addScope("profile");
     }
@@ -49,7 +62,7 @@ class main extends View implements Auth
         $service = new Google_Service_Oauth2($this->client);
 
         if (isset($_GET['code'])) {
-            $this->client->authenticate($_GET['code']);
+            $this->client->fetchAccessTokenWithAuthCode($_GET['code']);
             $_SESSION['access_token'] = $this->client->getAccessToken();
             header('Location: ' . filter_var(BASE_URL . 'google/callbacks', FILTER_SANITIZE_URL));
             exit;
@@ -63,7 +76,7 @@ class main extends View implements Auth
                 'created' => DBI::NOW(),
                 'fullname' => $user->name,
                 'firstemail' => $user->email,
-                'descriptions' => 'Google Login',
+                'descriptions' => 'Google',
             ));
             Credentials::Create(array(
                 'userid' => $userId,
@@ -78,15 +91,8 @@ class main extends View implements Auth
 
         $data = Session::Get($this)->GetLoginData();
 
-        $appToken = Session::Get($this)->GetSession('sso');
-        $appToken = Applications::GetByToken($appToken);
-        if (sizeof($appToken) == 0)
-            $this->RedirectTo(BASE_URL);
-
-        $appToken = $appToken[0];
-
-        $key = hash('sha256', $appToken['token']);
-        $iv = substr(hash('sha256', $appToken['identifier']), 0, 16);
+        $key = hash('sha256', $this->app['token']);
+        $iv = substr(hash('sha256', $this->app['identifier']), 0, 16);
         $output = openssl_encrypt(json_encode(
             array(
                 'id' => $data['id'],
@@ -96,7 +102,7 @@ class main extends View implements Auth
         ), 'AES-256-CBC', $key, 0, $iv);
         $output = base64_encode($output);
 
-        $this->RedirectTo($appToken['uri'] . "?token=" . $output . "&app=" . $appToken['token']);
+        $this->RedirectTo($this->app['uri'] . "?token=" . $output);
     }
 
     public function Login($username, $password)

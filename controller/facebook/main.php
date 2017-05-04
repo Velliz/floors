@@ -2,6 +2,7 @@
 
 namespace controller\facebook;
 
+use Exception;
 use Facebook\Exceptions\FacebookResponseException;
 use Facebook\Exceptions\FacebookSDKException;
 use Facebook\Facebook;
@@ -18,18 +19,33 @@ class main extends View implements Auth
 {
 
     /**
+     * @var string
+     */
+    var $app;
+
+    /**
      * @var Facebook
      */
     var $fbObject;
 
     public function __construct()
     {
+        parent::__construct();
         session_start();
 
-        //TODO:link to app code
-        $broker = Broker::GetAppCode(1, 'FB');
-        if (sizeof($broker) == 0) throw new \Exception('FB broker is not set.');
-        else $broker = $broker[0];
+        $ssoCache = Session::Get($this)->GetSession('sso');
+        if ($ssoCache == false) {
+            throw new Exception('app token not set. set with ' . BASE_URL . '?sso=[YOUR_APP_TOKEN]');
+        }
+        $this->app = Applications::GetByToken($ssoCache);
+        if ($this->app == null) {
+            throw new Exception('app specified by token ' . $ssoCache . ' not found on floors server');
+        }
+
+        $broker = Broker::GetAppCode($this->app['id'], 'FB');
+        if ($broker == false) {
+            throw new Exception('FB broker is not set.');
+        }
 
         $this->fbObject = new Facebook([
             'app_id' => $broker['brokerid'],
@@ -77,7 +93,7 @@ class main extends View implements Auth
                 'created' => DBI::NOW(),
                 'fullname' => $userNode->getName(),
                 'firstemail' => $userNode->getEmail(),
-                'descriptions' => 'Facebook Login',
+                'descriptions' => 'Facebook',
             ));
             Credentials::Create(array(
                 'userid' => $userId,
@@ -92,15 +108,8 @@ class main extends View implements Auth
 
         $data = Session::Get($this)->GetLoginData();
 
-        $appToken = Session::Get($this)->GetSession('sso');
-        $appToken = Applications::GetByToken($appToken);
-        if (sizeof($appToken) == 0)
-            $this->RedirectTo(BASE_URL);
-
-        $appToken = $appToken[0];
-
-        $key = hash('sha256', $appToken['apptoken']);
-        $iv = substr(hash('sha256', $appToken['identifier']), 0, 16);
+        $key = hash('sha256', $this->app['apptoken']);
+        $iv = substr(hash('sha256', $this->app['identifier']), 0, 16);
         $output = openssl_encrypt(json_encode(
             array(
                 'id' => $data['id'],
@@ -110,7 +119,7 @@ class main extends View implements Auth
         ), 'AES-256-CBC', $key, 0, $iv);
         $output = base64_encode($output);
 
-        $this->RedirectTo($appToken['uri'] . "?token=" . $output . "&app=" . $appToken['token']);
+        $this->RedirectTo($this->app['uri'] . "?token=" . $output);
     }
 
     public function Login($username, $password)
