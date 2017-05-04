@@ -19,6 +19,10 @@ use pukoframework\Request;
 class permissions extends View implements Auth
 {
 
+    /**
+     * @param $appId
+     * #Value title New Permissions
+     */
     public function create($appId)
     {
         $data = Session::Get($this)->GetLoginData();

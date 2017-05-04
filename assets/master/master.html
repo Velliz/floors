@@ -20,10 +20,8 @@
 
     <!-- Main Header -->
     <header class="main-header">
-
         <!-- Header Navbar -->
         <nav class="navbar navbar-static-top" role="navigation">
-
             <!-- Navbar Right Menu -->
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
@@ -148,7 +146,7 @@
                                     <a href="#" class="btn btn-default btn-flat">Profile</a>
                                 </div>
                                 <div class="pull-right">
-                                    <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                    <a href="{URL}logout" class="btn btn-default btn-flat">Sign out</a>
                                 </div>
                             </li>
                         </ul>
@@ -158,64 +156,42 @@
             </div>
         </nav>
     </header>
-    <!-- Left side column. contains the logo and sidebar -->
+
+
     <aside class="main-sidebar">
-
-        <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
-            <!-- search form (Optional) -->
-            <form action="#" method="get" class="sidebar-form">
-                <div class="input-group">
-                    <input type="text" name="q" class="form-control" placeholder="Search...">
-                    <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-                </div>
-            </form>
-            <!-- /.search form -->
-
-            <!-- Sidebar Menu -->
             <ul class="sidebar-menu">
                 <li class="header">Admin Menu</li>
-                <!-- Optionally, you can add icons to the links -->
                 <li class="active"><a href="{URL}beranda"><i class="fa fa-home"></i> <span>Beranda</span></a></li>
                 <li><a href="{URL}applications"><i class="fa fa-bars"></i> <span>Application</span></a></li>
                 <li><a href="{URL}users"><i class="fa fa-user"></i> <span>User</span></a></li>
                 <li><a href="{URL}operators"><i class="fa fa-laptop"></i> <span>Operator</span></a></li>
                 <li><a href="{URL}settings"><i class="fa fa-gear"></i> <span>Settings</span></a></li>
             </ul>
-            <!-- /.sidebar-menu -->
         </section>
-        <!-- /.sidebar -->
     </aside>
 
-    <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1>
-                Page Header
-                <small>Optional description</small>
-            </h1>
+            <small>
+                {!title}
+            </small>
         </section>
         <section class="content">
-            {CONTENT}
+            <div class="container">
+                {CONTENT}
+            </div>
         </section>
     </div>
-    <!-- /.content-wrapper -->
-    <!-- Main Footer -->
+
+
     <footer class="main-footer">
-        <!-- To the right -->
         <div class="pull-right hidden-xs">
-            Didit Velliz
+            View on <a target="_blank" href="https://github.com/Velliz/floors">Github</a>
         </div>
-        <!-- Default to the left -->
-        <strong>Copyright &copy; 2016 <a href="#">Company</a>.</strong> All rights reserved.
+        <strong>Copyright &copy; 2017</strong> by Didit Velliz
     </footer>
-
 </div>
-
 <script src="{URL}assets/global/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <script src="{URL}assets/global/bootstrap/js/bootstrap.js"></script>
 <script src="{URL}assets/global/adminlte/js/app.js"></script>

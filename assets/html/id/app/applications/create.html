@@ -1,16 +1,33 @@
-<form action="" method="POST">
-    <div>
-        <input type="text" name="appname" placeholder="Application Name">
-        <br>
-        <input type="text" name="appdesc" placeholder="Description">
-        <br>
-        <input type="text" name="ip" placeholder="IP Address">
-        <br>
-        <input type="text" name="uri" placeholder="Application URL">
-        <br>
-        <input type="text" name="identifier" placeholder="Identifier">
-        <br>
-        <input type="hidden" name="token" value="{!token}">
-        <input type="submit" name="_submit" value="Simpan">
+<form action="" method="post">
+    <div class="box box-default">
+        <div class="box-body">
+            <div class="form-group">
+                <label for="appname">Application Name</label>
+                <input type="text" name="appname" class="form-control" id="appname" placeholder="Enter Application Name" required>
+            </div>
+            <div class="form-group">
+                <label for="appdesc">Description</label>
+                <textarea name="appdesc" id="appdesc" cols="2" rows="3" class="form-control" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="ip">IP Address</label>
+                <input type="text" name="ip" class="form-control" id="ip" placeholder="Enter IP Address" required>
+            </div>
+
+            <div class="form-group">
+                <label for="uri">URL</label>
+                <input type="text" name="uri" class="form-control" id="uri" placeholder="Enter Application URL" required>
+            </div>
+
+            <div class="form-group">
+                <label for="identifier">identifier</label>
+                <input type="text" name="identifier" class="form-control" id="identifier" placeholder="Enter Identifier" required>
+            </div>
+        </div>
+        <div class="box-footer">
+            <input type="hidden" name="token" value="{!token}">
+            <input class="btn btn-danger" type="submit" name="_submit" value="Simpan">
+            <a href="{URL}applications" class="btn btn-primary pull-right">Kembali</a>
+        </div>
     </div>
 </form>

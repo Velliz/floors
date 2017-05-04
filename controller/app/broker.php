@@ -21,6 +21,8 @@ class broker extends View implements Auth
 
     /**
      * @param $appId
+     *
+     * #Value title New Broker
      */
     public function create($appId)
     {

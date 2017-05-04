@@ -99,6 +99,7 @@ class main extends View implements Auth
 
     /**
      * #Auth true
+     * #Value title Beranda
      */
     public function beranda()
     {

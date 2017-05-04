@@ -4940,3 +4940,6 @@ table.text-center th {
     white-space: normal !important;
   }
 }
+textarea {
+  resize: none;
+}

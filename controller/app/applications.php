@@ -23,7 +23,7 @@ class applications extends View implements Auth
 
     /**
      * @return mixed
-     * #Value title Applications
+     * #Value title Application
      */
     public function main()
     {
@@ -32,14 +32,13 @@ class applications extends View implements Auth
     }
 
     /**
-     * #Value title Detail Application
-     *
      * @param $appId
      * @return mixed
      */
     public function detail($appId)
     {
         $vars['Application'][0] = \model\Applications::GetID($appId);
+        $vars['title'] = $vars['Application'][0]['appname'];
         $vars['Broker'] = Broker::GetByApp($appId);
         $vars['Permissions'] = Permissions::GetByApp($appId);
         return $vars;
@@ -106,7 +105,7 @@ class applications extends View implements Auth
             $this->RedirectTo(BASE_URL . 'applications');
         }
 
-        $vars['Application'] = \model\Applications::GetID($appId);
+        $vars['Application'][0] = \model\Applications::GetID($appId);
         return $vars;
     }
 
