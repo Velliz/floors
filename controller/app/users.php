@@ -1,6 +1,7 @@
 <?php
 namespace controller\app;
 
+use model\Authorization;
 use model\Credentials;
 use model\Operator;
 use pukoframework\auth\Auth;
@@ -36,15 +37,16 @@ class users extends View implements Auth
     {
         $vars['Users'] = \model\Users::GetID($userId);
         $vars['Credentials'] = Credentials::GetCredentialsByUserID($userId);
+        $vars['Authorization'] = Authorization::GetByUser($userId);
         return $vars;
     }
 
-    public function edit()
+    public function authorization_create()
     {
 
     }
 
-    public function delete()
+    public function authorization_delete()
     {
 
     }

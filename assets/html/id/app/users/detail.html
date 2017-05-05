@@ -35,6 +35,9 @@
             </tr>
         </table>
     </div>
+    <div class="box-footer">
+        <a class="btn btn-danger" href="{URL}user/authorization_create/{!id}">Assign Authorization Access</a>
+    </div>
     <!--{/Users}-->
 </div>
 
@@ -49,6 +52,7 @@
             <tr>
                 <th>Service Type</th>
                 <th>Credentials</th>
+                <th>Since</th>
             </tr>
             </thead>
             <tbody>
@@ -56,6 +60,7 @@
             <tr>
                 <td>{!type}</td>
                 <td>{!credentials}</td>
+                <td>{!created}</td>
             </tr>
             <!--{/Credentials}-->
             </tbody>
@@ -63,5 +68,28 @@
     </div>
 </div>
 
-
-<h1>Authorization</h1>
+<div class="box box-default">
+    <div class="box-header with-border">
+        <h3 class="box-title">Authorization</h3>
+    </div>
+    <div class="box-body">
+        <table class="table table-striped table-responsive">
+            <thead>
+            <tr>
+                <th>Authorization Code</th>
+                <th>Expired</th>
+                <th width="70px">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--{!Authorization}-->
+            <tr>
+                <td>{!pname}</td>
+                <td>{!expired}</td>
+                <td><a class="btn btn-xs btn-danger" href="{URL}user/authorization_delete/{!id}">Delete</a></td>
+            </tr>
+            <!--{/Authorization}-->
+            </tbody>
+        </table>
+    </div>
+</div>

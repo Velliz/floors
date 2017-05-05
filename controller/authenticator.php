@@ -62,6 +62,8 @@ class authenticator extends View implements Auth
         $output = base64_encode($output);
 
         $data['href'] = $this->app['uri'] . '?token=' . $output . '&app=' . $this->app['apptoken'];
+        $data['appname'] = $this->app['appname'];
+        $data['uri'] = $this->app['uri'];
         return $data;
     }
 

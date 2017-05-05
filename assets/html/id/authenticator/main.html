@@ -1,5 +1,37 @@
-GO TO APP
-
-Your profile
-
-<a href="{!href}">GO TO APP</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta name="description" content="open source login as a service platform build on top puko framework">
+    <meta name="author" content="Didit Velliz">
+    <title>{!title}</title>
+    <link href="{URL}assets/global/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
+    <link href="{URL}assets/global/adminlte/css/AdminLTE.css" rel="stylesheet">
+    <link href="{URL}assets/global/plugins/iCheck/square/red.css" rel="stylesheet">
+    <link href="{URL}assets/customs/css/login.css" rel="stylesheet">
+</head>
+<body class="hold-transition login-page">
+<div class="login-box">
+    <div class="login-logo">
+        <a href="{!uri}">{!appname}</a>
+    </div>
+    <div class="login-box-body">
+        <p class="login-box-msg">Hello! Welcome back.</p>
+        <div class="social-auth-links text-center">
+            <a href="{!href}" class="btn btn-block btn-primary btn-flat">
+                Go to {!appname}
+            </a>
+        </div>
+    </div>
+</div>
+<script src="{URL}assets/global/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="{URL}assets/global/bootstrap/js/bootstrap.js"></script>
+<script src="{URL}assets/global/adminlte/js/app.js"></script>
+<script src="{URL}assets/global/plugins/iCheck/icheck.min.js"></script>
+<script src="{URL}assets/customs/js/login.js"></script>
+</body>
+</html>

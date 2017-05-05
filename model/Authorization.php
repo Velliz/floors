@@ -23,11 +23,13 @@ class Authorization
 
     public static function GetID($id)
     {
-        return DBI::Prepare("SELECT * FROM `authorization` WHERE (`id` = @1) AND (dflag = 0);")->GetData($id);
+        return DBI::Prepare("SELECT * FROM authorization WHERE (`id` = @1) AND (dflag = 0);")->GetData($id);
     }
 
-    public static function GetByToken($token)
+    public static function GetByUser($userId)
     {
-        return DBI::Prepare("SELECT * FROM `authorization` WHERE (`token` = @1) AND (dflag = 0);")->GetData($token);
+        return DBI::Prepare("SELECT a.id, a.expired, p.pname 
+            FROM authorization a LEFT JOIN permissions p ON (a.permissionid = p.id)
+            WHERE (a.userid = @1) AND (a.dflag = 0)")->GetData($userId);
     }
 }

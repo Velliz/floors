@@ -24,6 +24,8 @@ use pukoframework\Request;
 class main extends View implements Auth
 {
 
+    var $app;
+
     /**
      * @var Facebook
      */
@@ -59,13 +61,13 @@ class main extends View implements Auth
         if ($ssoCache == false) {
             throw new Exception('app token not set. set with ' . BASE_URL . '?sso=[YOUR_APP_TOKEN]');
         }
-        $app = Applications::GetByToken($ssoCache);
-        if ($app == null) {
+        $this->app = Applications::GetByToken($ssoCache);
+        if ($this->app == null) {
             throw new Exception('app specified by token ' . $ssoCache . ' not found on floors server');
         }
 
         //setup facebook login SDK
-        $fBroker = Broker::GetAppCode($app['id'], 'FB');
+        $fBroker = Broker::GetAppCode($this->app['id'], 'FB');
         if ($fBroker == null) {
             throw new Exception('facebook broker is not registered.');
         }
@@ -77,7 +79,7 @@ class main extends View implements Auth
         //end setup facebook login SDK
 
         //setup google login SDK
-        $gBroker = Broker::GetAppCode($app['id'], 'G');
+        $gBroker = Broker::GetAppCode($this->app['id'], 'G');
         if ($gBroker == false) {
             throw new Exception('google broker is not set.');
         }
@@ -90,7 +92,7 @@ class main extends View implements Auth
         //end setup google login SDK
 
         //setup twitter login SDK
-        $tBroker = Broker::GetAppCode($app['id'], 'T');
+        $tBroker = Broker::GetAppCode($this->app['id'], 'T');
         if (sizeof($tBroker) == 0) {
             throw new Exception('twitter broker is not set.');
         }
@@ -151,6 +153,8 @@ class main extends View implements Auth
         );
         //end twitter LOGIN button
 
+        $vars['appname'] = $this->app['appname'];
+        $vars['uri'] = $this->app['uri'];
         return $vars;
     }
 
