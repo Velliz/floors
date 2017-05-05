@@ -107,6 +107,7 @@ class main extends View implements Auth
         };
 
         $data = Session::Get($this)->GetLoginData();
+        //todo: make login token for user security
 
         $key = hash('sha256', $this->app['apptoken']);
         $iv = substr(hash('sha256', $this->app['identifier']), 0, 16);
@@ -119,7 +120,7 @@ class main extends View implements Auth
         ), 'AES-256-CBC', $key, 0, $iv);
         $output = base64_encode($output);
 
-        $this->RedirectTo($this->app['uri'] . "?token=" . $output);
+        $this->RedirectTo($this->app['uri'] . '?token=' . $output . '&app=' . $this->app['apptoken']);
     }
 
     public function Login($username, $password)

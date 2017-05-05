@@ -102,7 +102,7 @@ class main extends View implements Auth
         ), 'AES-256-CBC', $key, 0, $iv);
         $output = base64_encode($output);
 
-        $this->RedirectTo($this->app['uri'] . "?token=" . $output);
+        $this->RedirectTo($this->app['uri'] . '?token=' . $output . '&app=' . $this->app['apptoken']);
     }
 
     public function Login($username, $password)
