@@ -1,4 +1,5 @@
 <?php
+
 namespace controller;
 
 use Abraham\TwitterOAuth\TwitterOAuth;
@@ -117,17 +118,21 @@ class main extends View implements Auth
         $this->RedirectTo(BASE_URL);
     }
 
-    public function profile()
-    {
-        var_dump(Session::Get($this)->GetLoginData());
-    }
-
     /**
      * #Value title Welcome
      * #Template master false
      */
     public function main()
     {
+        $session = Session::Get($this)->GetLoginData();
+        if ($session != false) {
+            if (isset($session['roles'])) {
+                $this->RedirectTo(BASE_URL . 'beranda');
+            } else {
+                $this->RedirectTo(BASE_URL . 'account');
+            }
+        }
+
         //begin facebook LOGIN button
         $helper = $this->fbObject->getRedirectLoginHelper();
         $permissions = ['email', 'public_profile', 'user_friends'];
@@ -179,9 +184,9 @@ class main extends View implements Auth
     {
         $userAccount = explode('\\', $id);
         if (count($userAccount) == 2) {
-            return Operator::GetID($userAccount[1])[0];
+            return Operator::GetID($userAccount[1]);
         } else {
-            return Users::GetID($userAccount[1])[0];
+            return Users::GetID($userAccount[0]);
         }
     }
 

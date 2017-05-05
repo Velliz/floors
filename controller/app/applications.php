@@ -1,6 +1,7 @@
 <?php
 namespace controller\app;
 
+use Exception;
 use model\Broker;
 use model\Operator;
 use model\Permissions;
@@ -20,6 +21,16 @@ use pukoframework\Request;
  */
 class applications extends View implements Auth
 {
+
+    public function __construct()
+    {
+        parent::__construct();
+        $data = Session::Get($this)->GetLoginData();
+
+        if (!isset($data['roles'])) {
+            throw new Exception('access forbidden');
+        }
+    }
 
     /**
      * @return mixed
@@ -145,9 +156,9 @@ class applications extends View implements Auth
     {
         $userAccount = explode('\\', $id);
         if (count($userAccount) == 2) {
-            return Operator::GetID($userAccount[1])[0];
+            return Operator::GetID($userAccount[1]);
         } else {
-            return Users::GetID($userAccount[1])[0];
+            return Users::GetID($userAccount[0]);
         }
     }
 }

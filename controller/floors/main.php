@@ -58,10 +58,10 @@ class main extends View implements Auth
             $username = $userAccount[1];
             $roles = $userAccount[0];
             $loginResult = Operator::GetUser($username, $password, $roles);
-            return (isset($loginResult[0]['id'])) ? $roles . '\\' . $loginResult[0]['id'] : false;
+            return (isset($loginResult['id'])) ? $roles . '\\' . $loginResult['id'] : false;
         } else {
             $loginResult = Users::GetUser($username, $password);
-            return (isset($loginResult[0]['id'])) ? $loginResult[0]['id'] : false;
+            return (isset($loginResult['id'])) ? $loginResult['id'] : false;
         }
     }
 
@@ -73,9 +73,9 @@ class main extends View implements Auth
     {
         $userAccount = explode('\\', $id);
         if (count($userAccount) == 2) {
-            return Operator::GetID($id)[0];
+            return Operator::GetID($userAccount[1]);
         } else {
-            return Users::GetID($id)[0];
+            return Users::GetID($userAccount[0]);
         }
     }
     #end region auth

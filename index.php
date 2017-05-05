@@ -43,5 +43,8 @@ $framework->RouteMapping(array(
     'operators' => 'app/operator/main',
     'settings' => 'app/settings/main',
 
+    'account/profile' => 'account/profile',
+    'account' => 'account/main',
+
 ));
 $framework->Start();

@@ -22,13 +22,13 @@ class Operator
 
     public static function GetID($id)
     {
-        return DBI::Prepare("SELECT * FROM `operator` WHERE (`id` = @1) AND (dflag = 0) LIMIT 1;")->GetData($id);
+        return DBI::Prepare("SELECT * FROM `operator` WHERE (`id` = @1) AND (dflag = 0) LIMIT 1;")->FirstRow($id);
     }
 
     public static function GetUser($username, $password, $roles)
     {
         return DBI::Prepare("SELECT * FROM operator WHERE (dflag = 0)
-        AND (roles = @1) AND (username = @2) AND (password = @3) LIMIT 1;")->GetData($roles, $username, $password);
+        AND (roles = @1) AND (username = @2) AND (password = @3) LIMIT 1;")->FirstRow($roles, $username, $password);
     }
 
 
