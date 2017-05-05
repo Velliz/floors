@@ -82,6 +82,10 @@ class broker extends View implements Auth
         return $data;
     }
 
+    /**
+     * @param $brokerId
+     * #Template html false
+     */
     public function delete($brokerId)
     {
         \model\Broker::Update(array('id' => $brokerId),

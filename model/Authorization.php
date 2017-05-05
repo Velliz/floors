@@ -18,7 +18,7 @@ class Authorization
 
     public static function GetAll()
     {
-        return DBI::Prepare("SELECT * FROM `authorization`")->GetData();
+        return DBI::Prepare("SELECT * FROM authorization WHERE (dflag = 0);")->GetData();
     }
 
     public static function GetID($id)

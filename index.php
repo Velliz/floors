@@ -38,9 +38,10 @@ $framework->RouteMapping(array(
     'user/edit' => 'app/users/edit',
     'user/delete' => 'app/users/delete',
     'user/detail' => 'app/users/detail',
-    'user/authorization_create' => 'app/users/authorization_create',
-    'user/authorization_delete' => 'app/users/authorization_delete',
     'users' => 'app/users/main',
+
+    'authorization/create' => 'app/users/authorization_create',
+    'authorization/delete' => 'app/users/authorization_delete',
 
     'operators' => 'app/operator/main',
     'settings' => 'app/settings/main',

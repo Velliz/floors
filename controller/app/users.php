@@ -1,4 +1,5 @@
 <?php
+
 namespace controller\app;
 
 use model\Authorization;
@@ -43,12 +44,18 @@ class users extends View implements Auth
 
     public function authorization_create()
     {
-
+        $data['Application'] = \model\Applications::GetAll();
+        return $data;
     }
 
-    public function authorization_delete()
+    /**
+     * @param $authId
+     * #Template html false
+     */
+    public function authorization_delete($authId)
     {
-
+        Authorization::Update(array('id' => $authId), array('dflag' => 1));
+        $this->RedirectTo(BASE_URL . 'users');
     }
 
     public function Login($username, $password)
