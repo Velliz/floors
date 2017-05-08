@@ -12,6 +12,10 @@ use pukoframework\pte\View;
  */
 class settings extends View
 {
+
+    /**
+     * #Value title Settings
+     */
     public function main()
     {
 

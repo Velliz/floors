@@ -24,6 +24,12 @@ class Applications
         return DBI::Prepare("SELECT * FROM applications WHERE (dflag = 0)")->GetData();
     }
 
+    public static function CountAll()
+    {
+        $data = DBI::Prepare("SELECT COUNT(id) counter FROM applications WHERE (dflag = 0)")->FirstRow();
+        return $data['counter'];
+    }
+
     public static function GetID($id)
     {
         return DBI::Prepare("SELECT * FROM applications WHERE (`id` = @1) AND (dflag = 0) LIMIT 1;")->FirstRow($id);

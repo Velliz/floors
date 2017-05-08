@@ -15,6 +15,9 @@ class operator extends View {
     /**
      * #Value title Operator
      */
-    public function main(){}
+    public function main()
+    {
+
+    }
 
 }

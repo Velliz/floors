@@ -42,22 +42,6 @@ class users extends View implements Auth
         return $vars;
     }
 
-    public function authorization_create()
-    {
-        $data['Application'] = \model\Applications::GetAll();
-        return $data;
-    }
-
-    /**
-     * @param $authId
-     * #Template html false
-     */
-    public function authorization_delete($authId)
-    {
-        Authorization::Update(array('id' => $authId), array('dflag' => 1));
-        $this->RedirectTo(BASE_URL . 'users');
-    }
-
     public function Login($username, $password)
     {
 

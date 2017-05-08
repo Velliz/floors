@@ -20,6 +20,12 @@ class Users
         return DBI::Prepare("SELECT * FROM `users`")->GetData();
     }
 
+    public static function CountAll()
+    {
+        $data = DBI::Prepare("SELECT COUNT(id) counter FROM users WHERE (dflag = 0);")->FirstRow();
+        return $data['counter'];
+    }
+
     public static function GetID($id)
     {
         return DBI::Prepare("SELECT * FROM users WHERE (id = @1) LIMIT 1")->GetData($id);

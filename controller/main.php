@@ -106,7 +106,10 @@ class main extends View implements Auth
      */
     public function beranda()
     {
-        $vars['Applications'] = Applications::GetAll();
+        $vars['Applications'] = Applications::CountAll();
+        $vars['Users'] = Users::CountAll();
+        $vars['Login'] = 0;
+
         return $vars;
     }
 
