@@ -147,6 +147,8 @@ class main extends View implements Auth
 
         //begin twitter LOGIN button
         $tCredentials = $this->tObject->oauth('oauth/request_token');
+        $_SESSION['oauth_token'] = $tCredentials['oauth_token'];
+        $_SESSION['oauth_token_secret'] = $tCredentials['oauth_token_secret'];
         $vars['TwitterLoginUrl'] = $this->tObject->url(
             "oauth/authorize",
             array("oauth_token" => $tCredentials['oauth_token'])
