@@ -1,5 +1,5 @@
 <?php
-namespace controller\app;
+namespace controller\manage;
 
 use model\Operator;
 use model\Users;
@@ -11,7 +11,7 @@ use pukoframework\Request;
 
 /**
  * Class permissions
- * @package controller\app
+ * @package controller\manage
  *
  * #Auth true
  * #Master master.html

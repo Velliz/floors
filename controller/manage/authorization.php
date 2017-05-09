@@ -1,6 +1,6 @@
 <?php
 
-namespace controller\app;
+namespace controller\manage;
 
 use pukoframework\auth\Auth;
 use pukoframework\pte\View;
@@ -8,7 +8,7 @@ use model\Operator;
 
 /**
  * Class authorization
- * @package controller\app
+ * @package controller\manage
  *
  * #Auth true
  * #Master master.html

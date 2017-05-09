@@ -1,11 +1,11 @@
 <?php
-namespace controller\app;
+namespace controller\manage;
 
 use pukoframework\pte\View;
 
 /**
  * Class roles
- * @package controller\app
+ * @package controller\manage
  *
  * #Auth true
  * #Master master.html

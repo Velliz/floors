@@ -1,5 +1,5 @@
 <?php
-namespace controller\app;
+namespace controller\manage;
 
 use Exception;
 use model\Broker;
@@ -14,7 +14,7 @@ use pukoframework\Request;
 
 /**
  * Class applications
- * @package controller\app
+ * @package controller\manage
  *
  * #Auth true
  * #Master master.html

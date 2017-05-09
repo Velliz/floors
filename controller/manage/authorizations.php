@@ -1,4 +1,6 @@
 <?php
+namespace controller\manage;
+
 use pukoframework\pte\View;
 
 /**

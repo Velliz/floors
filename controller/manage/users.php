@@ -1,6 +1,5 @@
 <?php
-
-namespace controller\app;
+namespace controller\manage;
 
 use model\Authorization;
 use model\Credentials;
@@ -10,7 +9,7 @@ use pukoframework\pte\View;
 
 /**
  * Class users
- * @package controller\app
+ * @package controller\manage
  *
  * #Auth true
  * #Master master.html

@@ -1,4 +1,7 @@
 <?php
+ini_set('session.save_path',realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/session'));
+ini_set('session.gc_probability', 1);
+
 define('ROOT', __DIR__);
 define('BASE_URL', $_SERVER['REQUEST_SCHEME'] . "://" . $_SERVER['SERVER_NAME'] . '/floors/');
 
@@ -20,31 +23,31 @@ $framework->RouteMapping(array(
     'tos' => 'main/tos',
     'policy' => 'main/policy',
 
-    'application/create' => 'app/applications/create',
-    'application/edit' => 'app/applications/edit',
-    'application/delete' => 'app/applications/delete',
-    'application/detail' => 'app/applications/detail',
-    'applications' => 'app/applications/main',
+    'application/create' => 'manage/applications/create',
+    'application/edit' => 'manage/applications/edit',
+    'application/delete' => 'manage/applications/delete',
+    'application/detail' => 'manage/applications/detail',
+    'applications' => 'manage/applications/main',
 
-    'broker/create' => 'app/broker/create',
-    'broker/edit' => 'app/broker/edit',
-    'broker/delete' => 'app/broker/delete',
+    'broker/create' => 'manage/broker/create',
+    'broker/edit' => 'manage/broker/edit',
+    'broker/delete' => 'manage/broker/delete',
 
-    'permissions/create' => 'app/permissions/create',
-    'permissions/edit' => 'app/permissions/edit',
-    'permissions/delete' => 'app/permissions/delete',
+    'permissions/create' => 'manage/permissions/create',
+    'permissions/edit' => 'manage/permissions/edit',
+    'permissions/delete' => 'manage/permissions/delete',
 
-    'user/create' => 'app/users/create',
-    'user/edit' => 'app/users/edit',
-    'user/delete' => 'app/users/delete',
-    'user/detail' => 'app/users/detail',
-    'users' => 'app/users/main',
+    'user/create' => 'manage/users/create',
+    'user/edit' => 'manage/users/edit',
+    'user/delete' => 'manage/users/delete',
+    'user/detail' => 'manage/users/detail',
+    'users' => 'manage/users/main',
 
-    'authorization/create' => 'app/authorization/create',
-    'authorization/delete' => 'app/authorization/delete',
+    'authorization/create' => 'manage/authorization/create',
+    'authorization/delete' => 'manage/authorization/delete',
 
-    'operators' => 'app/operator/main',
-    'settings' => 'app/settings/main',
+    'operators' => 'manage/operator/main',
+    'settings' => 'manage/settings/main',
 
     'account/profile' => 'account/profile',
     'account' => 'account/main',

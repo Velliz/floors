@@ -1,23 +1,23 @@
 <?php
-namespace controller\app;
+namespace controller\manage;
 
 use pukoframework\pte\View;
 
 /**
- * Class settings
- * @package controller\app
+ * Class operator
+ * @package controller\manage
  *
  * #Auth true
  * #Master master.html
  */
-class settings extends View
-{
+class operator extends View {
 
     /**
-     * #Value title Settings
+     * #Value title Operator
      */
     public function main()
     {
 
     }
+
 }
