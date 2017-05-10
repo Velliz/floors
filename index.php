@@ -53,5 +53,8 @@ $framework->RouteMapping(array(
     'account/history' => 'account/history',
     'account' => 'account/profile',
 
+    'register' => 'main/register',
+    'recovery' => 'main/recovery'
+
 ));
 $framework->Start();

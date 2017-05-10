@@ -3,7 +3,6 @@ namespace controller;
 
 use model\Operator;
 use model\Users;
-use pukoframework\auth\Auth;
 use pukoframework\auth\Session;
 use pukoframework\pte\View;
 
@@ -24,10 +23,12 @@ class account extends View
     public function profile()
     {
         $data = Session::Get($this)->GetLoginData();
-        $data['user'] = Users::GetID($data['id']);
+        $data['profile'] = Users::GetID($data['id']);
 
-        var_dump($data);
-
+        $profile = $data['profile'][0];
+        $data['fullname'] = $profile['fullname'];
+        $data['firstemail'] = $profile['firstemail'];
+        $data['userid'] = $profile['id'];
         return $data;
     }
 

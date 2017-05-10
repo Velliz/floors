@@ -76,7 +76,6 @@ class main extends View implements Auth
                 'created' => DBI::NOW(),
                 'fullname' => $user->name,
                 'firstemail' => $user->email,
-                'descriptions' => 'Google',
             ));
             Credentials::Create(array(
                 'userid' => $userId,

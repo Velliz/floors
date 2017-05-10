@@ -25,9 +25,11 @@ class api extends Service
 
     }
 
-    public function avatar($userId)
+    public function avatar($userId = null)
     {
+        if ($userId == null) {
 
+        }
     }
 
 }

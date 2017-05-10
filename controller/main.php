@@ -186,6 +186,14 @@ class main extends View implements Auth
         }
     }
 
+    public function recovery()
+    {
+    }
+
+    public function register()
+    {
+    }
+
     public function Logout()
     {
     }

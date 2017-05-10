@@ -93,7 +93,6 @@ class main extends View implements Auth
                 'created' => DBI::NOW(),
                 'fullname' => $userNode->getName(),
                 'firstemail' => $userNode->getEmail(),
-                'descriptions' => 'Facebook',
             ));
             Credentials::Create(array(
                 'userid' => $userId,
