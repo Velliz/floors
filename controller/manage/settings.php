@@ -9,6 +9,7 @@ use pukoframework\pte\View;
  *
  * #Auth true
  * #Master master.html
+ * #Value menu_settings active
  */
 class settings extends View
 {

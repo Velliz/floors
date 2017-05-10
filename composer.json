@@ -1,6 +1,6 @@
 {
-    "name": "velliz/puko",
-    "description": "PSR 4 modular based MVC Puko Framework",
+    "name": "velliz/floors",
+    "description": "PHP based login as a service platform for web apps",
     "license": "MIT",
     "require": {
         "puko/framework": "dev-master",

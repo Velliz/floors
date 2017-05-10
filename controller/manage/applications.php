@@ -35,6 +35,7 @@ class applications extends View implements Auth
     /**
      * @return mixed
      * #Value title Application
+     * #Value menu_applications active
      */
     public function main()
     {
@@ -45,6 +46,8 @@ class applications extends View implements Auth
     /**
      * @param $appId
      * @return mixed
+     *
+     * #Value menu_applications active
      */
     public function detail($appId)
     {
@@ -57,6 +60,7 @@ class applications extends View implements Auth
 
     /**
      * #Value title New Application
+     * #Value menu_applications active
      */
     public function create()
     {
@@ -87,6 +91,7 @@ class applications extends View implements Auth
 
     /**
      * #Value title Edit Application
+     * #Value menu_applications active
      * @param $appId
      * @return array
      */

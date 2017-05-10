@@ -14,12 +14,29 @@ use pukoframework\pte\View;
 class account extends View implements Auth
 {
 
-    public function main()
+    /**
+     * #Value title Your Profile
+     * #Value menu_profile active
+     */
+    public function profile()
     {
 
     }
 
-    public function profile()
+    /**
+     * #Value title Your Authorization
+     * #Value menu_authorization active
+     */
+    public function authorization()
+    {
+
+    }
+
+    /**
+     * #Value title Your History
+     * #Value menu_history active
+     */
+    public function history()
     {
 
     }

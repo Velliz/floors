@@ -49,8 +49,9 @@ $framework->RouteMapping(array(
     'operators' => 'manage/operator/main',
     'settings' => 'manage/settings/main',
 
-    'account/profile' => 'account/profile',
-    'account' => 'account/main',
+    'account/authorization' => 'account/authorization',
+    'account/history' => 'account/history',
+    'account' => 'account/profile',
 
 ));
 $framework->Start();

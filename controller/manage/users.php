@@ -13,6 +13,7 @@ use pukoframework\pte\View;
  *
  * #Auth true
  * #Master master.html
+ * #Value menu_users active
  */
 class users extends View implements Auth
 {

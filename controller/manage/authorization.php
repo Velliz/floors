@@ -12,6 +12,7 @@ use model\Operator;
  *
  * #Auth true
  * #Master master.html
+ * #Value menu_users active
  */
 class authorization extends View implements Auth
 {

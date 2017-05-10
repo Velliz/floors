@@ -103,6 +103,7 @@ class main extends View implements Auth
     /**
      * #Auth true
      * #Value title Beranda
+     * #Value menu_beranda active
      */
     public function beranda()
     {

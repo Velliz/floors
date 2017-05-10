@@ -15,6 +15,7 @@ use pukoframework\Request;
  *
  * #Auth true
  * #Master master.html
+ * #Value menu_applications active
  */
 class broker extends View implements Auth
 {
@@ -108,9 +109,9 @@ class broker extends View implements Auth
     {
         $userAccount = explode('\\', $id);
         if (count($userAccount) == 2) {
-            return Operator::GetID($userAccount[1])[0];
+            return Operator::GetID($userAccount[1]);
         } else {
-            return Users::GetID($userAccount[1])[0];
+            return Users::GetID($userAccount[1]);
         }
     }
 }

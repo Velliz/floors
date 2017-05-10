@@ -11,17 +11,20 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
     <link href="{URL}assets/global/adminlte/css/AdminLTE.css" rel="stylesheet">
-    <link href="{URL}assets/global/adminlte/css/skins/skin-black.min.css" rel="stylesheet">
+    <link href="{URL}assets/global/adminlte/css/skins/skin-purple.min.css" rel="stylesheet">
     <link href="{URL}assets/global/plugins/iCheck/square/red.css" rel="stylesheet">
     {CSS}
 </head>
-<body class="hold-transition skin-black sidebar-mini sidebar-collapse">
+<body class="hold-transition skin-purple">
 <div class="wrapper">
 
     <!-- Main Header -->
     <header class="main-header">
         <!-- Header Navbar -->
         <nav class="navbar navbar-static-top" role="navigation">
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
             <!-- Navbar Right Menu -->
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
@@ -143,7 +146,7 @@
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="{URL}profile" class="btn btn-default btn-flat">Profile</a>
+                                    <a href="{URL}account" class="btn btn-default btn-flat">Profile</a>
                                 </div>
                                 <div class="pull-right">
                                     <a href="{URL}logout" class="btn btn-default btn-flat">Sign out</a>
@@ -161,7 +164,9 @@
         <section class="sidebar">
             <ul class="sidebar-menu">
                 <li class="header">Account Menu</li>
-                <li class="active"><a href="{URL}account"><i class="fa fa-home"></i> <span>Beranda</span></a></li>
+                <li class="{!menu_profile}"><a href="{URL}account"><i class="fa fa-user"></i> <span>Profil</span></a></li>
+                <li class="{!menu_authorization}"><a href="{URL}account/authorization"><i class="fa fa-shield"></i> <span>Authorization</span></a></li>
+                <li class="{!menu_history}"><a href="{URL}account/history"><i class="fa fa-clock-o"></i> <span>Login History</span></a></li>
             </ul>
         </section>
     </aside>
