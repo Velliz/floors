@@ -107,6 +107,12 @@ class main extends View implements Auth
      */
     public function beranda()
     {
+        $data = Session::Get($this)->GetLoginData();
+
+        if (!isset($data['roles'])) {
+            throw new Exception('access forbidden');
+        }
+
         $vars['Applications'] = Applications::CountAll();
         $vars['Users'] = Users::CountAll();
         $vars['Login'] = 0;
@@ -164,12 +170,35 @@ class main extends View implements Auth
         return $vars;
     }
 
+    /**
+     * #Template master false
+     */
     public function tos()
     {
     }
 
+    /**
+     * #Template master false
+     */
     public function policy()
     {
+    }
+
+    /**
+     * #Template master false
+     */
+    public function recovery()
+    {
+    }
+
+    /**
+     * #Template master false
+     */
+    public function register()
+    {
+
+
+
     }
 
     public function Login($username, $password)
@@ -184,14 +213,6 @@ class main extends View implements Auth
             $loginResult = Users::GetUser($username, $password);
             return (isset($loginResult[0]['id'])) ? $loginResult[0]['id'] : false;
         }
-    }
-
-    public function recovery()
-    {
-    }
-
-    public function register()
-    {
     }
 
     public function Logout()

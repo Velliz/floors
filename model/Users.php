@@ -36,6 +36,6 @@ class Users
         return DBI::Prepare("SELECT u.* FROM users u
         LEFT JOIN credentials c ON (u.ID = c.userid)
         WHERE (u.dflag = 0) AND (c.credentials = @1) AND (c.secure = @2)
-        LIMIT 1;")->GetData($username, $password);
+        LIMIT 1;")->FirstRow($username, $password);
     }
 }

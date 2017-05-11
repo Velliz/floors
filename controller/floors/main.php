@@ -2,6 +2,7 @@
 namespace controller\floors;
 
 use Exception;
+use model\Applications;
 use model\Operator;
 use model\Users;
 use pukoframework\auth\Auth;
@@ -15,12 +16,26 @@ class main extends View implements Auth
     /**
      * @var string
      */
+    var $app;
+
+    /**
+     * @var string
+     */
     var $client;
 
     public function __construct()
     {
         parent::__construct();
         session_start();
+
+        $ssoCache = Session::Get($this)->GetSession('sso');
+        if ($ssoCache == false) {
+            throw new Exception('app token not set. set with ' . BASE_URL . '?sso=[YOUR_APP_TOKEN]');
+        }
+        $this->app = Applications::GetByToken($ssoCache);
+        if ($this->app == null) {
+            throw new Exception('app specified by token ' . $ssoCache . ' not found on floors server');
+        }
     }
 
     /**
@@ -41,7 +56,25 @@ class main extends View implements Auth
 
             $login = Session::Get($this)->Login($username, md5($password), Auth::EXPIRED_1_MONTH);
             if($login) {
-                $this->RedirectTo(BASE_URL . 'beranda');
+
+                $data = Session::Get($this)->GetLoginData();
+
+                $key = hash('sha256', $this->app['token']);
+                $iv = substr(hash('sha256', $this->app['identifier']), 0, 16);
+                $output = openssl_encrypt(json_encode(
+                    array(
+                        'id' => $data['id'],
+                        'name' => $data['fullname'],
+                        'email' => $data['firstemail'],
+                    )
+                ), 'AES-256-CBC', $key, 0, $iv);
+                $output = base64_encode($output);
+
+                if (stripos($username, "\\") !== false) {
+                    $this->RedirectTo(BASE_URL . 'beranda');
+                } else {
+                    $this->RedirectTo($this->app['uri'] . '?token=' . $output . '&app=' . $this->app['apptoken']);
+                }
             } else {
                 throw new Exception('wrong username or password');
             }
@@ -75,7 +108,7 @@ class main extends View implements Auth
         if (count($userAccount) == 2) {
             return Operator::GetID($userAccount[1]);
         } else {
-            return Users::GetID($userAccount[0]);
+            return Users::GetID($userAccount[0])[0];
         }
     }
     #end region auth

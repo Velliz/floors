@@ -30,4 +30,10 @@ class Avatars
     {
         return DBI::Prepare("SELECT * FROM `avatars` WHERE (`token` = @1) AND (dflag = 0);")->GetData($token);
     }
+
+    public static function GetByUserId($userId)
+    {
+        return DBI::Prepare("SELECT * FROM avatars 
+        WHERE (userid = @1) AND (dflag = 0) ORDER BY id DESC LIMIT 1;")->FirstRow($userId);
+    }
 }

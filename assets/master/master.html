@@ -12,7 +12,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
     <link href="{URL}assets/global/adminlte/css/AdminLTE.css" rel="stylesheet">
     <link href="{URL}assets/global/adminlte/css/skins/skin-purple.min.css" rel="stylesheet">
-    <link href="{URL}assets/global/plugins/iCheck/square/red.css" rel="stylesheet">
+
     {CSS}
 </head>
 <body class="hold-transition skin-purple">
@@ -124,7 +124,7 @@
                         <!-- Menu Toggle Button -->
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                            <span class="hidden-xs">Didit Velliz</span>
+                            <span class="hidden-xs">{!fullname}</span>
                         </a>
                         <ul class="dropdown-menu">
 
@@ -145,9 +145,6 @@
                             </li>
                             <!-- Menu Footer-->
                             <li class="user-footer">
-                                <div class="pull-left">
-                                    <a href="{URL}account" class="btn btn-default btn-flat">Profile</a>
-                                </div>
                                 <div class="pull-right">
                                     <a href="{URL}logout" class="btn btn-default btn-flat">Sign out</a>
                                 </div>
@@ -181,9 +178,7 @@
             </small>
         </section>
         <section class="content">
-            <div class="container">
-                {CONTENT}
-            </div>
+            {CONTENT}
         </section>
     </div>
 
@@ -198,7 +193,7 @@
 <script src="{URL}assets/global/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <script src="{URL}assets/global/bootstrap/js/bootstrap.js"></script>
 <script src="{URL}assets/global/adminlte/js/app.js"></script>
-<script src="{URL}assets/global/plugins/iCheck/icheck.min.js"></script>
+
 {JS}
 </body>
 </html>

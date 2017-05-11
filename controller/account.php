@@ -1,10 +1,13 @@
 <?php
+
 namespace controller;
 
+use DateTime;
 use model\Operator;
 use model\Users;
 use pukoframework\auth\Session;
 use pukoframework\pte\View;
+use pukoframework\Request;
 
 /**
  * Class account
@@ -23,12 +26,42 @@ class account extends View
     public function profile()
     {
         $data = Session::Get($this)->GetLoginData();
+
+        if (Request::IsPost()) {
+
+            $alias = Request::Post('alias', null);
+            $fullname = Request::Post('fullname', null);
+            $phonenumber = Request::Post('phonenumber', null);
+            $firstemail = Request::Post('firstemail', null);
+            $secondemail = Request::Post('secondemail', null);
+            $birthday = Request::Post('birthday', null);
+            $birthday = DateTime::createFromFormat('d-m-Y', $birthday);
+            $birthday = $birthday->format('Y-m-d');
+            $descriptions = Request::Post('descriptions', null);
+
+            Users::Update(array('id' => $data['id']), array(
+                'alias' => $alias,
+                'fullname' => $fullname,
+                'phonenumber' => $phonenumber,
+                'firstemail' => $firstemail,
+                'secondemail' => $secondemail,
+                'birthday' => $birthday,
+                'descriptions' => $descriptions,
+            ));
+
+            $this->RedirectTo(BASE_URL . 'account');
+        }
+
         $data['profile'] = Users::GetID($data['id']);
 
         $profile = $data['profile'][0];
+        $convert_day = $data['profile'][0]['birthday'];
+        $convert_day = DateTime::createFromFormat('Y-m-d', $convert_day);
+        $data['profile'][0]['birthday'] = $convert_day->format('d-m-Y');
         $data['fullname'] = $profile['fullname'];
         $data['firstemail'] = $profile['firstemail'];
         $data['userid'] = $profile['id'];
+
         return $data;
     }
 
@@ -74,7 +107,7 @@ class account extends View
         if (count($userAccount) == 2) {
             return Operator::GetID($userAccount[1]);
         } else {
-            return Users::GetID($userAccount[0]);
+            return Users::GetID($userAccount[0])[0];
         }
     }
 }
