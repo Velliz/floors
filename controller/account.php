@@ -52,15 +52,9 @@ class account extends View
             $this->RedirectTo(BASE_URL . 'account');
         }
 
-        $data['profile'] = Users::GetID($data['id']);
-
-        $profile = $data['profile'][0];
-        $convert_day = $data['profile'][0]['birthday'];
+        $convert_day = $data['birthday'];
         $convert_day = DateTime::createFromFormat('Y-m-d', $convert_day);
-        $data['profile'][0]['birthday'] = $convert_day->format('d-m-Y');
-        $data['fullname'] = $profile['fullname'];
-        $data['firstemail'] = $profile['firstemail'];
-        $data['userid'] = $profile['id'];
+        $data['birthday_formated'] = $convert_day->format('d-m-Y');
 
         return $data;
     }
@@ -71,7 +65,9 @@ class account extends View
      */
     public function authorization()
     {
+        $data = Session::Get($this)->GetLoginData();
 
+        return $data;
     }
 
     /**
@@ -80,7 +76,9 @@ class account extends View
      */
     public function history()
     {
+        $data = Session::Get($this)->GetLoginData();
 
+        return $data;
     }
 
     public function Login($username, $password)
