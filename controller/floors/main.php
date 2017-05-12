@@ -47,12 +47,12 @@ class main extends View implements Auth
         if (Request::IsPost()) {
             $username = Request::Post('fu', null);
             if ($username == null) {
-                $this->RedirectTo(BASE_URL . '?error=username');
+                $this->RedirectTo(BASE_URL . '?error=username&username=' . $username);
                 die();
             }
             $password = Request::Post('fp', null);
             if ($password == null) {
-                $this->RedirectTo(BASE_URL . '?error=password');
+                $this->RedirectTo(BASE_URL . '?error=password&username=' . $username);
                 die();
             }
 

@@ -17,6 +17,12 @@
 <div class="login-box">
     <div class="login-box-body">
         <p class="login-box-msg">Sign in to start your session to <b>{!appname}</b></p>
+        <!--{!!Exception}-->
+        <div class="alert alert-danger">
+            <button class="close" data-close="alert"></button>
+            <span>{!ExceptionMessage}</span>
+        </div>
+        <!--{/Exception}-->
         <form action="{URL}floors/callbacks" method="post">
             <input type="hidden" name="token" value="{!token}">
             <input type="hidden" name="_submit" value="_submit">
@@ -36,9 +42,6 @@
                 </div>
             </div>
         </form>
-        <!--{!!Exception}-->
-        <p class="danger">{!ExceptionMessage}</p>
-        <!--{/Exception}-->
         <hr>
         <div class="social-auth-links text-center">
             <a href="{!FacebookLoginUrl}" class="btn btn-block btn-social btn-facebook btn-flat">

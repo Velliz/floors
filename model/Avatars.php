@@ -6,14 +6,14 @@ use pukoframework\pda\DBI;
 
 class Avatars
 {
-    public static function Create($data)
+    public static function Create($data, $binary = false)
     {
-        return DBI::Prepare('avatars')->Save($data);
+        return DBI::Prepare('avatars')->Save($data, $binary);
     }
 
-    public static function Update($where, $data)
+    public static function Update($where, $data, $binary = false)
     {
-        return DBI::Prepare('avatars')->Update($where, $data);
+        return DBI::Prepare('avatars')->Update($where, $data, $binary);
     }
 
     public static function GetAll()

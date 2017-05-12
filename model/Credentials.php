@@ -22,7 +22,14 @@ class Credentials
 
     public static function GetID($id)
     {
-        return DBI::Prepare("SELECT * FROM `credentials` WHERE (`id` = @1) AND (dflag = 0);")->GetData($id);
+        return DBI::Prepare("SELECT * FROM `credentials` WHERE (`id` = @1) AND (dflag = 0);")->FirstRow($id);
+    }
+
+    public static function GetCredentials($userId, $type)
+    {
+        return DBI::Prepare("SELECT c.* FROM credentials c
+        WHERE (c.userid = @1) AND (c.type = @2) AND (c.dflag = 0) 
+        ORDER BY c.id DESC LIMIT 1;")->FirstRow($userId, $type);
     }
 
     public static function GetCredentialsByUserID($id)

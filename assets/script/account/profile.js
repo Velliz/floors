@@ -5,4 +5,16 @@ jQuery(document).ready(function () {
         startView: "year",
         autoclose: true
     });
+
+    $(".avatar").on('click', function () {
+        bootbox.dialog({
+            size: "large",
+            title: 'Pilih gambar untuk avatarmu',
+            message: $('.user-avatar').parent().html()
+        });
+        $(".input-avatar").change(function() {
+            this.form.submit();
+        });
+    });
+
 });

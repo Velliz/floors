@@ -3,6 +3,7 @@
 namespace controller;
 
 use DateTime;
+use model\Credentials;
 use model\Operator;
 use model\Users;
 use pukoframework\auth\Session;
@@ -52,9 +53,23 @@ class account extends View
             $this->RedirectTo(BASE_URL . 'account');
         }
 
-        $convert_day = $data['birthday'];
-        $convert_day = DateTime::createFromFormat('Y-m-d', $convert_day);
-        $data['birthday_formated'] = $convert_day->format('d-m-Y');
+        $facebook = Credentials::GetCredentials($data['id'], 'Facebook');
+        $data['facebook'] = ($facebook == null) ? true : false;
+        $data['facebook_id'] = $facebook['id'];
+
+        $google = Credentials::GetCredentials($data['id'], 'Google');
+        $data['google'] = ($google == null) ? true : false;
+        $data['google_id'] = $google['id'];
+
+        $twitter = Credentials::GetCredentials($data['id'], 'Twitter');
+        $data['twitter'] = ($twitter == null) ? true : false;
+        $data['twitter_id'] = $twitter['id'];
+
+        if ($data['birthday'] != null) {
+            $convert_day = $data['birthday'];
+            $convert_day = DateTime::createFromFormat('Y-m-d', $convert_day);
+            $data['birthday_formated'] = $convert_day->format('d-m-Y');
+        }
 
         return $data;
     }
