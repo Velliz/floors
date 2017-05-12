@@ -45,7 +45,7 @@ class api extends Service
      *
      * API for fetch user latest avatar
      */
-    public function avatar($userId = null)
+    public function avatar($userId = null, $width = 100)
     {
         header('Content-Type: image/png');
         if ($userId == null) {
@@ -56,9 +56,38 @@ class api extends Service
             if ($avatar == null) {
                 $this->avatar(null);
             } else {
-                echo $avatar['filedata'];
+                $avatar = imagecreatefromstring($avatar['filedata']);
+                echo imagepng(imagescale($avatar, $width));
             }
         }
+    }
+
+    static function resize($file, $w = 200, $h = 200, $crop = false)
+    {
+        $width = $height = getimagesize($file);
+        $r = $width / $height;
+        if ($crop) {
+            if ($width > $height) {
+                $width = ceil($width - ($width * abs($r - $w / $h)));
+            } else {
+                $height = ceil($height - ($height * abs($r - $w / $h)));
+            }
+            $newwidth = $w;
+            $newheight = $h;
+        } else {
+            if ($w / $h > $r) {
+                $newwidth = $h * $r;
+                $newheight = $h;
+            } else {
+                $newheight = $w / $r;
+                $newwidth = $w;
+            }
+        }
+        $src = imagecreatefromjpeg($file);
+        $dst = imagecreatetruecolor($newwidth, $newheight);
+        imagecopyresampled($dst, $src, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
+
+        return $dst;
     }
 
     /**
