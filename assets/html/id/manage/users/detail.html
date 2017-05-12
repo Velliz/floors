@@ -77,6 +77,7 @@
             <thead>
             <tr>
                 <th>Authorization Code</th>
+                <th>Description</th>
                 <th>Expired</th>
                 <th width="70px">Action</th>
             </tr>
@@ -84,6 +85,7 @@
             <tbody>
             <!--{!Authorization}-->
             <tr>
+                <td>{!pcode}</td>
                 <td>{!pname}</td>
                 <td>{!expired}</td>
                 <td><a class="btn btn-xs btn-danger" href="{URL}authorization/delete/{!id}">Delete</a></td>

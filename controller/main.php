@@ -117,11 +117,11 @@ class main extends View implements Auth
             throw new Exception('access forbidden');
         }
 
-        $vars['Applications'] = Applications::CountAll();
-        $vars['Users'] = Users::CountAll();
-        $vars['Login'] = 0;
+        $data['Applications'] = Applications::CountAll();
+        $data['Users'] = Users::CountAll();
+        $data['Login'] = 0;
 
-        return $vars;
+        return $data;
     }
 
     /**

@@ -25,11 +25,15 @@ class applications extends View implements Auth
     public function __construct()
     {
         parent::__construct();
-        $data = Session::Get($this)->GetLoginData();
+    }
 
+    public function OnInitialize()
+    {
+        $data = Session::Get($this)->GetLoginData();
         if (!isset($data['roles'])) {
             throw new Exception('access forbidden');
         }
+        return $data;
     }
 
     /**

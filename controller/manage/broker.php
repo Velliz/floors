@@ -1,6 +1,7 @@
 <?php
 namespace controller\manage;
 
+use Exception;
 use model\Operator;
 use model\Users;
 use pukoframework\auth\Auth;
@@ -19,6 +20,15 @@ use pukoframework\Request;
  */
 class broker extends View implements Auth
 {
+
+    public function OnInitialize()
+    {
+        $data = Session::Get($this)->GetLoginData();
+        if (!isset($data['roles'])) {
+            throw new Exception('access forbidden');
+        }
+        return $data;
+    }
 
     /**
      * @param $appId

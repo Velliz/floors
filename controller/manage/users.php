@@ -1,10 +1,12 @@
 <?php
 namespace controller\manage;
 
+use Exception;
 use model\Authorization;
 use model\Credentials;
 use model\Operator;
 use pukoframework\auth\Auth;
+use pukoframework\auth\Session;
 use pukoframework\pte\View;
 
 /**
@@ -17,6 +19,15 @@ use pukoframework\pte\View;
  */
 class users extends View implements Auth
 {
+
+    public function OnInitialize()
+    {
+        $data = Session::Get($this)->GetLoginData();
+        if (!isset($data['roles'])) {
+            throw new Exception('access forbidden');
+        }
+        return $data;
+    }
 
     /**
      * @return mixed
@@ -56,9 +67,9 @@ class users extends View implements Auth
     {
         $userAccount = explode('\\', $id);
         if (count($userAccount) == 2) {
-            return Operator::GetID($userAccount[1])[0];
+            return Operator::GetID($userAccount[1]);
         } else {
-            return \model\Users::GetID($userAccount[1])[0];
+            return \model\Users::GetID($userAccount[0]);
         }
     }
 }

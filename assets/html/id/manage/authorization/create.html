@@ -1,9 +1,14 @@
+{!CSS}
+<link href="{URL}assets/global/plugins/select2/select2.css" rel="stylesheet">
+<link href="{URL}assets/global/plugins/timepicker/bootstrap-timepicker.css" rel="stylesheet">
+<link href="{URL}assets/global/plugins/datepicker/datepicker3.css" rel="stylesheet">
+{/CSS}
 <form action="" method="post">
     <div class="box box-default">
         <div class="box-body">
             <div class="form-group">
                 <label for="appcode">Select Application</label>
-                <select name="appcode" id="appcode" class="form-control">
+                <select name="appcode" id="appcode" class="form-control app-code select2">
                     <!--{!Application}-->
                     <option value="{!id}">{!appname}</option>
                     <!--{/Application}-->
@@ -11,14 +16,27 @@
             </div>
             <div class="form-group">
                 <label for="authorization">Select Permission for Authorization</label>
-                <select name="authorization" id="authorization" class="form-control">
-                    <option value="X">X</option>
+                <select name="authorization" id="authorization" class="form-control app-auth">
+                    <option value=""></option>
                 </select>
             </div>
-            <div class="form-group">
-                <label for="expired">Set Expired</label>
-                <input type="text" name="expired" class="form-control" id="expired" placeholder="Enter Expired Date" required>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="expired">Set Expired Date</label>
+                        <input type="text" name="expired" class="form-control datepicker" id="expired"
+                               placeholder="Enter Expired Date" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="time">Set Expired Time</label>
+                        <input type="text" name="time" class="form-control timepicker" id="time"
+                               placeholder="Enter Expired Time" required>
+                    </div>
+                </div>
             </div>
+
         </div>
         <div class="box-footer">
             <input type="hidden" name="token" value="{!token}">
@@ -27,3 +45,11 @@
         </div>
     </div>
 </form>
+
+{!JS}
+<script src="{URL}assets/global/plugins/datepicker/bootstrap-datepicker.js"></script>
+<script src="{URL}assets/global/plugins/timepicker/bootstrap-timepicker.js"></script>
+<script src="{URL}assets/global/plugins/bootbox/bootbox.min.js"></script>
+<script src="{URL}assets/global/plugins/select2/select2.full.js"></script>
+<script src="{URL}assets/script/manage/authorization/create.js"></script>
+{/JS}

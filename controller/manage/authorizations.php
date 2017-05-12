@@ -1,6 +1,8 @@
 <?php
 namespace controller\manage;
 
+use Exception;
+use pukoframework\auth\Session;
 use pukoframework\pte\View;
 
 /**
@@ -10,5 +12,14 @@ use pukoframework\pte\View;
  */
 class authorizations extends View
 {
+
+    public function OnInitialize()
+    {
+        $data = Session::Get($this)->GetLoginData();
+        if (!isset($data['roles'])) {
+            throw new Exception('access forbidden');
+        }
+        return $data;
+    }
 
 }

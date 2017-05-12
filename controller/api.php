@@ -9,6 +9,7 @@ use model\Permissions;
 use model\Users;
 use pukoframework\pda\DBI;
 use pukoframework\pte\Service;
+use pukoframework\Request;
 
 /**
  * Class api
@@ -20,8 +21,9 @@ class api extends Service
 {
 
     #region internal
-    public function permission($appId = null)
+    public function permission()
     {
+        $appId = Request::Post('appid', null);
         if ($appId == null) {
             throw new Exception('app id required');
         }

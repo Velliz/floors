@@ -28,7 +28,7 @@ class Authorization
 
     public static function GetByUser($userId)
     {
-        return DBI::Prepare("SELECT a.id, a.expired, p.pname 
+        return DBI::Prepare("SELECT a.id, a.expired, p.pcode, p.pname
             FROM authorization a LEFT JOIN permissions p ON (a.permissionid = p.id)
             WHERE (a.userid = @1) AND (a.dflag = 0)")->GetData($userId);
     }
