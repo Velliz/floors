@@ -12,6 +12,10 @@ use model\Operator;
 use model\Users;
 use pukoframework\auth\Auth;
 use pukoframework\auth\Session;
+use pukoframework\peh\PukoException;
+use pukoframework\peh\ThrowService;
+use pukoframework\peh\ThrowView;
+use pukoframework\peh\ValueException;
 use pukoframework\pte\View;
 use pukoframework\Request;
 
@@ -167,6 +171,29 @@ class main extends View implements Auth
 
         $vars['appname'] = $this->app['appname'];
         $vars['uri'] = $this->app['uri'];
+
+        $error = Request::Get('error', null);
+        $username = Request::Get('username', '');
+        switch ($error) {
+            case 'username':
+                $value = new ValueException();
+                $value->Prepare('username', $username);
+                $value->Throws($vars, 'Username harus di isi');
+                break;
+            case 'password':
+                $value = new ValueException();
+                $value->Prepare('username', $username);
+                $value->Throws($vars, 'Password harus di isi');
+                break;
+            case 'account':
+                $value = new ValueException();
+                $value->Prepare('username', $username);
+                $value->Throws($vars, 'Akun tidak ditemukan');
+                break;
+            default:
+                break;
+        }
+
         return $vars;
     }
 

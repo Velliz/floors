@@ -47,11 +47,13 @@ class main extends View implements Auth
         if (Request::IsPost()) {
             $username = Request::Post('fu', null);
             if ($username == null) {
-                throw new Exception('username not defined');
+                $this->RedirectTo(BASE_URL . '?error=username');
+                die();
             }
             $password = Request::Post('fp', null);
             if ($password == null) {
-                throw new Exception('password not defined');
+                $this->RedirectTo(BASE_URL . '?error=password');
+                die();
             }
 
             $login = Session::Get($this)->Login($username, md5($password), Auth::EXPIRED_1_MONTH);
@@ -76,7 +78,8 @@ class main extends View implements Auth
                     $this->RedirectTo($this->app['uri'] . '?token=' . $output . '&app=' . $this->app['apptoken']);
                 }
             } else {
-                throw new Exception('wrong username or password');
+                $this->RedirectTo(BASE_URL . '?error=account&username=' . $username);
+                die();
             }
         } else {
             throw new Exception('submitted data error');
