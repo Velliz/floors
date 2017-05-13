@@ -3,10 +3,10 @@
 namespace controller;
 
 use Exception;
+use model\Authorization;
 use model\Avatars;
 use model\Credentials;
 use model\Permissions;
-use model\Users;
 use pukoframework\pda\DBI;
 use pukoframework\pte\Service;
 use pukoframework\Request;
@@ -28,6 +28,16 @@ class api extends Service
             throw new Exception('app id required');
         }
         $data['Permission'] = Permissions::GetByApp($appId);
+        return $data;
+    }
+
+    public function authorization($userId = null)
+    {
+        $appId = Request::Post('appid', null);
+        if ($appId == null) {
+            throw new Exception('app id required');
+        }
+        $data['Permission'] = Authorization::GetUserToAppAuthorization($userId, $appId);
         return $data;
     }
     #end region internal

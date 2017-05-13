@@ -49,7 +49,7 @@ class users extends View implements Auth
     {
         $vars['Users'] = \model\Users::GetID($userId);
         $vars['Credentials'] = Credentials::GetCredentialsByUserID($userId);
-        $vars['Authorization'] = Authorization::GetByUser($userId);
+        $vars['Authorization'] = Authorization::GetAvailableApplication($userId);
         return $vars;
     }
 
