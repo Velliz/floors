@@ -1,16 +1,14 @@
 <?php
 namespace controller\floors;
 
+use controller\util\operator_authenticator;
 use Exception;
 use model\Applications;
-use model\Operator;
-use model\Users;
-use pukoframework\auth\Auth;
 use pukoframework\auth\Session;
 use pukoframework\pte\View;
 use pukoframework\Request;
 
-class main extends View implements Auth
+class main extends View
 {
 
     /**
@@ -28,7 +26,7 @@ class main extends View implements Auth
         parent::__construct();
         session_start();
 
-        $ssoCache = Session::Get($this)->GetSession('sso');
+        $ssoCache = Session::Get(operator_authenticator::Instance())->GetSession('sso');
         if ($ssoCache == false) {
             throw new Exception('app token not set. set with ' . BASE_URL . '?sso=[YOUR_APP_TOKEN]');
         }
@@ -56,10 +54,11 @@ class main extends View implements Auth
                 die();
             }
 
-            $login = Session::Get($this)->Login($username, md5($password), Auth::EXPIRED_1_MONTH);
+            $login = Session::Get(operator_authenticator::Instance())->Login($username, md5($password),
+                operator_authenticator::EXPIRED_1_MONTH);
             if($login) {
 
-                $data = Session::Get($this)->GetLoginData();
+                $data = Session::Get(operator_authenticator::Instance())->GetLoginData();
 
                 $key = hash('sha256', $this->app['token']);
                 $iv = substr(hash('sha256', $this->app['identifier']), 0, 16);
@@ -85,34 +84,4 @@ class main extends View implements Auth
             throw new Exception('submitted data error');
         }
     }
-
-    #region auth
-    public function Login($username, $password)
-    {
-        $userAccount = explode('\\', $username);
-        if (count($userAccount) == 2) {
-            $username = $userAccount[1];
-            $roles = $userAccount[0];
-            $loginResult = Operator::GetUser($username, $password, $roles);
-            return (isset($loginResult['id'])) ? $roles . '\\' . $loginResult['id'] : false;
-        } else {
-            $loginResult = Users::GetUser($username, $password);
-            return (isset($loginResult['id'])) ? $loginResult['id'] : false;
-        }
-    }
-
-    public function Logout()
-    {
-    }
-
-    public function GetLoginData($id)
-    {
-        $userAccount = explode('\\', $id);
-        if (count($userAccount) == 2) {
-            return Operator::GetID($userAccount[1]);
-        } else {
-            return Users::GetID($userAccount[0])[0];
-        }
-    }
-    #end region auth
 }

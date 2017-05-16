@@ -2,6 +2,7 @@
 
 namespace controller;
 
+use controller\util\authenticator;
 use DateTime;
 use model\Credentials;
 use model\Operator;
@@ -26,7 +27,7 @@ class account extends View
      */
     public function profile()
     {
-        $data = Session::Get($this)->GetLoginData();
+        $data = Session::Get(authenticator::Instance())->GetLoginData();
 
         if (Request::IsPost()) {
 
@@ -80,9 +81,34 @@ class account extends View
      */
     public function authorization()
     {
-        $data = Session::Get($this)->GetLoginData();
+        $data = Session::Get(authenticator::Instance())->GetLoginData();
 
         return $data;
+    }
+
+    /**
+     * #Template html false
+     * #Auth true
+     */
+    public function userlogout()
+    {
+        Session::Get(authenticator::Instance())->Logout();
+        $this->RedirectTo(BASE_URL);
+    }
+
+    /**
+     * #Template master false
+     */
+    public function recovery()
+    {
+    }
+
+    /**
+     * #Template master false
+     */
+    public function register()
+    {
+
     }
 
     /**
@@ -91,36 +117,8 @@ class account extends View
      */
     public function history()
     {
-        $data = Session::Get($this)->GetLoginData();
+        $data = Session::Get(authenticator::Instance())->GetLoginData();
 
         return $data;
-    }
-
-    public function Login($username, $password)
-    {
-        $userAccount = explode('\\', $username);
-        if (count($userAccount) == 2) {
-            $username = $userAccount[1];
-            $roles = $userAccount[0];
-            $loginResult = Operator::GetUser($username, $password, $roles);
-            return (isset($loginResult[0]['id'])) ? $roles . '\\' . $loginResult[0]['id'] : false;
-        } else {
-            $loginResult = Users::GetUser($username, $password);
-            return (isset($loginResult[0]['id'])) ? $loginResult[0]['id'] : false;
-        }
-    }
-
-    public function Logout()
-    {
-    }
-
-    public function GetLoginData($id)
-    {
-        $userAccount = explode('\\', $id);
-        if (count($userAccount) == 2) {
-            return Operator::GetID($userAccount[1]);
-        } else {
-            return Users::GetID($userAccount[0])[0];
-        }
     }
 }

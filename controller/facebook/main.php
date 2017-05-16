@@ -2,6 +2,7 @@
 
 namespace controller\facebook;
 
+use controller\util\authenticator;
 use Exception;
 use Facebook\Exceptions\FacebookResponseException;
 use Facebook\Exceptions\FacebookSDKException;
@@ -33,7 +34,7 @@ class main extends View implements Auth
         parent::__construct();
         session_start();
 
-        $ssoCache = Session::Get($this)->GetSession('sso');
+        $ssoCache = Session::Get(authenticator::Instance())->GetSession('sso');
         if ($ssoCache == false) {
             throw new Exception('app token not set. set with ' . BASE_URL . '?sso=[YOUR_APP_TOKEN]');
         }
@@ -88,7 +89,8 @@ class main extends View implements Auth
             exit;
         }
 
-        if (!Session::Get($this)->Login($userNode->getId(), 'credentials', Auth::EXPIRED_1_MONTH)) {
+        if (!Session::Get(authenticator::Instance())->Login($userNode->getId(), 'credentials',
+            authenticator::EXPIRED_1_MONTH)) {
             $userId = Users::Create(array(
                 'created' => DBI::NOW(),
                 'fullname' => $userNode->getName(),
@@ -102,10 +104,10 @@ class main extends View implements Auth
                 'profilepic' => (string)"https://graph.facebook.com/" . $userNode->getId() . "/picture?width=400&height=400",
             ));
 
-            Session::Get($this)->Login($userId, 'id', Auth::EXPIRED_1_MONTH);
+            Session::Get(authenticator::Instance())->Login($userId, 'id', Auth::EXPIRED_1_MONTH);
         };
 
-        $data = Session::Get($this)->GetLoginData();
+        $data = Session::Get(authenticator::Instance())->GetLoginData();
         //todo: make login token for user security
 
         $key = hash('sha256', $this->app['apptoken']);

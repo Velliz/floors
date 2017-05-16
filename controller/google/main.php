@@ -1,6 +1,7 @@
 <?php
 namespace controller\google;
 
+use controller\util\authenticator;
 use Exception;
 use Google_Client;
 use Google_Service_Oauth2;
@@ -13,7 +14,7 @@ use pukoframework\auth\Session;
 use pukoframework\pda\DBI;
 use pukoframework\pte\View;
 
-class main extends View implements Auth
+class main extends View
 {
 
     /**
@@ -31,7 +32,7 @@ class main extends View implements Auth
         parent::__construct();
         session_start();
 
-        $ssoCache = Session::Get($this)->GetSession('sso');
+        $ssoCache = Session::Get(authenticator::Instance())->GetSession('sso');
         if ($ssoCache == false) {
             throw new Exception('app token not set. set with ' . BASE_URL . '?sso=[YOUR_APP_TOKEN]');
         }
@@ -71,7 +72,8 @@ class main extends View implements Auth
         $this->client->setAccessToken($_SESSION['access_token']);
         $user = $service->userinfo->get();
         
-        if (!Session::Get($this)->Login($user->id, 'credentials', Auth::EXPIRED_1_MONTH)) {
+        if (!Session::Get(authenticator::Instance())->Login($user->id, 'credentials',
+            authenticator::EXPIRED_1_MONTH)) {
             $userId = Users::Create(array(
                 'created' => DBI::NOW(),
                 'fullname' => $user->name,
@@ -85,10 +87,10 @@ class main extends View implements Auth
                 'profilepic' => (string)$user->picture,
             ));
 
-            Session::Get($this)->Login($userId, 'id', Auth::EXPIRED_1_MONTH);
+            Session::Get(authenticator::Instance())->Login($userId, 'id', Auth::EXPIRED_1_MONTH);
         };
 
-        $data = Session::Get($this)->GetLoginData();
+        $data = Session::Get(authenticator::Instance())->GetLoginData();
 
         $key = hash('sha256', $this->app['token']);
         $iv = substr(hash('sha256', $this->app['identifier']), 0, 16);
@@ -102,26 +104,5 @@ class main extends View implements Auth
         $output = base64_encode($output);
 
         $this->RedirectTo($this->app['uri'] . '?token=' . $output . '&app=' . $this->app['apptoken']);
-    }
-
-    public function Login($username, $password)
-    {
-        $credentials = array();
-        if ($password == 'id') $credentials = Credentials::GetUserID($username);
-        if ($password == 'credentials') $credentials = Credentials::GetUserByCredentialsID($username);
-        if (sizeof($credentials) == 0) return false;
-
-        $credentials = $credentials[0];
-        return $credentials['id'];
-    }
-
-    public function Logout()
-    {
-
-    }
-
-    public function GetLoginData($id)
-    {
-        return Credentials::GetUserID($id)[0];
     }
 }

@@ -3,6 +3,7 @@
 namespace controller;
 
 use Abraham\TwitterOAuth\TwitterOAuth;
+use controller\util\operator_authenticator;
 use Exception;
 use Facebook\Facebook;
 use Google_Client;
@@ -25,7 +26,7 @@ use pukoframework\Request;
  *
  * #Master master.html
  */
-class main extends View implements Auth
+class main extends View
 {
 
     var $app;
@@ -45,11 +46,6 @@ class main extends View implements Auth
      */
     var $tObject;
 
-    public function OnInitialize()
-    {
-        return array();
-    }
-
     public function __construct()
     {
         parent::__construct();
@@ -58,10 +54,10 @@ class main extends View implements Auth
         //http://localhost/floors/?sso=b57b22e6deed7ce29d6e08e096ea3180ad13d005
         $sso = Request::Get('sso', null);
         if ($sso != null) {
-            Session::Get($this)->PutSession('sso', $sso, Auth::EXPIRED_1_MONTH);
+            Session::Get(operator_authenticator::Instance())->PutSession('sso', $sso, Auth::EXPIRED_1_MONTH);
         }
 
-        $ssoCache = Session::Get($this)->GetSession('sso');
+        $ssoCache = Session::Get(operator_authenticator::Instance())->GetSession('sso');
         if ($ssoCache == false) {
             throw new Exception('app token not set. set with ' . BASE_URL . '?sso=[YOUR_APP_TOKEN]');
         }
@@ -105,42 +101,12 @@ class main extends View implements Auth
     }
 
     /**
-     * #Auth true
-     * #Value title Beranda
-     * #Value menu_beranda active
-     */
-    public function beranda()
-    {
-        $data = Session::Get($this)->GetLoginData();
-
-        if (!isset($data['roles'])) {
-            throw new Exception('access forbidden');
-        }
-
-        $data['Applications'] = Applications::CountAll();
-        $data['Users'] = Users::CountAll();
-        $data['Login'] = 0;
-
-        return $data;
-    }
-
-    /**
-     * #Template html false
-     * #Auth true
-     */
-    public function userlogout()
-    {
-        Session::Get($this)->Logout();
-        $this->RedirectTo(BASE_URL);
-    }
-
-    /**
      * #Value title Welcome
      * #Template master false
      */
     public function main()
     {
-        $session = Session::Get($this)->GetLoginData();
+        $session = Session::Get(operator_authenticator::Instance())->GetLoginData();
         if ($session != false) {
             if (isset($session['roles'])) {
                 $this->RedirectTo(BASE_URL . 'beranda');
@@ -209,51 +175,6 @@ class main extends View implements Auth
      */
     public function policy()
     {
-    }
-
-    /**
-     * #Template master false
-     */
-    public function recovery()
-    {
-    }
-
-    /**
-     * #Template master false
-     */
-    public function register()
-    {
-
-
-
-    }
-
-    public function Login($username, $password)
-    {
-        $userAccount = explode('\\', $username);
-        if (count($userAccount) == 2) {
-            $username = $userAccount[1];
-            $roles = $userAccount[0];
-            $loginResult = Operator::GetUser($username, $password, $roles);
-            return (isset($loginResult[0]['id'])) ? $roles . '\\' . $loginResult[0]['id'] : false;
-        } else {
-            $loginResult = Users::GetUser($username, $password);
-            return (isset($loginResult[0]['id'])) ? $loginResult[0]['id'] : false;
-        }
-    }
-
-    public function Logout()
-    {
-    }
-
-    public function GetLoginData($id)
-    {
-        $userAccount = explode('\\', $id);
-        if (count($userAccount) == 2) {
-            return Operator::GetID($userAccount[1]);
-        } else {
-            return Users::GetID($userAccount[0]);
-        }
     }
 
     /*

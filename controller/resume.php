@@ -2,6 +2,7 @@
 
 namespace controller;
 
+use controller\util\authenticator;
 use Exception;
 use model\Applications;
 use model\Credentials;
@@ -17,7 +18,7 @@ use pukoframework\Request;
  * #Template master false
  * #Master account.html
  */
-class authenticator extends View implements Auth
+class resume extends View
 {
 
     var $app;
@@ -30,10 +31,10 @@ class authenticator extends View implements Auth
         //http://localhost/floors/?sso=b57b22e6deed7ce29d6e08e096ea3180ad13d005
         $sso = Request::Get('sso', null);
         if ($sso != null) {
-            Session::Get($this)->PutSession('sso', $sso, Auth::EXPIRED_1_MONTH);
+            Session::Get(authenticator::Instance())->PutSession('sso', $sso, Auth::EXPIRED_1_MONTH);
         }
 
-        $ssoCache = Session::Get($this)->GetSession('sso');
+        $ssoCache = Session::Get(authenticator::Instance())->GetSession('sso');
         if ($ssoCache == false) {
             throw new Exception('app token not set. set with ' . BASE_URL . '?sso=[YOUR_APP_TOKEN]');
         }
@@ -45,7 +46,7 @@ class authenticator extends View implements Auth
 
     public function main()
     {
-        $data = Session::Get($this)->GetLoginData();
+        $data = Session::Get(authenticator::Instance())->GetLoginData();
         if ($data == false) {
             $this->RedirectTo(BASE_URL);
         }
@@ -65,26 +66,5 @@ class authenticator extends View implements Auth
         $data['appname'] = $this->app['appname'];
         $data['uri'] = $this->app['uri'];
         return $data;
-    }
-
-    public function Login($username, $password)
-    {
-        $credentials = array();
-        if ($password == 'id') $credentials = Credentials::GetUserID($username);
-        if ($password == 'credentials') $credentials = Credentials::GetUserByCredentialsID($username);
-        if (sizeof($credentials) == 0) return false;
-
-        $credentials = $credentials[0];
-        return $credentials['id'];
-    }
-
-    public function Logout()
-    {
-
-    }
-
-    public function GetLoginData($id)
-    {
-        return Credentials::GetUserID($id)[0];
     }
 }

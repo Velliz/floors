@@ -18,8 +18,9 @@ $framework->RouteMapping(array(
     'twitter/callbacks' => 'twitter/main/callbacks',
 
     'profile' => 'main/profile',
-    'beranda' => 'main/beranda',
-    'logout' => 'main/userlogout',
+    'beranda' => 'admin/beranda',
+    'admin/logout' => 'admin/userlogout',
+    'account/logout' => 'account/userlogout',
     'tos' => 'main/tos',
     'policy' => 'main/policy',
 

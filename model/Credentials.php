@@ -44,13 +44,13 @@ class Credentials
     {
         return DBI::Prepare("SELECT u.* FROM credentials c 
         LEFT JOIN users u ON (c.userid = u.id)
-        WHERE (c.userid = @1) AND (c.dflag = 0);")->GetData($id);
+        WHERE (c.userid = @1) AND (c.dflag = 0) LIMIT 1;")->FirstRow($id);
     }
     
     public static function GetUserByCredentialsID($credentials)
     {
         return DBI::Prepare("SELECT u.* FROM credentials c 
         LEFT JOIN users u ON (c.userid = u.id)
-        WHERE (c.credentials = @1) AND (c.dflag = 0);")->GetData($credentials);
+        WHERE (c.credentials = @1) AND (c.dflag = 0) LIMIT 1;")->FirstRow($credentials);
     }
 }

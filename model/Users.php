@@ -28,7 +28,7 @@ class Users
 
     public static function GetID($id)
     {
-        return DBI::Prepare("SELECT * FROM users WHERE (id = @1) LIMIT 1")->GetData($id);
+        return DBI::Prepare("SELECT * FROM users WHERE (id = @1) LIMIT 1")->FirstRow($id);
     }
 
     public static function GetUser($username, $password)
