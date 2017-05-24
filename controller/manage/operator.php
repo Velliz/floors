@@ -12,7 +12,7 @@ use pukoframework\pte\View;
  * @package controller\manage
  *
  * #Auth true
- * #Master master.html
+ * #Master admin.html
  * #Value menu_operators active
  */
 class operator extends View implements Auth
@@ -45,4 +45,13 @@ class operator extends View implements Auth
         }
     }
 
+    public function Login($username, $password)
+    {
+        // TODO: Implement Login() method.
+    }
+
+    public function Logout()
+    {
+        // TODO: Implement Logout() method.
+    }
 }

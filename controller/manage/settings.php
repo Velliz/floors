@@ -11,7 +11,7 @@ use pukoframework\pte\View;
  * @package controller\manage
  *
  * #Auth true
- * #Master master.html
+ * #Master admin.html
  * #Value menu_settings active
  */
 class settings extends View implements Auth
@@ -42,5 +42,15 @@ class settings extends View implements Auth
     public function main()
     {
 
+    }
+
+    public function Login($username, $password)
+    {
+        // TODO: Implement Login() method.
+    }
+
+    public function Logout()
+    {
+        // TODO: Implement Logout() method.
     }
 }

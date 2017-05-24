@@ -16,8 +16,8 @@ use pukoframework\Request;
  * Class applications
  * @package controller\manage
  *
+ * #Master admin.html
  * #Auth true
- * #Master master.html
  */
 class applications extends View implements Auth
 {
@@ -37,7 +37,6 @@ class applications extends View implements Auth
     }
 
     /**
-     * @return mixed
      * #Value title Application
      * #Value menu_applications active
      */

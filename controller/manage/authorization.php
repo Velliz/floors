@@ -4,11 +4,11 @@ namespace controller\manage;
 
 use DateTime;
 use Exception;
+use model\Operator;
 use pukoframework\auth\Auth;
 use pukoframework\auth\Session;
 use pukoframework\pda\DBI;
 use pukoframework\pte\View;
-use model\Operator;
 use pukoframework\Request;
 
 /**
@@ -16,7 +16,7 @@ use pukoframework\Request;
  * @package controller\manage
  *
  * #Auth true
- * #Master master.html
+ * #Master admin.html
  * #Value menu_users active
  */
 class authorization extends View implements Auth

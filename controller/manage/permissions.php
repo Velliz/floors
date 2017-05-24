@@ -15,7 +15,7 @@ use pukoframework\Request;
  * @package controller\manage
  *
  * #Auth true
- * #Master master.html
+ * #Master admin.html
  * #Value menu_applications active
  */
 class permissions extends View implements Auth

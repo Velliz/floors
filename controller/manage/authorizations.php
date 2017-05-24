@@ -8,7 +8,7 @@ use pukoframework\pte\View;
 /**
  * Class authorizations
  *
- * #Master master.html
+ * #Master admin.html
  */
 class authorizations extends View
 {

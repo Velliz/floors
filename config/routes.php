@@ -79,7 +79,7 @@ $data['page'] = array(
         'accept' => ['GET', 'POST'],
     ),
 
-    'application/edit' => array(
+    'application/edit/{!}' => array(
         'controller' => 'manage\applications',
         'function' => 'edit',
         'accept' => ['GET', 'POST'],
@@ -91,7 +91,7 @@ $data['page'] = array(
         'accept' => ['GET', 'POST'],
     ),
 
-    'application/detail' => array(
+    'application/detail/{!}' => array(
         'controller' => 'manage\applications',
         'function' => 'detail',
         'accept' => ['GET', 'POST'],
@@ -103,13 +103,13 @@ $data['page'] = array(
         'accept' => ['GET', 'POST'],
     ),
 
-    'broker/create' => array(
+    'broker/create/{!}' => array(
         'controller' => 'manage\broker',
         'function' => 'create',
         'accept' => ['GET', 'POST'],
     ),
 
-    'broker/edit' => array(
+    'broker/edit/{!}' => array(
         'controller' => 'manage\broker',
         'function' => 'edit',
         'accept' => ['GET', 'POST'],
@@ -121,29 +121,105 @@ $data['page'] = array(
         'accept' => ['GET', 'POST'],
     ),
 
-    'permissions/create' => 'manage/permissions/create',
-    'permissions/edit' => 'manage/permissions/edit',
-    'permissions/delete' => 'manage/permissions/delete',
+    'permissions/create/{!}' => array(
+        'controller' => 'manage\permissions',
+        'function' => 'create',
+        'accept' => ['GET', 'POST'],
+    ),
 
-    'user/create' => 'manage/users/create',
-    'user/edit' => 'manage/users/edit',
-    'user/delete' => 'manage/users/delete',
-    'user/detail' => 'manage/users/detail',
-    'users' => 'manage/users/main',
+    'permissions/edit' => array(
+        'controller' => 'manage\permissions',
+        'function' => 'edit',
+        'accept' => ['GET', 'POST'],
+    ),
 
-    'authorization/create' => 'manage/authorization/create',
-    'authorization/delete' => 'manage/authorization/delete',
+    'permissions/delete' => array(
+        'controller' => 'manage\permissions',
+        'function' => 'delete',
+        'accept' => ['GET', 'POST'],
+    ),
 
-    'operators' => 'manage/operator/main',
-    'settings' => 'manage/settings/main',
+    'user/create' => array(
+        'controller' => 'manage\users',
+        'function' => 'create',
+        'accept' => ['GET', 'POST'],
+    ),
 
-    'account/authorization' => 'account/authorization',
-    'account/history' => 'account/history',
-    'account' => 'account/profile',
+    'user/edit/{!}' => array(
+        'controller' => 'manage\users',
+        'function' => 'edit',
+        'accept' => ['GET', 'POST'],
+    ),
 
-    'register' => 'main/register',
-    'recovery' => 'main/recovery'
+    'user/delete/{!}' => array(
+        'controller' => 'manage\users',
+        'function' => 'delete',
+        'accept' => ['GET', 'POST'],
+    ),
 
+    'user/detail/{!}' => array(
+        'controller' => 'manage\users',
+        'function' => 'detail',
+        'accept' => ['GET', 'POST'],
+    ),
+    'users' => array(
+        'controller' => 'manage\users',
+        'function' => 'main',
+        'accept' => ['GET', 'POST'],
+    ),
+
+    'authorization/create' => array(
+        'controller' => 'manage\authorization',
+        'function' => 'create',
+        'accept' => ['GET', 'POST'],
+    ),
+
+    'authorization/delete' => array(
+        'controller' => 'manage\authorization',
+        'function' => 'delete',
+        'accept' => ['GET', 'POST'],
+    ),
+
+    'operators' => array(
+        'controller' => 'manage\operator',
+        'function' => 'main',
+        'accept' => ['GET', 'POST'],
+    ),
+
+    'settings' => array(
+        'controller' => 'manage\settings',
+        'function' => 'main',
+        'accept' => ['GET', 'POST'],
+    ),
+
+    'account/authorization' => array(
+        'controller' => 'account',
+        'function' => 'authorization',
+        'accept' => ['GET', 'POST'],
+    ),
+
+    'account/history' => array(
+        'controller' => 'account',
+        'function' => 'history',
+        'accept' => ['GET', 'POST'],
+    ),
+    'account' => array(
+        'controller' => 'account',
+        'function' => 'profile',
+        'accept' => ['GET', 'POST'],
+    ),
+
+    'register' => array(
+        'controller' => 'account',
+        'function' => 'register',
+        'accept' => ['GET', 'POST'],
+    ),
+
+    'recovery' => array(
+        'controller' => 'account',
+        'function' => 'recovery',
+        'accept' => ['GET', 'POST'],
+    ),
 );
 
 $data['error'] = array(

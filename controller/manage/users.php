@@ -14,7 +14,7 @@ use pukoframework\pte\View;
  * @package controller\manage
  *
  * #Auth true
- * #Master master.html
+ * #Master admin.html
  * #Value menu_users active
  */
 class users extends View implements Auth
@@ -47,7 +47,7 @@ class users extends View implements Auth
      */
     public function detail($userId)
     {
-        $vars['Users'] = \model\Users::GetID($userId);
+        $vars['Users'][0] = \model\Users::GetID($userId);
         $vars['Credentials'] = Credentials::GetCredentialsByUserID($userId);
         $vars['Authorization'] = Authorization::GetAvailableApplication($userId);
         return $vars;

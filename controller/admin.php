@@ -20,7 +20,6 @@ class admin extends View
     /**
      * #Value title Beranda
      * #Value menu_beranda active
-     * #Master admin.html
      */
     public function beranda()
     {

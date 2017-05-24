@@ -8,9 +8,13 @@ use pukoframework\pte\View;
  * @package controller\manage
  *
  * #Auth true
- * #Master master.html
+ * #Master admin.html
  */
 class roles extends View
 {
 
+    public function OnInitialize()
+    {
+        // TODO: Implement OnInitialize() method.
+    }
 }
