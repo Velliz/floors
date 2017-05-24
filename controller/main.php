@@ -9,13 +9,8 @@ use Facebook\Facebook;
 use Google_Client;
 use model\Applications;
 use model\Broker;
-use model\Operator;
-use model\Users;
 use pukoframework\auth\Auth;
 use pukoframework\auth\Session;
-use pukoframework\peh\PukoException;
-use pukoframework\peh\ThrowService;
-use pukoframework\peh\ThrowView;
 use pukoframework\peh\ValueException;
 use pukoframework\pte\View;
 use pukoframework\Request;
@@ -177,6 +172,11 @@ class main extends View
     {
     }
 
+    public function select()
+    {
+
+    }
+
     /*
     //__construct()
     $token = Request::Get('token', null);
@@ -200,4 +200,8 @@ class main extends View
     }
     */
 
+    public function OnInitialize()
+    {
+        // TODO: Implement OnInitialize() method.
+    }
 }

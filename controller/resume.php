@@ -5,7 +5,6 @@ namespace controller;
 use controller\util\authenticator;
 use Exception;
 use model\Applications;
-use model\Credentials;
 use pukoframework\auth\Auth;
 use pukoframework\auth\Session;
 use pukoframework\pte\View;
@@ -66,5 +65,10 @@ class resume extends View
         $data['appname'] = $this->app['appname'];
         $data['uri'] = $this->app['uri'];
         return $data;
+    }
+
+    public function OnInitialize()
+    {
+        // TODO: Implement OnInitialize() method.
     }
 }

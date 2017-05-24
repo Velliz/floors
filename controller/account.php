@@ -5,7 +5,6 @@ namespace controller;
 use controller\util\authenticator;
 use DateTime;
 use model\Credentials;
-use model\Operator;
 use model\Users;
 use pukoframework\auth\Session;
 use pukoframework\pte\View;
@@ -120,5 +119,10 @@ class account extends View
         $data = Session::Get(authenticator::Instance())->GetLoginData();
 
         return $data;
+    }
+
+    public function OnInitialize()
+    {
+        // TODO: Implement OnInitialize() method.
     }
 }

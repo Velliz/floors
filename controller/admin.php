@@ -12,14 +12,15 @@ use pukoframework\pte\View;
  * Class admin
  * @package controller
  *
- * #Master admin.html
  * #Auth true
+ * #Master admin.html
  */
 class admin extends View
 {
     /**
      * #Value title Beranda
      * #Value menu_beranda active
+     * #Master admin.html
      */
     public function beranda()
     {
@@ -43,5 +44,10 @@ class admin extends View
     {
         Session::Get(operator_authenticator::Instance())->Logout();
         $this->RedirectTo(BASE_URL);
+    }
+
+    public function OnInitialize()
+    {
+        // TODO: Implement OnInitialize() method.
     }
 }

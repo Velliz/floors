@@ -84,4 +84,9 @@ class main extends View
             throw new Exception('submitted data error');
         }
     }
+
+    public function OnInitialize()
+    {
+        // TODO: Implement OnInitialize() method.
+    }
 }

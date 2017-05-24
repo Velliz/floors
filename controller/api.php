@@ -203,4 +203,8 @@ class api extends Service
         }
     }
 
+    public function OnInitialize()
+    {
+        // TODO: Implement OnInitialize() method.
+    }
 }

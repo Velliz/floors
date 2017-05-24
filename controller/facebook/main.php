@@ -144,4 +144,9 @@ class main extends View implements Auth
     {
         return Credentials::GetUserID($id)[0];
     }
+
+    public function OnInitialize()
+    {
+        // TODO: Implement OnInitialize() method.
+    }
 }

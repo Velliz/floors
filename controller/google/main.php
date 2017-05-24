@@ -105,4 +105,9 @@ class main extends View
 
         $this->RedirectTo($this->app['uri'] . '?token=' . $output . '&app=' . $this->app['apptoken']);
     }
+
+    public function OnInitialize()
+    {
+        // TODO: Implement OnInitialize() method.
+    }
 }
