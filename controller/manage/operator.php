@@ -32,7 +32,6 @@ class operator extends View implements Auth
      */
     public function main()
     {
-        var_dump($_SERVER);
     }
 
     public function GetLoginData($id)

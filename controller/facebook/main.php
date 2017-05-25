@@ -10,6 +10,7 @@ use Facebook\Facebook;
 use model\Applications;
 use model\Broker;
 use model\Credentials;
+use model\Logs;
 use model\Users;
 use pukoframework\auth\Auth;
 use pukoframework\auth\Session;
@@ -109,6 +110,21 @@ class main extends View implements Auth
 
         $data = Session::Get(authenticator::Instance())->GetLoginData();
         //todo: make login token for user security
+        $agent = $_SERVER['HTTP_USER_AGENT'];
+        $remote_ip = $_SERVER['REMOTE_ADDR'];
+        $method = $_SERVER['REQUEST_METHOD'];
+        $http_status = $_SERVER['REDIRECT_STATUS'];
+
+        Logs::Create(array(
+            'userid' => $data['id'],
+            'credentialid' => 0,
+            'datein' => $this->GetServerDateTime(),
+            'requestmethod' => $method,
+            'action' => 'Login',
+            'ipaddress' => $remote_ip,
+            'useragent' => $agent,
+            'httpstatus' => $http_status
+        ));
 
         $key = hash('sha256', $this->app['apptoken']);
         $iv = substr(hash('sha256', $this->app['identifier']), 0, 16);

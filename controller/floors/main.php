@@ -1,9 +1,11 @@
 <?php
+
 namespace controller\floors;
 
 use controller\util\operator_authenticator;
 use Exception;
 use model\Applications;
+use model\Logs;
 use pukoframework\auth\Session;
 use pukoframework\pte\View;
 use pukoframework\Request;
@@ -56,9 +58,26 @@ class main extends View
 
             $login = Session::Get(operator_authenticator::Instance())->Login($username, md5($password),
                 operator_authenticator::EXPIRED_1_MONTH);
-            if($login) {
+
+            if ($login) {
 
                 $data = Session::Get(operator_authenticator::Instance())->GetLoginData();
+
+                $agent = $_SERVER['HTTP_USER_AGENT'];
+                $remote_ip = $_SERVER['REMOTE_ADDR'];
+                $method = $_SERVER['REQUEST_METHOD'];
+                $http_status = $_SERVER['REDIRECT_STATUS'];
+
+                Logs::Create(array(
+                    'userid' => $data['id'],
+                    'credentialid' => 0,
+                    'datein' => $this->GetServerDateTime(),
+                    'requestmethod' => $method,
+                    'action' => 'Login',
+                    'ipaddress' => $remote_ip,
+                    'useragent' => $agent,
+                    'httpstatus' => $http_status
+                ));
 
                 $key = hash('sha256', $this->app['token']);
                 $iv = substr(hash('sha256', $this->app['identifier']), 0, 16);
