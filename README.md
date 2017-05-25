@@ -1,8 +1,9 @@
 # Floors [BETA]
 
-Floors is PHP based **login as-a service** platform for developing **single sign on** centralized or distributed web apps.
+Floors is PHP based **login as-a service** platform 
+for **single sign on** distributed web apps.
 
-Visit [Floors](http://floors.cf?sso=b57b22e6deed7ce29d6e08e096ea3180ad13d005) for see on working project results.
+Floors is build on top Puko Framework. Visit [Floors](http://floors.cf?sso=b57b22e6deed7ce29d6e08e096ea3180ad13d005) for see on working project results.
 
 Main features:
 ```
