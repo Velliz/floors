@@ -15,7 +15,6 @@ use pukoframework\Request;
  * @package controller\account
  *
  * #Master account.html
- * #Auth true
  */
 class account extends View
 {
@@ -23,6 +22,7 @@ class account extends View
     /**
      * #Value title Your Profile
      * #Value menu_profile active
+     * #Auth true
      */
     public function profile()
     {
@@ -77,6 +77,7 @@ class account extends View
     /**
      * #Value title Your Authorization
      * #Value menu_authorization active
+     * #Auth true
      */
     public function authorization()
     {
@@ -97,6 +98,7 @@ class account extends View
 
     /**
      * #Template master false
+     * #Auth false
      */
     public function recovery()
     {
@@ -104,6 +106,7 @@ class account extends View
 
     /**
      * #Template master false
+     * #Auth false
      */
     public function register()
     {
@@ -113,16 +116,15 @@ class account extends View
     /**
      * #Value title Your History
      * #Value menu_history active
+     * #Auth true
      */
     public function history()
     {
         $data = Session::Get(authenticator::Instance())->GetLoginData();
-
         return $data;
     }
 
     public function OnInitialize()
     {
-        // TODO: Implement OnInitialize() method.
     }
 }

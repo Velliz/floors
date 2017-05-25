@@ -1,14 +1,28 @@
-# Todo for floors
+# Todo for Floors
 
-Version 1.0.0
+**Backlog**
+- update to puko framework version 1.1.0 [progress]
+- documentation and implementation user guide
 
-- Make TOS, Terms, Privacy to main class
-- Make centralized login session injection module
-- dll
+**General features**
+- add register feature [progress]
+- add recovery account feature
+- add select app to continue if sso parameter not set [progress]
+- add authorization access to user login data
+
+**Managerial**
+- add term of service
+- add about privacy policy
+- add about author page
+
+**Operator features**
+- add operator account settings
+
+**User features**
+- add login logs
 
 ### Client code to extract encrypted data from floors
 ```php
-
 public function __construct() 
 {
     $token = Request::Get('token', null);
