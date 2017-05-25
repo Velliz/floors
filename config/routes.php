@@ -1,6 +1,12 @@
 <?php
 $data['page'] = array(
 
+    'select' => array(
+        'controller' => 'select',
+        'function' => 'select',
+        'accept' => ['GET'],
+    ),
+
     'exchange' => array(
         'controller' => 'service',
         'function' => 'exchange',
