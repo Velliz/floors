@@ -175,6 +175,16 @@ class main extends View
     {
     }
 
+    public function not_found()
+    {
+
+    }
+
+    public function error()
+    {
+
+    }
+
     public function OnInitialize()
     {
 

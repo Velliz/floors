@@ -226,6 +226,18 @@ $data['page'] = array(
         'function' => 'recovery',
         'accept' => ['GET', 'POST'],
     ),
+
+    'operator/detail/{!}' => array(
+        'controller' => 'manage\operator',
+        'function' => 'detail',
+        'accept' => ['GET', 'POST'],
+    ),
+
+    'operator/addnew' => array(
+        'controller' => 'manage\operator',
+        'function' => 'addnew',
+        'accept' => ['GET', 'POST'],
+    ),
 );
 
 $data['error'] = array(

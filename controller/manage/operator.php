@@ -32,6 +32,8 @@ class operator extends View implements Auth
      */
     public function main()
     {
+        $data['operator'] = \model\Operator::GetAll();
+        return $data;
     }
 
     public function GetLoginData($id)
@@ -42,6 +44,16 @@ class operator extends View implements Auth
         } else {
             return \model\Users::GetID($userAccount[0]);
         }
+    }
+
+    public function detail($operator_id)
+    {
+
+    }
+
+    public function addnew()
+    {
+
     }
 
     public function Login($username, $password)
