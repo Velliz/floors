@@ -9,6 +9,8 @@
 - add recovery account feature
 - add select app to continue if sso parameter not set [progress]
 - add authorization access to user login data
+- implement secure login key and signature for app data exchange
+- provide API based authentication with JWT
 
 **Managerial**
 - add term of service
