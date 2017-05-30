@@ -238,6 +238,41 @@ $data['page'] = array(
         'function' => 'addnew',
         'accept' => ['GET', 'POST'],
     ),
+
+    'api/permission' => array(
+        'controller' => 'api',
+        'function' => 'permission',
+        'accept' => ['GET', 'POST'],
+    ),
+
+    'api/authorization/{!}' => array(
+        'controller' => 'api',
+        'function' => 'authorization',
+        'accept' => ['GET', 'POST'],
+    ),
+
+    'api/avatar/{!}/{!}' => array(
+        'controller' => 'api',
+        'function' => 'avatar',
+        'accept' => ['GET', 'POST'],
+    ),
+    'api/uploadavatar/{!}' => array(
+        'controller' => 'api',
+        'function' => 'uploadavatar',
+        'accept' => ['GET', 'POST'],
+    ),
+
+    'api/changeavatar/{!}/{!}' => array(
+        'controller' => 'api',
+        'function' => 'changeavatar',
+        'accept' => ['GET', 'POST'],
+    ),
+
+    'api/credentialpic/{!}/{!}' => array(
+        'controller' => 'api',
+        'function' => 'credentialpic',
+        'accept' => ['GET', 'POST'],
+    ),
 );
 
 $data['error'] = array(
