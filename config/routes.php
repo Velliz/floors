@@ -216,13 +216,13 @@ $data['page'] = array(
     ),
 
     'register' => array(
-        'controller' => 'account',
+        'controller' => 'floors\main',
         'function' => 'register',
         'accept' => ['GET', 'POST'],
     ),
 
     'recovery' => array(
-        'controller' => 'account',
+        'controller' => 'floors\main',
         'function' => 'recovery',
         'accept' => ['GET', 'POST'],
     ),

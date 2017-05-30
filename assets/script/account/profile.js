@@ -17,4 +17,12 @@ jQuery(document).ready(function () {
         });
     });
 
+    $(".add-account").on('click', function () {
+        bootbox.dialog({
+            size: "medium",
+            title: 'Tautkan akun sosial media lainnya',
+            message: $('.user-link').parent().html()
+        });
+    });
+
 });

@@ -108,4 +108,21 @@ class main extends View
     {
         // TODO: Implement OnInitialize() method.
     }
+
+    /**
+     * #Template master false
+     * #Auth false
+     */
+    public function recovery()
+    {
+    }
+
+    /**
+     * #Template master false
+     * #Auth false
+     */
+    public function register()
+    {
+
+    }
 }

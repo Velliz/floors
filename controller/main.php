@@ -50,14 +50,11 @@ class main extends View
         $sso = Request::Get('sso', null);
         if ($sso != null) {
             Session::Get(operator_authenticator::Instance())->PutSession('sso', $sso, Auth::EXPIRED_1_MONTH);
-        } else {
-            $this->RedirectTo(BASE_URL . 'select');
-            exit;
         }
 
         $ssoCache = Session::Get(operator_authenticator::Instance())->GetSession('sso');
         if ($ssoCache == false) {
-            throw new Exception('app token not set. set with ' . BASE_URL . '?sso=[YOUR_APP_TOKEN]');
+            $this->RedirectTo(BASE_URL . 'select');
         }
         $this->app = Applications::GetByToken($ssoCache);
         if ($this->app == null) {

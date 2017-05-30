@@ -66,6 +66,8 @@ class main extends View implements Auth
     public function callbacks()
     {
 
+        $update_credential = false;
+
         $helper = $this->fbObject->getRedirectLoginHelper();
         try {
             $accessToken = $helper->getAccessToken();
@@ -90,6 +92,23 @@ class main extends View implements Auth
             exit;
         }
 
+        //if user already login and add another credential
+        $user_session = Session::Get(authenticator::Instance())->GetLoginData();
+        if ($user_session != null) {
+            $has_credential = Credentials::GetCredentials($user_session['id'], 'Facebook');
+            if ($has_credential == null) {
+                Credentials::Create(array(
+                    'userid' => $user_session['id'],
+                    'type' => 'Facebook',
+                    'credentials' => $userNode->getId(),
+                    'created' => DBI::NOW(),
+                    'profilepic' => (string)"https://graph.facebook.com/" . $userNode->getId() . "/picture?width=400&height=400",
+                ));
+            }
+            $update_credential = true;
+        }
+        //endif user already login and add another credential
+
         if (!Session::Get(authenticator::Instance())->Login($userNode->getId(), 'credentials',
             authenticator::EXPIRED_1_MONTH)) {
             $userId = Users::Create(array(
@@ -109,7 +128,7 @@ class main extends View implements Auth
         };
 
         $data = Session::Get(authenticator::Instance())->GetLoginData();
-        //todo: make login token for user security
+
         $agent = $_SERVER['HTTP_USER_AGENT'];
         $remote_ip = $_SERVER['REMOTE_ADDR'];
         $method = $_SERVER['REQUEST_METHOD'];
@@ -125,6 +144,12 @@ class main extends View implements Auth
             'useragent' => $agent,
             'httpstatus' => $http_status
         ));
+
+        //if already logged in
+        if ($update_credential) {
+            $this->RedirectTo(BASE_URL . 'account');
+        }
+        //end if already logged in
 
         $key = hash('sha256', $this->app['apptoken']);
         $iv = substr(hash('sha256', $this->app['identifier']), 0, 16);

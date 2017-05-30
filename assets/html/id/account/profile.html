@@ -3,7 +3,7 @@
 {/CSS}
 <div class="row">
     <div class="col-md-3">
-        <div class="box box-primary">
+        <div class="box box-default">
             <div class="box-body box-profile">
                 <img class="img-responsive" src="{URL}api/avatar/{!id}/400" alt="{!fullname}">
                 <br>
@@ -13,9 +13,20 @@
                 <p>{!firstemail}</p>
             </div>
         </div>
+        <div class="box box-default">
+            <div class="box-body">
+                <p>Terhubung dengan</p>
+                <!--{!credentials}-->
+                <p class="label label-info">{!type}</p>
+                <!--{/credentials}-->
+            </div>
+            <div class="box-footer">
+                <button class="btn btn-primary btn-block add-account" name="add">Tambahkan Account</button>
+            </div>
+        </div>
     </div>
     <div class="col-md-9">
-        <div class="box box-primary">
+        <div class="box box-default">
             <form action="" method="post">
                 <div class="box-body box-profile">
                     <div class="form-group">
@@ -25,27 +36,32 @@
                     </div>
                     <div class="form-group">
                         <label for="fullname">Nama Lengkap</label>
-                        <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Ketik nama lengkap"
+                        <input type="text" class="form-control" id="fullname" name="fullname"
+                               placeholder="Ketik nama lengkap"
                                value="{!fullname}">
                     </div>
                     <div class="form-group">
                         <label for="phonenumber">No. Telpon</label>
-                        <input type="text" class="form-control" id="phonenumber" name="phonenumber" placeholder="Ketik no telpon"
+                        <input type="text" class="form-control" id="phonenumber" name="phonenumber"
+                               placeholder="Ketik no telpon"
                                value="{!phonenumber}">
                     </div>
                     <div class="form-group">
                         <label for="firstemail">Email (Primary)</label>
-                        <input type="email" class="form-control" id="firstemail" name="firstemail" placeholder="Ketik email (primary)"
+                        <input type="email" class="form-control" id="firstemail" name="firstemail"
+                               placeholder="Ketik email (primary)"
                                value="{!firstemail}">
                     </div>
                     <div class="form-group">
                         <label for="secondemail">Email (Secondary)</label>
-                        <input type="email" class="form-control" id="secondemail" name="secondemail" placeholder="Ketik email (secondary)"
+                        <input type="email" class="form-control" id="secondemail" name="secondemail"
+                               placeholder="Ketik email (secondary)"
                                value="{!secondemail}">
                     </div>
                     <div class="form-group">
                         <label for="birthday">Tanggal Lahir</label>
-                        <input type="text" class="form-control datepicker" id="birthday" name="birthday" placeholder="Pilih tanggal lahir"
+                        <input type="text" class="form-control datepicker" id="birthday" name="birthday"
+                               placeholder="Pilih tanggal lahir"
                                value="{!birthday_formated}">
                     </div>
                     <div class="form-group">
@@ -70,7 +86,8 @@
             <div class="img-responsive" style="width: 100%">
                 <img class="img-responsive" src="{URL}api/credentialpic/{!id}/Facebook" alt="{!fullname}">
             </div>
-            <a href="{URL}api/changeavatar/{!id}/{!facebook_id}" class="btn btn-block btn-default">Pilih dari Facebook</a>
+            <a href="{URL}api/changeavatar/{!id}/{!facebook_id}" class="btn btn-block btn-default">Pilih dari
+                Facebook</a>
         </div>
         <!--{/facebook}-->
         <!--{!!google}-->
@@ -90,12 +107,32 @@
         </div>
         <!--{/twitter}-->
     </div>
-    <hr>
+    <div class="clearfix"></div>
+    <br>
+    <p class="text-center">Atau</p>
     <form action="{URL}api/uploadavatar/{!id}" method="post" enctype="multipart/form-data">
         <input type="hidden" name="token" value="{!token}"/>
         <input type="hidden" name="_submit" value="Simpan"/>
         <input type="file" name="avatar" class="btn btn-block btn-primary input-avatar" value="Upload Baru">
     </form>
+</div>
+
+<div class="hidden">
+    <div class="row user-link">
+        <div class="login-box">
+            <div class="login-box-body">
+                <a href="{!FacebookLoginUrl}" class="btn btn-block btn-social btn-facebook btn-flat">
+                    <i class="fa fa-facebook"></i> Tautkan akun Facebook
+                </a>
+                <a href="{!GoogleLoginUrl}" class="btn btn-block btn-social btn-google btn-flat">
+                    <i class="fa fa-google-plus"></i> Tautkan akun Google
+                </a>
+                <a href="{!TwitterLoginUrl}" class="btn btn-block btn-social btn-twitter btn-flat">
+                    <i class="fa fa-twitter"></i> Tautkan akun Twitter
+                </a>
+            </div>
+        </div>
+    </div>
 </div>
 
 {!JS}

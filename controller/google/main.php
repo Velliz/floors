@@ -1,4 +1,5 @@
 <?php
+
 namespace controller\google;
 
 use controller\util\authenticator;
@@ -42,7 +43,7 @@ class main extends View
             throw new Exception('app specified by token ' . $ssoCache . ' not found on floors server');
         }
 
-        $gBroker = Broker::GetAppCode($this->app['id'],'G');
+        $gBroker = Broker::GetAppCode($this->app['id'], 'G');
         if ($gBroker == false) {
             throw new Exception('G broker is not set.');
         }
@@ -61,6 +62,9 @@ class main extends View
      */
     public function callbacks()
     {
+
+        $update_credential = false;
+
         $service = new Google_Service_Oauth2($this->client);
 
         if (isset($_GET['code'])) {
@@ -72,9 +76,27 @@ class main extends View
 
         $this->client->setAccessToken($_SESSION['access_token']);
         $user = $service->userinfo->get();
-        
+
+        //if user already login and add another credential
+        $user_session = Session::Get(authenticator::Instance())->GetLoginData();
+        if ($user_session != null) {
+            $has_credential = Credentials::GetCredentials($user_session['id'], 'Google');
+            if ($has_credential == null) {
+                Credentials::Create(array(
+                    'userid' => $user_session['id'],
+                    'type' => 'Google',
+                    'credentials' => $user->id,
+                    'created' => DBI::NOW(),
+                    'profilepic' => (string)$user->picture,
+                ));
+            }
+            $update_credential = true;
+        }
+        //endif user already login and add another credential
+
         if (!Session::Get(authenticator::Instance())->Login($user->id, 'credentials',
-            authenticator::EXPIRED_1_MONTH)) {
+            authenticator::EXPIRED_1_MONTH)
+        ) {
             $userId = Users::Create(array(
                 'created' => DBI::NOW(),
                 'fullname' => $user->name,
@@ -108,6 +130,12 @@ class main extends View
             'useragent' => $agent,
             'httpstatus' => $http_status
         ));
+
+        //if already logged in
+        if ($update_credential) {
+            $this->RedirectTo(BASE_URL . 'account');
+        }
+        //end if already logged in
 
         $key = hash('sha256', $this->app['token']);
         $iv = substr(hash('sha256', $this->app['identifier']), 0, 16);
