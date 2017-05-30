@@ -1,1 +1,78 @@
-TODO: Settings Page
+<!--{!!Exception}-->
+<div class="alert alert-danger alert-dismissable">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <h4><i class="icon fa fa-ban"></i> Gagal!</h4>
+    {!ExceptionMessage}
+</div>
+<!--{/Exception}-->
+
+<div class="box box-default">
+
+    <div class="box-header with-border">
+        <h3 class="box-title">Admin Profile</h3>
+    </div>
+
+    <form class="form-horizontal" method="post" action="">
+        <input type="hidden" name="token" value="{!token}">
+        <input type="hidden" name="action" value="profile">
+        <div class="box-body">
+            <div class="form-group">
+                <label for="username" class="col-sm-2 control-label">Username</label>
+                <div class="col-sm-10">
+                    <input class="form-control" id="username" placeholder="username" type="text" name="username"
+                           required value="{!roles}\{!username}" readonly>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="nama" class="col-sm-2 control-label">Nama Lengkap</label>
+                <div class="col-sm-10">
+                    <input class="form-control" id="nama" placeholder="Nama Lengkap" type="text" name="nama" required
+                           value="{!fullname}">
+                </div>
+            </div>
+        </div>
+        <div class="box-footer">
+            <input type="submit" class="btn btn-danger" value="Change Info" name="_submit">
+        </div>
+    </form>
+</div>
+
+<div class="box box-default">
+    <div class="box-header with-border">
+        <h3 class="box-title">Ubah Password</h3>
+    </div>
+
+    <form class="form-horizontal" method="post" action="">
+        <input type="hidden" name="token" value="{!token}">
+        <input type="hidden" name="action" value="password">
+        <div class="box-body">
+            <div class="form-group">
+                <label for="oldpassword" class="col-sm-2 control-label">Password Lama</label>
+                <div class="col-sm-10">
+                    <input class="form-control" id="oldpassword" placeholder="Old Password" type="password"
+                           name="oldpassword" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="newpassword" class="col-sm-2 control-label">Password Baru</label>
+                <div class="col-sm-10">
+                    <input class="form-control" id="newpassword" placeholder="New Password" type="password"
+                           name="password" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmpassword" class="col-sm-2 control-label">Confirm Password Baru</label>
+                <div class="col-sm-10">
+                    <input class="form-control" id="confirmpassword" placeholder="Confirm New Password" type="password"
+                           name="confirmpassword" required>
+                </div>
+            </div>
+
+        </div>
+        <div class="box-footer">
+            <input type="submit" class="btn btn-danger" value="Change Password" name="_submit">
+        </div>
+    </form>
+</div>

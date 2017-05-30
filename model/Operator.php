@@ -17,7 +17,7 @@ class Operator
 
     public static function GetAll()
     {
-        return DBI::Prepare("SELECT * FROM `operator`")->GetData();
+        return DBI::Prepare("SELECT * FROM `operator` WHERE (dflag = 0)")->GetData();
     }
 
     public static function GetID($id)
@@ -29,6 +29,12 @@ class Operator
     {
         return DBI::Prepare("SELECT * FROM operator WHERE (dflag = 0)
         AND (roles = @1) AND (username = @2) AND (password = @3) LIMIT 1;")->FirstRow($roles, $username, $password);
+    }
+
+    public static function GetByIDAndPassword($id, $password)
+    {
+        return DBI::Prepare("SELECT * FROM operator WHERE (dflag = 0)
+        AND (id = @1) AND (password = @2) LIMIT 1;")->GetData($id, $password);
     }
 
 
