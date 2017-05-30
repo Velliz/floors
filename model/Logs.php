@@ -30,4 +30,10 @@ class Logs
     {
         return DBI::Prepare("SELECT * FROM `logs` WHERE (`token` = @1) AND (dflag = 0);")->GetData($token);
     }
+
+    public static function CountAll()
+    {
+        $data = DBI::Prepare("SELECT COUNT(*) counter FROM `logs`")->FirstRow();
+        return $data['counter'];
+    }
 }

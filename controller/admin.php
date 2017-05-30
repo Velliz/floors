@@ -4,6 +4,7 @@ namespace controller;
 use controller\util\operator_authenticator;
 use Exception;
 use model\Applications;
+use model\Logs;
 use model\Users;
 use pukoframework\auth\Session;
 use pukoframework\pte\View;
@@ -31,7 +32,7 @@ class admin extends View
 
         $data['Applications'] = Applications::CountAll();
         $data['Users'] = Users::CountAll();
-        $data['Login'] = 0;
+        $data['Login'] = Logs::CountAll();
 
         return $data;
     }

@@ -15,9 +15,9 @@ class Users
         return DBI::Prepare('users')->Update($where, $data);
     }
 
-    public static function GetAll()
+    public static function GetAll($limit = 50)
     {
-        return DBI::Prepare("SELECT * FROM `users`")->GetData();
+        return DBI::Prepare("SELECT * FROM users LIMIT $limit")->GetData();
     }
 
     public static function CountAll()
