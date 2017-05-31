@@ -1,26 +1,33 @@
-# Floors [BETA]
+# Floors [ON GOING]
 
-Floors is PHP based **login as-a service** platform 
-for **single sign on** distributed web apps.
+> Floors is on going to beta version on June 2017.
 
-Floors is build on top Puko Framework. Visit [Floors](http://floors.cf?sso=b57b22e6deed7ce29d6e08e096ea3180ad13d005) for see on working project results.
+Login is the most implemented and boring feature because its repeated in every single web app i ever build.
+Floors is PHP based **login as-a service** platform for **single sign on** distributed web apps that solving boring problem i faced.
+Built with credentials integrations support with facebook, google and twiter out of the box with only configuration without coding.
+Let's make login feature fun again with floors!
 
-Main features:
+###Installations
+Coming soon on beta release
+
+###Setup
+Coming soon beta release
+
+###Main features
 ```
-* app management
+* thrid party app management
 * authorization
 * users log
-* roles
+* roles and credentials
 ```
 
-login features:
+###Login features
 ```
 * Facebook
 * Google Accounts
 * Twitter
 * Floors Account
-* ... you can request
 ```
 
 ### About
-Made with <3 from **Bandung** Indonesia.
+Floors is build on top [Puko Framework](https://github.com/Velliz/pukoframework) ![pukoframewoek](https://github.com/Velliz/pukodocs/blob/gh-pages/icon/material/puko-material-50.png)
