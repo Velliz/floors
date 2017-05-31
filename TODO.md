@@ -1,14 +1,14 @@
 # Todo for Floors
 
 **Backlog**
-- update to puko framework version 1.1.0 [progress]
+- update to puko framework version 1.1.0 [done]
 - documentation and implementation user guide
 
 **General features**
 - add register feature [progress]
 - add recovery account feature
-- add select app to continue if sso parameter not set [progress]
-- add authorization access to user login data
+- add select app to continue if sso parameter not set [QA]
+- add authorization list to JSON user login data
 - implement secure login key and signature for app data exchange
 - provide API based authentication with JWT
 
@@ -18,10 +18,13 @@
 - add about author page
 
 **Operator features**
-- add operator account settings
+- add operator account settings [done]
 
 **User features**
-- add login logs
+- add login logs notification
+- add language settings for change language
+- add user login history page
+- add user authorization list page
 
 ### Client code to extract encrypted data from floors
 ```php
