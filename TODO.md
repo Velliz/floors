@@ -5,8 +5,8 @@
 - documentation and implementation user guide
 
 **General features**
-- add register feature [progress]
-- add recovery account feature
+- add register feature [QA]
+- add recovery account feature [pending] needs email account setup
 - add select app to continue if sso parameter not set [QA]
 - add authorization list to JSON user login data
 - implement secure login key and signature for app data exchange
