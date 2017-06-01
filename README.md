@@ -4,7 +4,7 @@
 
 Login is the most implemented and boring feature because its repeated in every single web app i ever build.
 Floors is PHP based **login as-a service** platform for **single sign on** distributed web apps that solving boring problem i faced.
-Built with credentials integrations support with facebook, google and twiter out of the box with only configuration without coding.
+Built with credentials integrations support with facebook, google and twitter out of the box with only configuration without coding.
 Let's make login feature fun again with floors!
 
 ### Installations

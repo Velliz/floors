@@ -1,1 +1,102 @@
-auth
+{!CSS}
+<link href="{URL}assets/global/plugins/datepicker/datepicker3.css" rel="stylesheet">
+{/CSS}
+<div class="row">
+    <div class="col-md-3">
+        <div class="box box-default">
+            <div class="box-body box-profile">
+                <img class="img-responsive" src="{URL}api/avatar/{!id}/400" alt="{!fullname}">
+                <br>
+                <button class="btn btn-primary btn-block avatar" name="avatar">Perbarui Avatar</button>
+                <br>
+                <p>{!fullname}</p>
+                <p>{!firstemail}</p>
+            </div>
+        </div>
+        <div class="box box-default">
+            <div class="box-body">
+                <select name="bahasa" class="form-control" id="bahasa">
+                    <option value="id">Indonesia</option>
+                </select>
+            </div>
+        </div>
+        <div class="box box-default">
+            <div class="box-body">
+                <p>Terhubung dengan</p>
+                <!--{!credentials}-->
+                <p class="label label-info">{!type}</p>
+                <!--{/credentials}-->
+            </div>
+            <div class="box-footer">
+                <button class="btn btn-primary btn-block add-account" name="add">Tambahkan Account</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="box box-default">
+            TODO
+        </div>
+    </div>
+</div>
+
+<div class="hidden">
+    <div class="row user-avatar">
+        <!--{!!facebook}-->
+        <div class="col-md-4">
+            <div class="img-responsive" style="width: 100%">
+                <img class="img-responsive" src="{URL}api/credentialpic/{!id}/Facebook" alt="{!fullname}">
+            </div>
+            <a href="{URL}api/changeavatar/{!id}/{!facebook_id}" class="btn btn-block btn-default">Pilih dari
+                Facebook</a>
+        </div>
+        <!--{/facebook}-->
+        <!--{!!google}-->
+        <div class="col-md-4">
+            <div class="img-responsive" style="width: 100%">
+                <img class="img-responsive" src="{URL}api/credentialpic/{!id}/Google" alt="{!fullname}">
+            </div>
+            <a href="{URL}api/changeavatar/{!id}/{!google_id}" class="btn btn-block btn-default">Pilih dari Google</a>
+        </div>
+        <!--{/google}-->
+        <!--{!!twitter}-->
+        <div class="col-md-4">
+            <div class="img-responsive" style="width: 100%">
+                <img class="img-responsive" src="{URL}api/credentialpic/{!id}/Twitter" alt="{!fullname}">
+            </div>
+            <a href="{URL}api/changeavatar/{!id}/{!twitter_id}" class="btn btn-block btn-default">Pilih dari Twitter</a>
+        </div>
+        <!--{/twitter}-->
+    </div>
+    <div class="clearfix"></div>
+    <br>
+    <p class="text-center">Atau</p>
+    <form action="{URL}api/uploadavatar/{!id}" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="token" value="{!token}"/>
+        <input type="hidden" name="_submit" value="Simpan"/>
+        <input type="file" name="avatar" class="btn btn-block btn-primary input-avatar" value="Upload Baru">
+    </form>
+</div>
+
+<div class="hidden">
+    <div class="row user-link">
+        <div class="login-box">
+            <div class="login-box-body">
+                <a href="{!FacebookLoginUrl}" class="btn btn-block btn-social btn-facebook btn-flat">
+                    <i class="fa fa-facebook"></i> Tautkan akun Facebook
+                </a>
+                <a href="{!GoogleLoginUrl}" class="btn btn-block btn-social btn-google btn-flat">
+                    <i class="fa fa-google-plus"></i> Tautkan akun Google
+                </a>
+                <a href="{!TwitterLoginUrl}" class="btn btn-block btn-social btn-twitter btn-flat">
+                    <i class="fa fa-twitter"></i> Tautkan akun Twitter
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{!JS}
+<script src="{URL}assets/global/plugins/datepicker/bootstrap-datepicker.js"></script>
+<script src="{URL}assets/global/plugins/bootbox/bootbox.min.js"></script>
+<script src="{URL}assets/script/account/profile.js"></script>
+{/JS}

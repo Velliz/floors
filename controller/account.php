@@ -81,28 +81,6 @@ class account extends View
 
             $this->RedirectTo(BASE_URL . 'account');
         }
-
-        $facebook = Credentials::GetCredentials($data['id'], 'Facebook');
-        $data['facebook'] = ($facebook == null) ? true : false;
-        $data['facebook_id'] = $facebook['id'];
-
-        $google = Credentials::GetCredentials($data['id'], 'Google');
-        $data['google'] = ($google == null) ? true : false;
-        $data['google_id'] = $google['id'];
-
-        $twitter = Credentials::GetCredentials($data['id'], 'Twitter');
-        $data['twitter'] = ($twitter == null) ? true : false;
-        $data['twitter_id'] = $twitter['id'];
-
-        $data['credentials'] = Credentials::GetCredentialsByUserID($data['id']);
-
-        if ($data['birthday'] != null) {
-            $convert_day = $data['birthday'];
-            $convert_day = DateTime::createFromFormat('Y-m-d', $convert_day);
-            $data['birthday_formated'] = $convert_day->format('d-m-Y');
-        }
-
-        return $data;
     }
 
     /**
@@ -114,7 +92,7 @@ class account extends View
     {
         $data = Session::Get(authenticator::Instance())->GetLoginData();
 
-        return $data;
+
     }
 
     /**
@@ -185,23 +163,45 @@ class account extends View
         //begin facebook LOGIN button
         $helper = $this->fbObject->getRedirectLoginHelper();
         $permissions = ['email', 'public_profile', 'user_friends'];
-        $vars['FacebookLoginUrl'] = $helper->getLoginUrl(BASE_URL . 'facebook/callbacks', $permissions);
+        $data['FacebookLoginUrl'] = $helper->getLoginUrl(BASE_URL . 'facebook/callbacks', $permissions);
         //end facebook LOGIN button
 
         //begin google LOGIN button
-        $vars['GoogleLoginUrl'] = $this->client->createAuthUrl();
+        $data['GoogleLoginUrl'] = $this->client->createAuthUrl();
         //end google LOGIN button
 
         //begin twitter LOGIN button
         $tCredentials = $this->tObject->oauth('oauth/request_token');
         $_SESSION['oauth_token'] = $tCredentials['oauth_token'];
         $_SESSION['oauth_token_secret'] = $tCredentials['oauth_token_secret'];
-        $vars['TwitterLoginUrl'] = $this->tObject->url(
+        $data['TwitterLoginUrl'] = $this->tObject->url(
             "oauth/authorize",
             array("oauth_token" => $tCredentials['oauth_token'])
         );
         //end twitter LOGIN button
 
-        return $vars;
+        $data = Session::Get(authenticator::Instance())->GetLoginData();
+
+        $facebook = Credentials::GetCredentials($data['id'], 'Facebook');
+        $data['facebook'] = ($facebook == null) ? true : false;
+        $data['facebook_id'] = $facebook['id'];
+
+        $google = Credentials::GetCredentials($data['id'], 'Google');
+        $data['google'] = ($google == null) ? true : false;
+        $data['google_id'] = $google['id'];
+
+        $twitter = Credentials::GetCredentials($data['id'], 'Twitter');
+        $data['twitter'] = ($twitter == null) ? true : false;
+        $data['twitter_id'] = $twitter['id'];
+
+        $data['credentials'] = Credentials::GetCredentialsByUserID($data['id']);
+
+        if ($data['birthday'] != null) {
+            $convert_day = $data['birthday'];
+            $convert_day = DateTime::createFromFormat('Y-m-d', $convert_day);
+            $data['birthday_formated'] = $convert_day->format('d-m-Y');
+        }
+
+        return $data;
     }
 }
