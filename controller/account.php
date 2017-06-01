@@ -9,6 +9,7 @@ use Exception;
 use Facebook\Facebook;
 use Google_Client;
 use model\Applications;
+use model\Authorization;
 use model\Broker;
 use model\Credentials;
 use model\Users;
@@ -92,7 +93,13 @@ class account extends View
     {
         $data = Session::Get(authenticator::Instance())->GetLoginData();
 
+        $data['app'] = Authorization::GetAvailableApplication($data['id']);
+        foreach ($data['app'] as $key => $val) {
+            $temp = Authorization::GetUserToAppAuthorization($data['id'], $val['id']);
+            $data['app'][$key]['permission'] = $temp;
+        }
 
+        return $data;
     }
 
     /**
