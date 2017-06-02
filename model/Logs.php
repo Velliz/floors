@@ -26,9 +26,9 @@ class Logs
         return DBI::Prepare("SELECT * FROM `logs` WHERE (`id` = @1) AND (dflag = 0);")->GetData($id);
     }
 
-    public static function GetByToken($token)
+    public static function GetByUser($user_id)
     {
-        return DBI::Prepare("SELECT * FROM `logs` WHERE (`token` = @1) AND (dflag = 0);")->GetData($token);
+        return DBI::Prepare("SELECT *, id logsid FROM logs WHERE (userid = 1) ORDER BY datein DESC LIMIT 30;")->GetData($user_id);
     }
 
     public static function CountAll()

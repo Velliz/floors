@@ -12,6 +12,7 @@ use model\Applications;
 use model\Authorization;
 use model\Broker;
 use model\Credentials;
+use model\Logs;
 use model\Users;
 use pukoframework\auth\Session;
 use pukoframework\pte\View;
@@ -120,6 +121,8 @@ class account extends View
     public function history()
     {
         $data = Session::Get(authenticator::Instance())->GetLoginData();
+        $data['logs'] = Logs::GetByUser($data['id']);
+
         return $data;
     }
 
