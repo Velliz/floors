@@ -1,3 +1,5 @@
+<img align="left" src="https://github.com/Velliz/floors/blob/master/assets/image/floors-icon-50.png">
+
 # Floors [ON GOING]
 
 > Floors is on going to beta version on June 2017.
