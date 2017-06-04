@@ -1,7 +1,23 @@
 {
     "name": "velliz/floors",
-    "description": "PHP based login as a service platform for web apps",
-    "license": "MIT",
+  "description": "PHP based login as a service (LASS) platform for building web apps",
+  "minimum-stability": "RC",
+  "version": "0.1.0",
+  "license": "GPL-3.0+",
+  "authors": [
+    {
+      "name": "velliz",
+      "email": "diditvelliz@outlook.com",
+      "homepage": "http://velliz.github.io",
+      "role": "Lead Developer"
+    }
+  ],
+  "repositories": [
+    {
+      "type": "git",
+      "url": "https://github.com/Velliz/floors"
+    }
+  ],
     "require": {
         "puko/framework": "dev-master",
         "facebook/graph-sdk" : "~5.0",
