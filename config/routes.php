@@ -273,6 +273,12 @@ $data['page'] = array(
         'function' => 'credentialpic',
         'accept' => ['GET', 'POST'],
     ),
+
+    'resume' => array(
+        'controller' => 'resume',
+        'function' => 'main',
+        'accept' => ['GET', 'POST'],
+    ),
 );
 
 $data['error'] = array(
