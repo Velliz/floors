@@ -16,6 +16,7 @@ Let's make login feature fun again with floors!
 > Coming soon beta release
 
 ### Main features
+
 ```
 * thrid party app management
 * authorization
@@ -24,6 +25,7 @@ Let's make login feature fun again with floors!
 ```
 
 ### Login features
+
 ```
 * Facebook
 * Google Accounts
@@ -32,4 +34,5 @@ Let's make login feature fun again with floors!
 ```
 
 ### About
+
 Floors is build on top [Puko Framework](https://github.com/Velliz/pukoframework)
