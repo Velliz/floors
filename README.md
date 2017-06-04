@@ -10,7 +10,11 @@ Built with credentials integrations support with facebook, google and twitter ou
 Let's make login feature fun again with floors!
 
 ### Installations
-> Coming soon on beta release
+
+Wanna try? just hit:
+```
+composer create-project -s dev velliz/floors project_name
+```
 
 ### Setup
 > Coming soon beta release
