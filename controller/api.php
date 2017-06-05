@@ -6,7 +6,9 @@ use Exception;
 use model\Authorization;
 use model\Avatars;
 use model\Credentials;
+use model\Logs;
 use model\Permissions;
+use model\Users;
 use pukoframework\pda\DBI;
 use pukoframework\pte\Service;
 use pukoframework\Request;
@@ -51,43 +53,12 @@ class api extends Service
         $data['Permission'] = Authorization::GetUserToAppAuthorization($userId, $appId);
         return $data;
     }
-    #end region internal
-
-    /**
-     * API for retrive user additional data
-     */
-    public function user()
-    {
-
-    }
-
-    /**
-     * @param null $userId
-     *
-     * API for fetch user latest avatar
-     * @param int $width
-     */
-    public function avatar($userId = null, $width = 100)
-    {
-        header('Content-Type: image/png');
-        if ($userId == null) {
-            readfile(BASE_URL . 'assets/image/user-icon-placeholder.png');
-            die();
-        } else {
-            $avatar = Avatars::GetByUserId($userId);
-            if ($avatar == null) {
-                $this->avatar(null);
-            } else {
-                $avatar = imagecreatefromstring($avatar['filedata']);
-                echo imagepng(imagescale($avatar, $width));
-            }
-        }
-    }
 
     /**
      * @param null $userId
      * @throws Exception
      *
+     * #Auth true
      * API for uploading user new avatar
      */
     public function upload_avatar($userId = null)
@@ -132,6 +103,8 @@ class api extends Service
      * @param null $userId
      * @param null $credentialId
      * @throws Exception
+     *
+     * #Auth true
      */
     public function change_avatar($userId = null, $credentialId = null)
     {
@@ -172,6 +145,7 @@ class api extends Service
      * @param null $userId
      * @param null $type
      *
+     * #Auth true
      * API for get chached image from user credentials
      */
     public function credential_picture($userId = null, $type = null)
@@ -189,6 +163,44 @@ class api extends Service
             }
         }
     }
+    #end region internal
+
+    /**
+     * API for retrive user additional data
+     */
+    public function user()
+    {
+        $token = Request::Post('token', null);
+        if ($token == null) {
+            throw new Exception("token not defined");
+        }
+        $userid = Logs::ExchangeTokenWithUserID($token);
+        return Users::GetID($userid);
+    }
+
+    /**
+     * @param null $userId
+     *
+     * API for fetch user latest avatar
+     * @param int $width
+     */
+    public function avatar($userId = null, $width = 100)
+    {
+        header('Content-Type: image/png');
+        if ($userId == null) {
+            readfile(BASE_URL . 'assets/image/user-icon-placeholder.png');
+            die();
+        } else {
+            $avatar = Avatars::GetByUserId($userId);
+            if ($avatar == null) {
+                $this->avatar(null);
+            } else {
+                $avatar = imagecreatefromstring($avatar['filedata']);
+                echo imagepng(imagescale($avatar, $width));
+            }
+        }
+    }
+
 
     public function OnInitialize()
     {

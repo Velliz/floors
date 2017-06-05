@@ -1,4 +1,5 @@
 <?php
+
 namespace model;
 
 
@@ -35,5 +36,11 @@ class Logs
     {
         $data = DBI::Prepare("SELECT COUNT(*) counter FROM `logs`")->FirstRow();
         return $data['counter'];
+    }
+
+    public static function ExchangeTokenWithUserID($token)
+    {
+        $sql = "SELECT userid FROM logs l WHERE (l.tokens = @1) LIMIT 1;";
+        return DBI::Prepare($sql)->FirstRow($token)['userid'];
     }
 }
