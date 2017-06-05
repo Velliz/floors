@@ -31,6 +31,13 @@ class Users
         return DBI::Prepare("SELECT * FROM users WHERE (id = @1) LIMIT 1")->FirstRow($id);
     }
 
+    public static function GetUserData($id)
+    {
+        return DBI::Prepare("SELECT id, alias, suffix, fullname, prefix,
+        phonenumber, firstemail, secondemail, birthday, descriptions
+        FROM users WHERE (id = @1) LIMIT 1")->FirstRow($id);
+    }
+
     public static function GetUser($username, $password)
     {
         return DBI::Prepare("SELECT u.* FROM users u

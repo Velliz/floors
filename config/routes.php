@@ -209,6 +209,7 @@ $data['page'] = array(
         'function' => 'history',
         'accept' => ['GET', 'POST'],
     ),
+
     'account' => array(
         'controller' => 'account',
         'function' => 'profile',
@@ -256,6 +257,7 @@ $data['page'] = array(
         'function' => 'avatar',
         'accept' => ['GET', 'POST'],
     ),
+
     'api/uploadavatar/{!}' => array(
         'controller' => 'api',
         'function' => 'uploadavatar',
@@ -271,6 +273,12 @@ $data['page'] = array(
     'api/credentialpic/{!}/{!}' => array(
         'controller' => 'api',
         'function' => 'credentialpic',
+        'accept' => ['GET', 'POST'],
+    ),
+
+    'api/authorized' => array(
+        'controller' => 'api',
+        'function' => 'authorized',
         'accept' => ['GET', 'POST'],
     ),
 

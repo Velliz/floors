@@ -123,7 +123,7 @@ class main extends View
 
             Logs::Create(array(
                 'userid' => $data['id'],
-                'credentialid' => 0,
+                'credentialid' => $data['credentialid'],
                 'datein' => $this->GetServerDateTime(),
                 'requestmethod' => $method,
                 'action' => 'Login',

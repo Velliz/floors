@@ -3,13 +3,13 @@
 namespace controller;
 
 use Exception;
+use model\Applications;
 use model\Authorization;
 use model\Avatars;
 use model\Credentials;
 use model\Logs;
 use model\Permissions;
 use model\Users;
-use pukoframework\pda\DBI;
 use pukoframework\pte\Service;
 use pukoframework\Request;
 
@@ -68,8 +68,9 @@ class api extends Service
         $name = $_FILES['avatar']['name'];
         $type = $_FILES['avatar']['type'];
         $tmp_name = file_get_contents($_FILES['avatar']['tmp_name']);
-        $error = $_FILES['avatar']['error'];
-        $size = $_FILES['avatar']['size'];
+
+        //$error = $_FILES['avatar']['error'];
+        //$size = $_FILES['avatar']['size'];
 
         $crc = sprintf('%x', crc32($tmp_name));
         $hashCode = substr(hash('sha256', date('U') . $name . $crc), 0, 64);
@@ -78,7 +79,7 @@ class api extends Service
         if ($prev == null) {
             Avatars::Create(array(
                 'userid' => $userId,
-                'created' => DBI::NOW(),
+                'created' => $this->GetServerDateTime(),
                 'filename' => $name,
                 'hash' => $hashCode,
                 'crc' => $crc,
@@ -87,7 +88,7 @@ class api extends Service
             ));
         } else {
             Avatars::Update(array('userid' => $userId), array(
-                'modified' => DBI::NOW(),
+                'modified' => $this->GetServerDateTime(),
                 'filename' => $name,
                 'hash' => $hashCode,
                 'crc' => $crc,
@@ -120,7 +121,7 @@ class api extends Service
         if ($prev == null) {
             Avatars::Create(array(
                 'userid' => $userId,
-                'created' => DBI::NOW(),
+                'created' => $this->GetServerDateTime(),
                 'filename' => $credential['type'],
                 'hash' => $hashCode,
                 'crc' => $crc,
@@ -129,7 +130,7 @@ class api extends Service
             ), true);
         } else {
             Avatars::Update(array('userid' => $userId), array(
-                'modified' => DBI::NOW(),
+                'modified' => $this->GetServerDateTime(),
                 'hash' => $hashCode,
                 'crc' => $crc,
                 'extensions' => 'image/png',
@@ -156,7 +157,7 @@ class api extends Service
         } else {
             $credential = Credentials::GetCredentials($userId, $type);
             if ($credential == null) {
-                $this->credentialpic(null, null);
+                $this->credential_picture(null, null);
             } else {
                 echo $credential['profilepic'];
             }
@@ -166,6 +167,7 @@ class api extends Service
 
     /**
      * API for retrive user additional data
+     * http://localhost/floors/api/user [POST]
      */
     public function user()
     {
@@ -174,14 +176,16 @@ class api extends Service
             throw new Exception("token not defined");
         }
         $userid = Logs::ExchangeTokenWithUserID($token);
-        return Users::GetID($userid);
+        $data['user'] = Users::GetUserData($userid);
+        return $data;
     }
 
     /**
      * @param int $userId
+     * @param int $width
      *
      * API for fetch user latest avatar
-     * @param int $width
+     * http://localhost/floors/api/avatar/1/400 [GET]
      */
     public function avatar($userId = null, $width = 100)
     {
@@ -200,6 +204,24 @@ class api extends Service
         }
     }
 
+    public function authorized()
+    {
+        $token = Request::Post('token', null);
+        if ($token == null) {
+            throw new Exception("token not defined");
+        }
+
+        $sso = Request::Post('sso', null);
+        if ($sso == null) {
+            throw new Exception("sso not defined");
+        }
+
+        $app = Applications::GetByToken($sso);
+        $userid = Logs::ExchangeTokenWithUserID($token);
+
+        $data['auth'] = Authorization::GetUserToAppAuthorization($userid, $app['id']);
+        return $data;
+    }
 
     public function OnInitialize()
     {
