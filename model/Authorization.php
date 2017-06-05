@@ -35,7 +35,7 @@ class Authorization
 
     public static function GetAvailableApplication($userId)
     {
-        $sql = "SELECT DISTINCT app.id, app.id authid, app.appname
+        $sql = "SELECT DISTINCT app.id, app.id authid, app.appname, app.uri
                 FROM authorization a
                 LEFT JOIN permissions p ON (a.permissionid = p.id)
                 LEFT JOIN applications app ON (app.id = p.appid)

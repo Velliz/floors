@@ -98,6 +98,7 @@ class account extends View
         foreach ($data['app'] as $key => $val) {
             $temp = Authorization::GetUserToAppAuthorization($data['id'], $val['id']);
             $data['app'][$key]['permission'] = $temp;
+            $data['app'][$key]['href'] = $val['uri'];
         }
 
         return $data;

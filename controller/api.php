@@ -59,7 +59,6 @@ class api extends Service
      * @throws Exception
      *
      * #Auth true
-     * API for uploading user new avatar
      */
     public function upload_avatar($userId = null)
     {
@@ -146,7 +145,7 @@ class api extends Service
      * @param null $type
      *
      * #Auth true
-     * API for get chached image from user credentials
+     * API for get cached image from user credentials
      */
     public function credential_picture($userId = null, $type = null)
     {
@@ -179,7 +178,7 @@ class api extends Service
     }
 
     /**
-     * @param null $userId
+     * @param int $userId
      *
      * API for fetch user latest avatar
      * @param int $width
