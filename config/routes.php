@@ -272,7 +272,7 @@ $data['page'] = array(
 
     'api/credentialpic/{!}/{!}' => array(
         'controller' => 'api',
-        'function' => 'credentialpic',
+        'function' => 'credential_picture',
         'accept' => ['GET', 'POST'],
     ),
 

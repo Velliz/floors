@@ -73,7 +73,7 @@ class main extends View
 
                 Logs::Create(array(
                     'userid' => $data['id'],
-                    'credentialid' => $data['credentialid'],
+                    'credentialid' => isset($data['credentialid']) ? $data['credentialid'] : 0,
                     'datein' => $this->GetServerDateTime(),
                     'requestmethod' => $method,
                     'action' => 'Login',

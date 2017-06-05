@@ -20,6 +20,11 @@ use pukoframework\Request;
 class api extends Service
 {
 
+    public function OnInitialize()
+    {
+
+    }
+
     #region internal
     /**
      * @return mixed
@@ -204,6 +209,13 @@ class api extends Service
         }
     }
 
+    /**
+     * @return mixed
+     * @throws Exception
+     *
+     * API for fetch user authorization access
+     * http://localhost/floors/api/authorized [POST]
+     */
     public function authorized()
     {
         $token = Request::Post('token', null);
@@ -223,8 +235,4 @@ class api extends Service
         return $data;
     }
 
-    public function OnInitialize()
-    {
-
-    }
 }
