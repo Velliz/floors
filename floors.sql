@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-05-31 21:19:20
+Date: 2017-06-05 09:20:50
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -33,7 +33,7 @@ CREATE TABLE `applications` (
   `apptoken` varchar(255) NOT NULL,
   `identifier` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for authorization
@@ -50,7 +50,7 @@ CREATE TABLE `authorization` (
   `dflag` tinyint(1) NOT NULL,
   `expired` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for avatars
@@ -71,7 +71,7 @@ CREATE TABLE `avatars` (
   `extensions` varchar(100) NOT NULL,
   `filedata` longblob NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for broker
@@ -93,7 +93,7 @@ CREATE TABLE `broker` (
   `version` varchar(24) NOT NULL,
   `callbackurl` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for credentials
@@ -113,7 +113,7 @@ CREATE TABLE `credentials` (
   `expired` datetime NOT NULL,
   `profilepic` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for logs
@@ -129,8 +129,9 @@ CREATE TABLE `logs` (
   `ipaddress` varchar(100) NOT NULL,
   `useragent` text NOT NULL,
   `httpstatus` varchar(50) NOT NULL,
+  `tokens` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for operator
@@ -148,7 +149,7 @@ CREATE TABLE `operator` (
   `password` varchar(100) NOT NULL,
   `roles` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for permissions
@@ -166,7 +167,7 @@ CREATE TABLE `permissions` (
   `pcode` varchar(255) NOT NULL,
   `description` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for users
@@ -191,4 +192,4 @@ CREATE TABLE `users` (
   `birthday` date DEFAULT NULL,
   `descriptions` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;

@@ -183,7 +183,8 @@ class main extends View
                 'action' => 'Login',
                 'ipaddress' => $remote_ip,
                 'useragent' => $agent,
-                'httpstatus' => $http_status
+                'httpstatus' => $http_status,
+                'tokens' => $this->GetRandomToken(10),
             ));
 
             $key = hash('sha256', $this->app['token']);

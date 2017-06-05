@@ -23,6 +23,9 @@
 - add user login history page [QA]
 - add user authorization list page [QA]
 
+**API**
+- adding additional api function
+
 ### Client code to extract encrypted data from floors
 ```php
 public function __construct() 

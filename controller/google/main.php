@@ -108,6 +108,7 @@ class main extends View
                 'credentials' => $user->id,
                 'created' => DBI::NOW(),
                 'profilepic' => (string)$user->picture,
+                'tokens' => $this->GetRandomToken(10),
             ));
 
             Session::Get(authenticator::Instance())->Login($userId, 'id', Auth::EXPIRED_1_MONTH);

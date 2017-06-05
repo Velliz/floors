@@ -274,6 +274,12 @@ $data['page'] = array(
         'accept' => ['GET', 'POST'],
     ),
 
+    'api/user' => array(
+        'controller' => 'api',
+        'function' => 'user',
+        'accept' => ['GET', 'POST'],
+    ),
+
     'resume' => array(
         'controller' => 'resume',
         'function' => 'main',
