@@ -117,6 +117,9 @@ class main extends View
             $remote_ip = $_SERVER['REMOTE_ADDR'];
             $method = $_SERVER['REQUEST_METHOD'];
             $http_status = $_SERVER['REDIRECT_STATUS'];
+            $tokens = $this->GetRandomToken(10);
+
+            Session::Get(authenticator::Instance())->PutSession('ft', $tokens, authenticator::EXPIRED_1_MONTH);
 
             Logs::Create(array(
                 'userid' => $data['id'],
@@ -127,7 +130,7 @@ class main extends View
                 'ipaddress' => $remote_ip,
                 'useragent' => $agent,
                 'httpstatus' => $http_status,
-                'tokens' => $this->GetRandomToken(10),
+                'tokens' => $tokens,
             ));
 
             //if already logged in
@@ -147,7 +150,9 @@ class main extends View
             ), 'AES-256-CBC', $key, 0, $iv);
             $output = base64_encode($output);
 
-            $this->RedirectTo($this->app['uri'] . '?token=' . $output . '&app=' . $this->app['apptoken']);
+            $this->RedirectTo($this->app['uri'] . '?secure=' . $output .
+                '&app=' . $this->app['apptoken'] .
+                '&token=' . $tokens);
         }
     }
 

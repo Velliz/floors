@@ -174,6 +174,10 @@ class main extends View
             $remote_ip = $_SERVER['REMOTE_ADDR'];
             $method = $_SERVER['REQUEST_METHOD'];
             $http_status = $_SERVER['REDIRECT_STATUS'];
+            $tokens = $this->GetRandomToken(10);
+
+            Session::Get(operator_authenticator::Instance())->PutSession('ft', $tokens,
+                operator_authenticator::EXPIRED_1_MONTH);
 
             Logs::Create(array(
                 'userid' => $data['id'],
@@ -184,7 +188,7 @@ class main extends View
                 'ipaddress' => $remote_ip,
                 'useragent' => $agent,
                 'httpstatus' => $http_status,
-                'tokens' => $this->GetRandomToken(10),
+                'tokens' => $tokens,
             ));
 
             $key = hash('sha256', $this->app['token']);
@@ -201,7 +205,9 @@ class main extends View
             if (stripos($username, "\\") !== false) {
                 $this->RedirectTo(BASE_URL . 'beranda');
             } else {
-                $this->RedirectTo($this->app['uri'] . '?token=' . $output . '&app=' . $this->app['apptoken']);
+                $this->RedirectTo($this->app['uri'] . '?secure=' . $output .
+                    '&app=' . $this->app['apptoken'] .
+                    '&token=' . $tokens);
             }
 
         }

@@ -124,7 +124,12 @@ class resume extends View
         ), 'AES-256-CBC', $key, 0, $iv);
         $output = base64_encode($output);
 
-        $data['href'] = $this->app['uri'] . '?token=' . $output . '&app=' . $this->app['apptoken'];
+        $tokens = Session::Get(authenticator::Instance())->GetSession('ft');
+
+        $data['href'] = $this->app['uri'] . '?secure=' . $output .
+            '&app=' . $this->app['apptoken'] .
+            '&token=' . $tokens;
+
         $data['appname'] = $this->app['appname'];
         $data['appurl'] = $this->app['uri'];
         return $data;

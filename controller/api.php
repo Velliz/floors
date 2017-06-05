@@ -14,13 +14,17 @@ use pukoframework\Request;
 /**
  * Class api
  * @package controller
- *
- * #Auth true
  */
 class api extends Service
 {
 
     #region internal
+    /**
+     * @return mixed
+     * @throws Exception
+     *
+     * #Auth true
+     */
     public function permission()
     {
         $appId = Request::Post('appid', null);
@@ -31,6 +35,13 @@ class api extends Service
         return $data;
     }
 
+    /**
+     * @param null $userId
+     * @return mixed
+     * @throws Exception
+     *
+     * #Auth true
+     */
     public function authorization($userId = null)
     {
         $appId = Request::Post('appid', null);
@@ -43,11 +54,9 @@ class api extends Service
     #end region internal
 
     /**
-     * @param $userId
-     *
      * API for retrive user additional data
      */
-    public function exchange($userId)
+    public function user()
     {
 
     }
@@ -56,6 +65,7 @@ class api extends Service
      * @param null $userId
      *
      * API for fetch user latest avatar
+     * @param int $width
      */
     public function avatar($userId = null, $width = 100)
     {
@@ -74,41 +84,13 @@ class api extends Service
         }
     }
 
-    static function resize($file, $w = 200, $h = 200, $crop = false)
-    {
-        $width = $height = getimagesize($file);
-        $r = $width / $height;
-        if ($crop) {
-            if ($width > $height) {
-                $width = ceil($width - ($width * abs($r - $w / $h)));
-            } else {
-                $height = ceil($height - ($height * abs($r - $w / $h)));
-            }
-            $newwidth = $w;
-            $newheight = $h;
-        } else {
-            if ($w / $h > $r) {
-                $newwidth = $h * $r;
-                $newheight = $h;
-            } else {
-                $newheight = $w / $r;
-                $newwidth = $w;
-            }
-        }
-        $src = imagecreatefromjpeg($file);
-        $dst = imagecreatetruecolor($newwidth, $newheight);
-        imagecopyresampled($dst, $src, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
-
-        return $dst;
-    }
-
     /**
      * @param null $userId
      * @throws Exception
      *
      * API for uploading user new avatar
      */
-    public function uploadavatar($userId = null)
+    public function upload_avatar($userId = null)
     {
         if ($userId == null) {
             throw new Exception('user id required');
@@ -146,7 +128,12 @@ class api extends Service
         $this->RedirectTo(BASE_URL . 'account');
     }
 
-    public function changeavatar($userId = null, $credentialId = null)
+    /**
+     * @param null $userId
+     * @param null $credentialId
+     * @throws Exception
+     */
+    public function change_avatar($userId = null, $credentialId = null)
     {
         $credential = Credentials::GetID($credentialId);
         if ($credentialId == null) {
@@ -187,7 +174,7 @@ class api extends Service
      *
      * API for get chached image from user credentials
      */
-    public function credentialpic($userId = null, $type = null)
+    public function credential_picture($userId = null, $type = null)
     {
         header('Content-Type: image/png');
         if ($userId == null && $type == null) {
@@ -205,6 +192,6 @@ class api extends Service
 
     public function OnInitialize()
     {
-        // TODO: Implement OnInitialize() method.
+
     }
 }
