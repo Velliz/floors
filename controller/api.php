@@ -235,4 +235,32 @@ class api extends Service
         return $data;
     }
 
+    /**
+     * @return mixed
+     * @throws Exception
+     *
+     * API for confirm user password
+     * ONLY WORKS WITH FLOORS ACCOUNT
+     * http://localhost/floors/api/confirm/password [POST]
+     */
+    public function confirm_password()
+    {
+        $token = Request::Post('token', null);
+        if ($token == null) {
+            throw new Exception("token not defined");
+        }
+
+        $user_id = Logs::ExchangeTokenWithUserID($token);
+
+        $password = Request::Post('password', null);
+        $confirm_password = Request::Post('confirm', null);
+
+        if (strcmp($password, $confirm_password) != 0) {
+            throw new Exception('Password confirmation not match');
+        }
+
+        $result = Users::IsPasswordTrue($user_id, $password);
+        return $result;
+    }
+
 }

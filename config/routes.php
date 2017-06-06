@@ -293,6 +293,12 @@ $data['page'] = array(
         'function' => 'main',
         'accept' => ['GET', 'POST'],
     ),
+
+    'api/confirm/password' => array(
+        'controller' => 'api',
+        'function' => 'confirm_password',
+        'accept' => ['GET', 'POST'],
+    ),
 );
 
 $data['error'] = array(

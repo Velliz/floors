@@ -43,4 +43,10 @@ class Logs
         $sql = "SELECT userid FROM logs l WHERE (l.tokens = @1) LIMIT 1;";
         return DBI::Prepare($sql)->FirstRow($token)['userid'];
     }
+
+    public static function ExchangeTokenWithUserData($token)
+    {
+        $sql = "SELECT * FROM logs l WHERE (l.tokens = @1) LIMIT 1;";
+        return DBI::Prepare($sql)->FirstRow($token);
+    }
 }

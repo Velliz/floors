@@ -45,4 +45,13 @@ class Users
         WHERE (u.dflag = 0) AND (c.credentials = @1) AND (c.secure = @2)
         LIMIT 1;")->FirstRow($username, $password);
     }
+
+    public static function IsPasswordTrue($userid, $password)
+    {
+        return DBI::Prepare("SELECT u.* FROM users u
+        LEFT JOIN credentials c ON (u.ID = c.userid)
+        WHERE (u.dflag = 0) AND (c.type = 'Floors')
+        AND (u.id = @1) AND (c.secure = md5(@2)) LIMIT 1;")
+            ->FirstRow($userid, $password);
+    }
 }
