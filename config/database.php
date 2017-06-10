@@ -7,3 +7,4 @@ return array(
     'dbName' => 'sampledb',
     'port' => 3306
 );
+
