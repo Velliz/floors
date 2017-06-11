@@ -138,60 +138,78 @@ class account extends View
             throw new Exception('app specified by token ' . $ssoCache . ' not found on floors server');
         }
 
+        $data = Session::Get(authenticator::Instance())->GetLoginData();
+
         //setup facebook login SDK
         $fBroker = Broker::GetAppCode($this->app['id'], 'FB');
         if ($fBroker == null) {
-            throw new Exception('facebook broker is not registered.');
+            $this->fbObject = false;
+            //throw new Exception('facebook broker is not registered.');
+        } else {
+            $this->fbObject = new Facebook([
+                'app_id' => $fBroker['brokerid'],
+                'app_secret' => $fBroker['config'],
+                'default_graph_version' => $fBroker['version'],
+            ]);
         }
-        $this->fbObject = new Facebook([
-            'app_id' => $fBroker['brokerid'],
-            'app_secret' => $fBroker['config'],
-            'default_graph_version' => $fBroker['version'],
-        ]);
         //end setup facebook login SDK
 
         //setup google login SDK
         $gBroker = Broker::GetAppCode($this->app['id'], 'G');
         if ($gBroker == false) {
-            throw new Exception('google broker is not set.');
+            $this->client = false;
+            //throw new Exception('google broker is not set.');
+        } else {
+            $this->client = new Google_Client();
+            $this->client->setClientId($gBroker['brokerid']);
+            $this->client->setClientSecret($gBroker['config']);
+            $this->client->setRedirectUri(BASE_URL . 'google/callbacks');
+            $this->client->addScope("email");
+            $this->client->addScope("profile");
         }
-        $this->client = new Google_Client();
-        $this->client->setClientId($gBroker['brokerid']);
-        $this->client->setClientSecret($gBroker['config']);
-        $this->client->setRedirectUri(BASE_URL . 'google/callbacks');
-        $this->client->addScope("email");
-        $this->client->addScope("profile");
         //end setup google login SDK
 
         //setup twitter login SDK
         $tBroker = Broker::GetAppCode($this->app['id'], 'T');
         if (sizeof($tBroker) == 0) {
-            throw new Exception('twitter broker is not set.');
+            $this->tObject = false;
+            //throw new Exception('twitter broker is not set.');
+        } else {
+            $this->tObject = new TwitterOAuth($tBroker['brokerid'], $tBroker['config']);
         }
-        $this->tObject = new TwitterOAuth($tBroker['brokerid'], $tBroker['config']);
         //end setup twitter login SDK
 
         //begin facebook LOGIN button
-        $helper = $this->fbObject->getRedirectLoginHelper();
-        $permissions = ['email', 'public_profile', 'user_friends'];
-        $data['FacebookLoginUrl'] = $helper->getLoginUrl(BASE_URL . 'facebook/callbacks', $permissions);
+        if ($this->fbObject != false) {
+            $helper = $this->fbObject->getRedirectLoginHelper();
+            $permissions = ['email', 'public_profile', 'user_friends'];
+            $data['FacebookLoginUrl'] = $helper->getLoginUrl(BASE_URL . 'facebook/callbacks', $permissions);
+        } else {
+            $data['FacebookLogin'] = true;
+        }
         //end facebook LOGIN button
 
         //begin google LOGIN button
-        $data['GoogleLoginUrl'] = $this->client->createAuthUrl();
+        if ($this->client != false) {
+            $data['GoogleLoginUrl'] = $this->client->createAuthUrl();
+        } else {
+            $data['GoogleLogin'] = true;
+        }
         //end google LOGIN button
 
         //begin twitter LOGIN button
-        $tCredentials = $this->tObject->oauth('oauth/request_token');
-        $_SESSION['oauth_token'] = $tCredentials['oauth_token'];
-        $_SESSION['oauth_token_secret'] = $tCredentials['oauth_token_secret'];
-        $data['TwitterLoginUrl'] = $this->tObject->url(
-            "oauth/authorize",
-            array("oauth_token" => $tCredentials['oauth_token'])
-        );
+        if ($this->tObject != false) {
+            $tCredentials = $this->tObject->oauth('oauth/request_token');
+            $_SESSION['oauth_token'] = $tCredentials['oauth_token'];
+            $_SESSION['oauth_token_secret'] = $tCredentials['oauth_token_secret'];
+            $data['TwitterLoginUrl'] = $this->tObject->url(
+                "oauth/authorize",
+                array("oauth_token" => $tCredentials['oauth_token'])
+            );
+        } else {
+            $data['TwitterLogin'] = true;
+        }
         //end twitter LOGIN button
-
-        $data = Session::Get(authenticator::Instance())->GetLoginData();
 
         $facebook = Credentials::GetCredentials($data['id'], 'Facebook');
         $data['facebook'] = ($facebook == null) ? true : false;

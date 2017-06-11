@@ -67,7 +67,7 @@ class main extends View
         //setup facebook login SDK
         $fBroker = Broker::GetAppCode($this->app['id'], 'FB');
         if ($fBroker == null) {
-            $fBroker = false;
+            $this->fbObject = false;
             //throw new Exception('facebook broker is not registered.');
         } else {
             $this->fbObject = new Facebook([
@@ -82,7 +82,7 @@ class main extends View
         //setup google login SDK
         $gBroker = Broker::GetAppCode($this->app['id'], 'G');
         if ($gBroker == false) {
-            $gBroker = false;
+            $this->client = false;
             //throw new Exception('google broker is not set.');
         } else {
             $this->client = new Google_Client();
