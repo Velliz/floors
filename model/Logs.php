@@ -49,4 +49,18 @@ class Logs
         $sql = "SELECT * FROM logs l WHERE (l.tokens = @1) LIMIT 1;";
         return DBI::Prepare($sql)->FirstRow($token);
     }
+
+    public static function ExchangeTokenWithLoginData($token)
+    {
+        $sql = "SELECT * FROM logs l WHERE (l.tokens = @1) LIMIT 1;";
+        return DBI::Prepare($sql)->FirstRow($token);
+    }
+
+    public static function ExchangeTokenWithCredentialData($token)
+    {
+        $sql = "SELECT c.type FROM logs l 
+                LEFT JOIN credentials c ON (c.id = l.credentialid AND l.userid = c.userid) 
+                WHERE (l.tokens = @1) LIMIT 1;";
+        return DBI::Prepare($sql)->FirstRow($token);
+    }
 }

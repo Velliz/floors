@@ -263,4 +263,38 @@ class api extends Service
         return $result;
     }
 
+    /**
+     * @return mixed|null
+     * @throws Exception
+     *
+     * http://localhost/floors/api/login/info [POST]
+     */
+    public function login_info()
+    {
+        $token = Request::Post('token', null);
+        if ($token == null) {
+            throw new Exception("token not defined");
+        }
+
+        $login['login'] = Logs::ExchangeTokenWithLoginData($token);
+        return $login;
+    }
+
+    /**
+     * @return mixed
+     * @throws Exception
+     *
+     * http://localhost/floors/api/credential/info [POST]
+     */
+    public function credential_info()
+    {
+        $token = Request::Post('token', null);
+        if ($token == null) {
+            throw new Exception("token not defined");
+        }
+
+        $credentials['credentials'] = Logs::ExchangeTokenWithCredentialData($token);
+        return $credentials;
+    }
+
 }

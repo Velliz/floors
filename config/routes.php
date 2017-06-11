@@ -299,6 +299,18 @@ $data['page'] = array(
         'function' => 'confirm_password',
         'accept' => ['GET', 'POST'],
     ),
+
+    'api/login/info' => array(
+        'controller' => 'api',
+        'function' => 'login_info',
+        'accept' => ['POST'],
+    ),
+
+    'api/credential/info' => array(
+        'controller' => 'api',
+        'function' => 'credential_info',
+        'accept' => ['POST'],
+    ),
 );
 
 $data['error'] = array(
