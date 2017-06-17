@@ -97,7 +97,14 @@ class account extends View
         $data['app'] = Authorization::GetAvailableApplication($data['id']);
         foreach ($data['app'] as $key => $val) {
             $temp = Authorization::GetUserToAppAuthorization($data['id'], $val['id']);
-            $data['app'][$key]['permission'] = $temp;
+
+            $label = '';
+            foreach ($temp as $v) {
+                $label .= '<p><label class="label label-info">' . $v['pcode'] . '</label></p>';
+                $label .= '<p><b>' . $v['pname'] . '</b> - ' . $v['description'] . '</p>';
+            }
+
+            $data['app'][$key]['permission'] = $label;
             $data['app'][$key]['href'] = $val['uri'];
         }
 
