@@ -29,7 +29,9 @@ class Logs
 
     public static function GetByUser($user_id)
     {
-        return DBI::Prepare("SELECT *, id logsid FROM logs WHERE (userid = 1) ORDER BY datein DESC LIMIT 30;")->GetData($user_id);
+        return DBI::Prepare("SELECT *, id logsid FROM logs 
+        WHERE (userid = @1) 
+        ORDER BY datein DESC LIMIT 30;")->GetData($user_id);
     }
 
     public static function CountAll()

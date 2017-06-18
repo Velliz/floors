@@ -2,6 +2,7 @@
 
 namespace controller\floors;
 
+use controller\util\helper;
 use controller\util\operator_authenticator;
 use Exception;
 use model\Applications;
@@ -59,7 +60,7 @@ class main extends View
                 die();
             }
 
-            $login = Session::Get(operator_authenticator::Instance())->Login($username, md5($password),
+            $login = Session::Get(operator_authenticator::Instance())->Login($username, $password,
                 operator_authenticator::EXPIRED_1_MONTH);
 
             if ($login) {
@@ -109,7 +110,6 @@ class main extends View
 
     public function OnInitialize()
     {
-        // TODO: Implement OnInitialize() method.
     }
 
     /**
@@ -150,22 +150,30 @@ class main extends View
                     'Password confirmation missmatch');
             }
 
+            if (Credentials::IsAliasExists($username)) {
+                $value_err->Prepare('username', $username);
+                $value_err->Prepare('email', $email);
+                $value_err->Throws(array(),
+                    'Username already taken. Choose another username.');
+            }
+
             $new_user_id = Users::Create(array(
                 'created' => $this->GetServerDateTime(),
                 'firstemail' => $email,
                 'fullname' => $username,
-                'alias' => $username,
             ));
+
+            $pass_hash = helper::password_hash($password);
 
             Credentials::Create(array(
                 'userid' => $new_user_id,
                 'type' => 'Floors',
                 'credentials' => $username,
-                'secure' => md5($password),
+                'secure' => $pass_hash,
                 'created' => $this->GetServerDateTime(),
             ));
 
-            Session::Get(operator_authenticator::Instance())->Login($username, md5($password),
+            Session::Get(operator_authenticator::Instance())->Login($username, $password,
                 operator_authenticator::EXPIRED_1_MONTH);
 
             $data = Session::Get(operator_authenticator::Instance())->GetLoginData();

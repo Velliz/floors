@@ -53,4 +53,20 @@ class Credentials
         LEFT JOIN users u ON (c.userid = u.id)
         WHERE (c.credentials = @1) AND (c.dflag = 0) LIMIT 1;")->FirstRow($credentials);
     }
+
+    public static function GetPasswordHash($alias)
+    {
+        $sql = "SELECT c.secure FROM users u
+        LEFT JOIN credentials c ON (u.ID = c.userid)
+        WHERE (u.dflag = 0) AND (c.type = 'Floors')
+        AND (c.credentials = @1) LIMIT 1;";
+        return DBI::Prepare($sql)->FirstRow($alias)['secure'];
+    }
+
+    public static function IsAliasExists($alias)
+    {
+        $sql = "SELECT credentials FROM credentials WHERE (credentials = @1) AND (type = 'Floors') LIMIT 1";
+        $result = DBI::Prepare($sql)->GetData($alias);
+        return (count($result) > 0) ? true : false;
+    }
 }

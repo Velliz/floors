@@ -44,4 +44,15 @@ class helper
         return $dst;
     }
 
+    static function password_hash($raw_password)
+    {
+        $options = ['floors' => 104392];
+        return password_hash($raw_password, PASSWORD_DEFAULT, $options);
+    }
+
+    static function password_verify($raw_password, $hash)
+    {
+        return password_verify($raw_password, $hash) ? true : false;
+    }
+
 }

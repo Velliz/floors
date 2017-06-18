@@ -1,4 +1,5 @@
 <?php
+
 namespace model;
 
 use pukoframework\pda\DBI;
@@ -46,6 +47,13 @@ class Users
         LIMIT 1;")->FirstRow($username, $password);
     }
 
+    /**
+     * @param $userid
+     * @param $password
+     * @return mixed|null
+     *
+     * @deprecated changed to bcrypt
+     */
     public static function IsPasswordTrue($userid, $password)
     {
         return DBI::Prepare("SELECT u.* FROM users u

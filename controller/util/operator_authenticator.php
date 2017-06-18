@@ -2,6 +2,7 @@
 
 namespace controller\util;
 
+use model\Credentials;
 use model\Operator;
 use model\Users;
 use pukoframework\auth\Auth;
@@ -10,7 +11,7 @@ use pukoframework\auth\Auth;
  * Class operator_authenticator
  * @package controller\util
  *
- * for operator authentication
+ * for floors account based authentication
  */
 class operator_authenticator implements Auth
 {
@@ -37,8 +38,13 @@ class operator_authenticator implements Auth
             $loginResult = Operator::GetUser($username, $password, $roles);
             return (isset($loginResult['id'])) ? $roles . '\\' . $loginResult['id'] : false;
         } else {
-            $loginResult = Users::GetUser($username, $password);
-            return (isset($loginResult['id'])) ? $loginResult['id'] : false;
+            $password_hash = Credentials::GetPasswordHash($username);
+            if (helper::password_verify($password, $password_hash)) {
+                $loginResult = Users::GetUser($username, $password_hash);
+                return (isset($loginResult['id'])) ? $loginResult['id'] : false;
+            } else {
+                return false;
+            }
         }
     }
 
@@ -48,6 +54,7 @@ class operator_authenticator implements Auth
 
     public function GetLoginData($id)
     {
+        var_dump($id);
         $userAccount = explode('\\', $id);
         if (count($userAccount) == 2) {
             return Operator::GetID($userAccount[1]);
