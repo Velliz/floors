@@ -42,7 +42,11 @@ class Credentials
     //user have credentials
     public static function GetUserID($id)
     {
-        return DBI::Prepare("SELECT u.*, c.id credentialid FROM credentials c 
+        return DBI::Prepare("SELECT u.id, u.alias, DATE_FORMAT(u.created, '%d %M %Y') created, u.modified, u.cuid, 
+        u.muid, u.dflag, u.sflag, u.fullname, u.prefix, u.suffix, u.expired, u.phonenumber, u.firstemail,
+        u.secondemail, u.birthday, u.descriptions, 
+        c.id credentialid 
+        FROM credentials c 
         LEFT JOIN users u ON (c.userid = u.id)
         WHERE (c.userid = @1) AND (c.dflag = 0) LIMIT 1;")->FirstRow($id);
     }
