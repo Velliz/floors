@@ -71,6 +71,10 @@ class main extends View
                 $remote_ip = $_SERVER['REMOTE_ADDR'];
                 $method = $_SERVER['REQUEST_METHOD'];
                 $http_status = $_SERVER['REDIRECT_STATUS'];
+                $tokens = $this->GetRandomToken(10);
+
+                Session::Get(operator_authenticator::Instance())->PutSession('ft', $tokens,
+                    operator_authenticator::EXPIRED_1_MONTH);
 
                 Logs::Create(array(
                     'userid' => $data['id'],
@@ -80,7 +84,8 @@ class main extends View
                     'action' => 'Login',
                     'ipaddress' => $remote_ip,
                     'useragent' => $agent,
-                    'httpstatus' => $http_status
+                    'httpstatus' => $http_status,
+                    'tokens' => $tokens,
                 ));
 
                 $key = hash('sha256', $this->app['token']);
