@@ -17,7 +17,40 @@ composer create-project -s dev velliz/floors project_name
 ```
 
 ### Setup
-> Coming soon beta release
+
+- Installation
+
+Download code via composer:
+```
+composer create-project -s dev velliz/floors project_name
+```
+
+- Database setup:
+
+Import provided floors.sql into your MySQL or MariaDB engine. 
+Then setup the database connection from config/database.php
+
+```php
+return array(
+    'dbType' => 'mysql',
+    'host' => 'localhost',
+    'user' => 'root',
+    'pass' => '',
+    'dbName' => 'floors',
+    'port' => 3306
+);
+```
+
+- Administrator account:
+
+To add a default administrator access you need to hit this query:
+```sql
+insert into operator(created, fullname, username, password, roles) values (now(), 'full name', 'username', md5('password'), 'admin');
+```
+
+for login with credentials
+user: roles\username
+password: password
 
 ### Main features
 

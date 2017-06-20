@@ -8,6 +8,7 @@
 - add authorization list to JSON user login data
 - implement secure login key and signature for app data exchange
 - provide API based authentication with JWT
+- Single Sign Out mechanism
 
 **Managerial**
 - add term of service
@@ -24,7 +25,7 @@
 - add user authorization list page [QA]
 
 **API**
-- adding additional api function
+> all achived
 
 ### Client code to extract encrypted data from floors
 ```php
