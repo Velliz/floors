@@ -18,17 +18,10 @@ composer create-project -s dev velliz/floors project_name
 
 ### Setup
 
-- Installation
-
-Download code via composer:
-```
-composer create-project -s dev velliz/floors project_name
-```
-
 - Database setup:
 
-Import provided floors.sql into your MySQL or MariaDB engine. 
-Then setup the database connection from config/database.php
+Import provided **floors.sql** into your MySQL or MariaDB engine. 
+Then setup the database connection from **config/database.php**
 
 ```php
 return array(
@@ -44,13 +37,16 @@ return array(
 - Administrator account:
 
 To add a default administrator access you need to hit this query:
+
 ```sql
 insert into operator(created, fullname, username, password, roles) values (now(), 'full name', 'username', md5('password'), 'admin');
 ```
 
-for login with credentials
-user: roles\username
-password: password
+Then operator can login with credentials
+
+|Field|Value|Description|
+|user|roles\username|roles must defined and separated with \ to identify due user use same form|
+|password|password|raw password input|
 
 ### Main features
 
