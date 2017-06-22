@@ -54,7 +54,6 @@ class operator_authenticator implements Auth
 
     public function GetLoginData($id)
     {
-        var_dump($id);
         $userAccount = explode('\\', $id);
         if (count($userAccount) == 2) {
             return Operator::GetID($userAccount[1]);

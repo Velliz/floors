@@ -174,7 +174,7 @@ $data['page'] = array(
         'accept' => ['GET', 'POST'],
     ),
 
-    'authorization/create' => array(
+    'authorization/create/{!}' => array(
         'controller' => 'manage\authorization',
         'function' => 'create',
         'accept' => ['GET', 'POST'],

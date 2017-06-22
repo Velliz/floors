@@ -36,7 +36,7 @@ class Operator
     public static function GetUser($username, $password, $roles)
     {
         return DBI::Prepare("SELECT * FROM operator WHERE (dflag = 0)
-        AND (roles = @1) AND (username = @2) AND (password = @3) LIMIT 1;")->FirstRow($roles, $username, $password);
+        AND (roles = @1) AND (username = @2) AND (password = md5(@3)) LIMIT 1;")->FirstRow($roles, $username, $password);
     }
 
     /**
