@@ -21,11 +21,11 @@
 **User features**
 - add login logs notification
 - add language settings for change language [progress]
-- add user login history page [QA]
-- add user authorization list page [QA]
 
 **API**
-> all achived
+- update user profile
+- update user linked account
+- re-login if token expired
 
 ### Client code to extract encrypted data from floors
 ```php
