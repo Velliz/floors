@@ -1,5 +1,5 @@
 {
-    "name": "velliz/floors",
+  "name": "velliz/floors",
   "description": "PHP based login as a service (LASS) platform for building web apps",
   "minimum-stability": "RC",
   "version": "0.1.0",
@@ -18,24 +18,19 @@
       "url": "https://github.com/Velliz/floors"
     }
   ],
-    "require": {
-        "puko/framework": "dev-master",
-        "facebook/graph-sdk" : "~5.0",
-        "google/apiclient": "^2.0",
-        "abraham/twitteroauth": "0.7.1"
-    },
-    "require-dev": {
-        "puko/framework": "dev-master",
-        "facebook/graph-sdk" : "~5.0",
-        "google/apiclient": "^2.0",
-        "abraham/twitteroauth": "0.7.1"
-
-    },
-    "autoload": {
-        "psr-4": {
-            "controller\\": "controller/",
-            "model\\": "model/",
-            "config\\": "config/"
-        }
+  "require": {
+    "puko/framework": "dev-master",
+    "facebook/graph-sdk": "~5.0",
+    "google/apiclient": "^2.0",
+    "abraham/twitteroauth": "0.7.1"
+  },
+  "require-dev": {
+  },
+  "autoload": {
+    "psr-4": {
+      "controller\\": "controller/",
+      "model\\": "model/",
+      "config\\": "config/"
     }
+  }
 }
