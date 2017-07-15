@@ -428,7 +428,7 @@ a:focus {
 @media (max-width: 767px) {
   .main-sidebar,
   .left-side {
-    padding-top: 100px;
+    /*padding-top: 100px;*/
   }
 }
 @media (max-width: 767px) {

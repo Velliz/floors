@@ -66,9 +66,16 @@ class account extends View
             $phonenumber = Request::Post('phonenumber', null);
             $firstemail = Request::Post('firstemail', null);
             $secondemail = Request::Post('secondemail', null);
+
             $birthday = Request::Post('birthday', null);
-            $birthday = DateTime::createFromFormat('d-m-Y', $birthday);
-            $birthday = $birthday->format('Y-m-d');
+            if($birthday != null) {
+                $birthday = DateTime::createFromFormat('d-m-Y', $birthday);
+                $birthday = $birthday->format('Y-m-d');
+            } else {
+                $birthday = DateTime::createFromFormat('d-m-Y', '01-01-1000');
+                $birthday = $birthday->format('Y-m-d');
+            }
+
             $descriptions = Request::Post('descriptions', null);
 
             Users::Update(array('id' => $data['id']), array(
@@ -122,7 +129,7 @@ class account extends View
     }
 
     /**
-     * #Value title Your History
+     * #Value title Your Login History
      * #Value menu_history active
      * #Auth true
      */

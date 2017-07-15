@@ -260,13 +260,13 @@ $data['page'] = array(
 
     'api/uploadavatar/{!}' => array(
         'controller' => 'api',
-        'function' => 'uploadavatar',
+        'function' => 'upload_avatar',
         'accept' => ['GET', 'POST'],
     ),
 
     'api/changeavatar/{!}/{!}' => array(
         'controller' => 'api',
-        'function' => 'changeavatar',
+        'function' => 'change_avatar',
         'accept' => ['GET', 'POST'],
     ),
 
