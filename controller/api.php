@@ -26,6 +26,7 @@ class api extends Service
     }
 
     #region internal
+
     /**
      * @return mixed
      * @throws Exception
@@ -181,6 +182,40 @@ class api extends Service
             throw new Exception("token not defined");
         }
         $userid = Logs::ExchangeTokenWithUserID($token);
+        $data['user'] = Users::GetUserData($userid);
+        return $data;
+    }
+
+    /**
+     * API for edit user data
+     * http://localhost/floors/api/user/edit [POST]
+     */
+    public function user_edit()
+    {
+        $token = Request::Post('token', null);
+        $nama = Request::Post('nama', null);
+        $email = Request::Post('email', null);
+        $telp = Request::Post('telp', null);
+        if ($token == null) {
+            throw new Exception("token not defined");
+        }
+        if ($nama == null) {
+            throw new Exception("nama not defined");
+        }
+        if ($email == null) {
+            throw new Exception("email not defined");
+        }
+        if ($telp == null) {
+            throw new Exception("telp not defined");
+        }
+        $userid = Logs::ExchangeTokenWithUserID($token);
+        Users::Update(array('id' => $userid), array(
+            'muid' => $userid,
+            'modified' => $this->GetServerDateTime(),
+            'fullname' => $nama,
+            'firstemail' => $email,
+            'phonenumber' => $telp,
+        ));
         $data['user'] = Users::GetUserData($userid);
         return $data;
     }

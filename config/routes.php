@@ -288,6 +288,12 @@ $data['page'] = array(
         'accept' => ['GET', 'POST'],
     ),
 
+    'api/user/edit' => array(
+        'controller' => 'api',
+        'function' => 'user_edit',
+        'accept' => ['POST'],
+    ),
+
     'resume' => array(
         'controller' => 'resume',
         'function' => 'main',
