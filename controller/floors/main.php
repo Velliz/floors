@@ -102,7 +102,9 @@ class main extends View
                 if (stripos($username, "\\") !== false) {
                     $this->RedirectTo(BASE_URL . 'beranda');
                 } else {
-                    $this->RedirectTo($this->app['uri'] . '?token=' . $output . '&app=' . $this->app['apptoken']);
+                    $this->RedirectTo($this->app['uri'] . '?secure=' . $output .
+                        '&app=' . $this->app['apptoken'] .
+                        '&token=' . $tokens);
                 }
             } else {
                 $this->RedirectTo(BASE_URL . '?error=account&username=' . $username);

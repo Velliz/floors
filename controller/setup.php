@@ -19,7 +19,6 @@ use pukoframework\Request;
 class setup extends View
 {
 
-
     /**
      * @var Applications
      */
