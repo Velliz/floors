@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : Local Database
+Source Server         : PC Local
 Source Server Version : 50505
 Source Host           : localhost:3306
 Source Database       : floors
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-06-05 09:20:50
+Date: 2017-10-07 16:19:39
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -113,7 +113,7 @@ CREATE TABLE `credentials` (
   `expired` datetime NOT NULL,
   `profilepic` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for logs
@@ -131,7 +131,7 @@ CREATE TABLE `logs` (
   `httpstatus` varchar(50) NOT NULL,
   `tokens` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for operator
@@ -146,10 +146,11 @@ CREATE TABLE `operator` (
   `dflag` tinyint(1) NOT NULL,
   `fullname` varchar(100) NOT NULL,
   `username` varchar(100) NOT NULL,
+  `firstemail` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
   `roles` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for permissions
@@ -192,4 +193,4 @@ CREATE TABLE `users` (
   `birthday` date DEFAULT NULL,
   `descriptions` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;

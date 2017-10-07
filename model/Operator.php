@@ -58,4 +58,11 @@ class Operator
         $result = DBI::Prepare($sql)->GetData($alias);
         return (count($result) > 0) ? true : false;
     }
+
+    public static function IsExists()
+    {
+        $sql = "SELECT * FROM operator LIMIT 1";
+        $result = DBI::Prepare($sql)->GetData();
+        return (count($result) > 0) ? true : false;
+    }
 }

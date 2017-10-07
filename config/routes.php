@@ -317,6 +317,11 @@ $data['page'] = array(
         'function' => 'credential_info',
         'accept' => ['POST'],
     ),
+    'setup' => array(
+        'controller' => 'setup',
+        'function' => 'setup',
+        'accept' => ['POST', 'GET'],
+    )
 );
 
 $data['error'] = array(

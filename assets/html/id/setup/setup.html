@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta name="description" content="open source login as a service platform build on top puko framework">
+    <meta name="author" content="Didit Velliz">
+    <title>Register to Floors</title>
+    <link href="{URL}assets/global/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
+    <link href="{URL}assets/global/adminlte/css/AdminLTE.css" rel="stylesheet">
+    <link href="{URL}assets/customs/css/login.css" rel="stylesheet">
+</head>
+<body class="hold-transition login-page">
+<div class="login-box">
+    <div class="login-box-body">
+        <p class="login-box-msg">Create Administrator Account</p>
+
+        <!--{!!Exception}-->
+        <div class="alert alert-danger">
+            <button class="close" data-close="alert"></button>
+            <span>{!ExceptionMessage}</span>
+        </div>
+        <!--{/Exception}-->
+
+        <form action="" method="post">
+            <input type="hidden" name="token" value="{!token}">
+            <input type="hidden" name="_submit" value="_submit">
+            <div class="form-group has-feedback">
+                <input type="text" name="username" class="form-control" placeholder="Username" value="{!#username}"
+                       autocomplete="off">
+                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <input type="email" name="email" class="form-control" placeholder="Email" value="{!#email}"
+                       autocomplete="off">
+                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <input type="password" name="pass" class="form-control" placeholder="Password" autocomplete="off">
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <input type="password" name="confirm" class="form-control" placeholder="Confirm Password"
+                       autocomplete="off">
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+            <hr>
+            <p class="login-box-msg">Input your first apps</p>
+            <div class="form-group">
+                <input type="text" name="appname" class="form-control" id="appname" placeholder="Enter Application Name" required>
+            </div>
+            <div class="form-group">
+                <textarea name="appdesc" id="appdesc" cols="2" rows="3" class="form-control" required placeholder="Description"></textarea>
+            </div>
+            <div class="form-group">
+                <input type="text" name="ip" class="form-control" id="ip" placeholder="Enter IP Address" required>
+            </div>
+
+            <div class="form-group">
+                <input type="text" name="uri" class="form-control" id="uri" placeholder="Enter Application URL" required>
+            </div>
+
+            <div class="form-group">
+                <input type="text" name="identifier" class="form-control" id="identifier" placeholder="Enter Identifier" required>
+            </div>
+            <div class="row">
+                <div class="col-xs-8">
+                </div>
+                <div class="col-xs-12">
+                    <input type="submit" class="btn btn-primary btn-block btn-flat" value="Next">
+                </div>
+            </div>
+        </form>
+        <hr>
+        <a href="{URL}">Terms and Conditions</a><br>
+    </div>
+</div>
+<script src="{URL}assets/global/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="{URL}assets/global/bootstrap/js/bootstrap.js"></script>
+<script src="{URL}assets/global/adminlte/js/app.js"></script>
+<script src="{URL}assets/script/floors/main/register.js"></script>
+</body>
+</html>
