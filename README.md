@@ -34,19 +34,9 @@ return array(
 );
 ```
 
-- Administrator account:
+- First use setup:
 
-To add a default administrator access you need to hit this query:
-
-```sql
-insert into operator(created, fullname, username, password, roles) values (now(), 'full name', 'username', md5('password'), 'admin');
-```
-
-Then operator can login with credentials
-
-|Field|Value|Description|
-|user|roles\username|roles must defined and separated with \ to identify due user use same form|
-|password|password|raw password input|
+To add a default operator access and apps you can open the **http://localhost/setup**
 
 ### Main features
 
