@@ -63,6 +63,7 @@ class setup extends View
                 'created' => $this->GetServerDateTime(),
                 'firstemail' => $email,
                 'username' => $username,
+                'fullname' => $username,
                 'password' => md5($password),
                 'roles' => 'admin',
             ));
