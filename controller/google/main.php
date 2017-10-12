@@ -141,7 +141,7 @@ class main extends View
         }
         //end if already logged in
 
-        $key = hash('sha256', $this->app['token']);
+        $key = hash('sha256', $this->app['apptoken']);
         $iv = substr(hash('sha256', $this->app['identifier']), 0, 16);
         $output = openssl_encrypt(json_encode(
             array(
