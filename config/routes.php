@@ -317,6 +317,11 @@ $data['page'] = array(
         'function' => 'credential_info',
         'accept' => ['POST'],
     ),
+    'api/list/users/{!}/{!}' => array(
+        'controller' => 'api',
+        'function' => 'list_users',
+        'accept' => ['POST', 'GET'],
+    ),
     'setup' => array(
         'controller' => 'setup',
         'function' => 'setup',

@@ -332,4 +332,16 @@ class api extends Service
         return $credentials;
     }
 
+    /**
+     * @param $app_token
+     * @param $auth_code
+     * @return mixed
+     *
+     * http://localhost/floors/api/list/users/b68e52a7222ced010a597241f4be5e06/ADMIN [GET]
+     */
+    public function list_users($app_token, $auth_code)
+    {
+        $user['Users'] = Applications::GetUserInApps($app_token, $auth_code);
+        return $user;
+    }
 }

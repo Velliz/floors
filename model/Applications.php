@@ -39,4 +39,16 @@ class Applications
     {
         return DBI::Prepare("SELECT * FROM applications WHERE (apptoken = @1) AND (dflag = 0) LIMIT 1;")->FirstRow($token);
     }
+
+    public static function GetUserInApps($app_token, $auth_code)
+    {
+        return DBI::Prepare("SELECT u.id, u.fullname, u.firstemail, ava.filename, ava.filedata
+                FROM users u
+                LEFT JOIN avatars ava ON (u.id = ava.userid)
+                LEFT JOIN authorization a ON (a.userid = u.id)
+                LEFT JOIN permissions p ON (a.permissionid = p.id)
+                LEFT JOIN applications app ON (app.id = p.appid)
+                WHERE (u.dflag = 0) AND (app.apptoken = @1) 
+                AND (p.pcode = @2);")->GetData($app_token, $auth_code);
+    }
 }
