@@ -42,7 +42,7 @@ class Applications
 
     public static function GetUserInApps($app_token, $auth_code)
     {
-        return DBI::Prepare("SELECT u.id, u.fullname, u.firstemail, ava.filename, ava.filedata
+        return DBI::Prepare("SELECT u.id, u.fullname, u.firstemail, ava.filename
                 FROM users u
                 LEFT JOIN avatars ava ON (u.id = ava.userid)
                 LEFT JOIN authorization a ON (a.userid = u.id)
