@@ -10,6 +10,7 @@ use Facebook\Facebook;
 use Google_Client;
 use model\Applications;
 use model\Authorization;
+use model\Avatars;
 use model\Broker;
 use model\Credentials;
 use model\Logs;
@@ -60,33 +61,75 @@ class account extends View
         $data = Session::Get(authenticator::Instance())->GetLoginData();
 
         if (Request::IsPost()) {
+            $type = Request::Post('type', '');
+            if ($type === 'avatar') {
 
-            $alias = Request::Post('alias', null);
-            $fullname = Request::Post('fullname', null);
-            $phonenumber = Request::Post('phonenumber', null);
-            $firstemail = Request::Post('firstemail', null);
-            $secondemail = Request::Post('secondemail', null);
+                $userId = Request::Post('id', '');
+                if ($userId === '') {
+                    throw new Exception('user id required');
+                }
 
-            $birthday = Request::Post('birthday', null);
-            if($birthday != null) {
-                $birthday = DateTime::createFromFormat('d-m-Y', $birthday);
-                $birthday = $birthday->format('Y-m-d');
-            } else {
-                $birthday = DateTime::createFromFormat('d-m-Y', '01-01-1000');
-                $birthday = $birthday->format('Y-m-d');
+                $name = $_FILES['avatar']['name'];
+                $type = $_FILES['avatar']['type'];
+                $tmp_name = file_get_contents($_FILES['avatar']['tmp_name']);
+
+                $data['nama'] = $name;
+                $data['type'] = $type;
+
+                $crc = sprintf('%x', crc32($tmp_name));
+                $hashCode = substr(hash('sha256', date('U') . $name . $crc), 0, 64);
+
+                $prev = Avatars::GetByUserId($userId);
+                if ($prev === null) {
+                    $data['file'] = Avatars::Create(array(
+                        'userid' => $userId,
+                        'created' => $this->GetServerDateTime(),
+                        'filename' => $name,
+                        'hash' => $hashCode,
+                        'crc' => $crc,
+                        'extensions' => $type,
+                        'filedata' => $_FILES['avatar']['tmp_name']
+                    ));
+                } else {
+                    $data['file'] = Avatars::Update(array('userid' => $userId), array(
+                        'modified' => $this->GetServerDateTime(),
+                        'filename' => $name,
+                        'hash' => $hashCode,
+                        'crc' => $crc,
+                        'extensions' => $type,
+                        'filedata' => $_FILES['avatar']['tmp_name']
+                    ));
+                }
             }
 
-            $descriptions = Request::Post('descriptions', null);
+            if ($type === 'user') {
+                $alias = Request::Post('alias', null);
+                $fullname = Request::Post('fullname', null);
+                $phonenumber = Request::Post('phonenumber', null);
+                $firstemail = Request::Post('firstemail', null);
+                $secondemail = Request::Post('secondemail', null);
 
-            Users::Update(array('id' => $data['id']), array(
-                'alias' => $alias,
-                'fullname' => $fullname,
-                'phonenumber' => $phonenumber,
-                'firstemail' => $firstemail,
-                'secondemail' => $secondemail,
-                'birthday' => $birthday,
-                'descriptions' => $descriptions,
-            ));
+                $birthday = Request::Post('birthday', null);
+                if ($birthday != null) {
+                    $birthday = DateTime::createFromFormat('d-m-Y', $birthday);
+                    $birthday = $birthday->format('Y-m-d');
+                } else {
+                    $birthday = DateTime::createFromFormat('d-m-Y', '01-01-1000');
+                    $birthday = $birthday->format('Y-m-d');
+                }
+
+                $descriptions = Request::Post('descriptions', null);
+
+                Users::Update(array('id' => $data['id']), array(
+                    'alias' => $alias,
+                    'fullname' => $fullname,
+                    'phonenumber' => $phonenumber,
+                    'firstemail' => $firstemail,
+                    'secondemail' => $secondemail,
+                    'birthday' => $birthday,
+                    'descriptions' => $descriptions,
+                ));
+            }
 
             $this->RedirectTo(BASE_URL . 'account');
         }

@@ -35,6 +35,9 @@
     <div class="col-md-9">
         <div class="box box-default">
             <form action="" method="post">
+
+                <input type="hidden" name="type" value="user">
+
                 <div class="box-body box-profile">
                     <div class="form-group">
                         <label for="alias">Nickname</label>
@@ -117,7 +120,9 @@
     <div class="clearfix"></div>
     <br>
     <p class="text-center">Atau</p>
-    <form action="{URL}api/uploadavatar/{!id}" method="post" enctype="multipart/form-data">
+    <form action="" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="{!id}"/>
+        <input type="hidden" name="type" value="avatar"/>
         <input type="hidden" name="token" value="{!token}"/>
         <input type="hidden" name="_submit" value="Simpan"/>
         <input type="file" name="avatar" class="btn btn-block btn-primary input-avatar" value="Upload Baru">

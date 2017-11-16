@@ -62,6 +62,7 @@ class api extends Service
 
     /**
      * @param null $userId
+     * @return array
      * @throws Exception
      *
      * #Auth true
@@ -71,9 +72,15 @@ class api extends Service
         if ($userId == null) {
             throw new Exception('user id required');
         }
+
+        $data = array();
+
         $name = $_FILES['avatar']['name'];
         $type = $_FILES['avatar']['type'];
         $tmp_name = file_get_contents($_FILES['avatar']['tmp_name']);
+
+        $data['nama'] = $name;
+        $data['type'] = $type;
 
         //$error = $_FILES['avatar']['error'];
         //$size = $_FILES['avatar']['size'];
@@ -82,8 +89,8 @@ class api extends Service
         $hashCode = substr(hash('sha256', date('U') . $name . $crc), 0, 64);
 
         $prev = Avatars::GetByUserId($userId);
-        if ($prev == null) {
-            Avatars::Create(array(
+        if ($prev === null) {
+            $data['file'] = Avatars::Create(array(
                 'userid' => $userId,
                 'created' => $this->GetServerDateTime(),
                 'filename' => $name,
@@ -93,7 +100,7 @@ class api extends Service
                 'filedata' => $_FILES['avatar']['tmp_name']
             ));
         } else {
-            Avatars::Update(array('userid' => $userId), array(
+            $data['file'] = Avatars::Update(array('userid' => $userId), array(
                 'modified' => $this->GetServerDateTime(),
                 'filename' => $name,
                 'hash' => $hashCode,
@@ -102,7 +109,8 @@ class api extends Service
                 'filedata' => $_FILES['avatar']['tmp_name']
             ));
         }
-        $this->RedirectTo(BASE_URL . 'account');
+
+        return $data;
     }
 
     /**
