@@ -4,6 +4,7 @@
 - documentation and implementation user guide
 
 **General features**
+- add login page designer
 - add recovery account feature [pending] **need email account setup**
 - add authorization list to JSON user login data
 - implement secure login key and signature for app data exchange

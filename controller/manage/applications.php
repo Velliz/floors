@@ -169,4 +169,6 @@ class applications extends View implements Auth
             return Users::GetID($userAccount[0]);
         }
     }
+    public function design(){}
+
 }
