@@ -71,7 +71,8 @@ class account extends View
 
                 $name = $_FILES['avatar']['name'];
                 $type = $_FILES['avatar']['type'];
-                $tmp_name = file_get_contents($_FILES['avatar']['tmp_name']);
+                $tmp_name = $_FILES['avatar']['tmp_name'];
+                $file_data = file_get_contents($_FILES['avatar']['tmp_name']);
 
                 $data['nama'] = $name;
                 $data['type'] = $type;
@@ -88,8 +89,8 @@ class account extends View
                         'hash' => $hashCode,
                         'crc' => $crc,
                         'extensions' => $type,
-                        'filedata' => $_FILES['avatar']['tmp_name']
-                    ));
+                        'filedata' => $file_data
+                    ), true);
                 } else {
                     $data['file'] = Avatars::Update(array('userid' => $userId), array(
                         'modified' => $this->GetServerDateTime(),
@@ -97,8 +98,8 @@ class account extends View
                         'hash' => $hashCode,
                         'crc' => $crc,
                         'extensions' => $type,
-                        'filedata' => $_FILES['avatar']['tmp_name']
-                    ));
+                        'filedata' => $file_data
+                    ), true);
                 }
             }
 
@@ -129,8 +130,8 @@ class account extends View
                     'birthday' => $birthday,
                     'descriptions' => $descriptions,
                 ));
-            }
 
+            }
             $this->RedirectTo(BASE_URL . 'account');
         }
     }
