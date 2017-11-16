@@ -133,13 +133,13 @@ $data['page'] = array(
         'accept' => ['GET', 'POST'],
     ),
 
-    'permissions/edit' => array(
+    'permissions/edit/{!}' => array(
         'controller' => 'manage\permissions',
         'function' => 'edit',
         'accept' => ['GET', 'POST'],
     ),
 
-    'permissions/delete' => array(
+    'permissions/delete/{!}' => array(
         'controller' => 'manage\permissions',
         'function' => 'delete',
         'accept' => ['GET', 'POST'],
@@ -180,7 +180,7 @@ $data['page'] = array(
         'accept' => ['GET', 'POST'],
     ),
 
-    'authorization/delete' => array(
+    'authorization/delete/{!}' => array(
         'controller' => 'manage\authorization',
         'function' => 'delete',
         'accept' => ['GET', 'POST'],

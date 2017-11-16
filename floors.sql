@@ -166,6 +166,7 @@ CREATE TABLE `permissions` (
   `dflag` tinyint(1) NOT NULL,
   `pname` varchar(255) NOT NULL,
   `pcode` varchar(255) NOT NULL,
+  `destination` text NOT NULL,
   `description` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;

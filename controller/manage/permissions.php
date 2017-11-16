@@ -41,6 +41,7 @@ class permissions extends View implements Auth
         if (Request::IsPost()) {
             $pname = Request::Post('pname', null);
             $pcode = Request::Post('pcode', null);
+            $destination = Request::Post('destination', null);
             $desc = Request::Post('description', null);
 
             $broker = array(
@@ -49,6 +50,7 @@ class permissions extends View implements Auth
                 'created' => DBI::NOW(),
                 'pname' => $pname,
                 'pcode' => $pcode,
+                'destination' => $destination,
                 'description' => $desc,
             );
 
