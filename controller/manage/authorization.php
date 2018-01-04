@@ -47,6 +47,7 @@ class authorization extends View implements Auth
 
         if (Request::IsPost()) {
 
+            //$appCode = Request::Post('appcode', null);
             $appAuth = Request::Post('authorization', null);
             $expired = Request::Post('expired', null);
             $time = Request::Post('time', null);

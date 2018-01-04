@@ -21,7 +21,7 @@ class Applications
 
     public static function GetAll()
     {
-        return DBI::Prepare("SELECT * FROM applications WHERE (dflag = 0)")->GetData();
+        return DBI::Prepare("SELECT *, id idapp FROM applications WHERE (dflag = 0)")->GetData();
     }
 
     public static function CountAll()

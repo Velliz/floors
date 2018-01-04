@@ -18,13 +18,12 @@ jQuery(document).ready(function () {
     var appAuth = $(".app-auth");
 
     var appSelect = $(".app-code").on('change', function(){
-        var appId = $(this).val();
         $.ajax({
             url: 'api/permission',
             type: 'POST',
             dataType: 'json',
             data: {
-                appid: appId
+                appid: appSelect.val()
             },
             error: function () {
                 bootbox.dialog({
