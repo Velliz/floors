@@ -4,7 +4,25 @@ ini_set('session.save_path',realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/sess
 ini_set('session.gc_probability', 1);
 
 define('ROOT', __DIR__);
-define('BASE_URL', $_SERVER['REQUEST_SCHEME'] . "://" . $_SERVER['SERVER_NAME'] . '/floors/');
+
+$protocol = 'http';
+if (isset($_SERVER['HTTPS'])) {
+    $protocol = 'https';
+} else if (isset($_SERVER['HTTP_X_SCHEME'])) {
+    $protocol = strtolower($_SERVER['HTTP_X_SCHEME']);
+} else if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
+    $protocol = strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']);
+} else if (isset($_SERVER['SERVER_PORT'])) {
+    $serverPort = (int)$_SERVER['SERVER_PORT'];
+    if ($serverPort == 80) {
+        $protocol = 'http';
+    } else if ($serverPort == 443) {
+        $protocol = 'https';
+    }
+}
+
+define('BASE_URL', ($protocol . "://" . $_SERVER['HTTP_HOST'] . "/"));
+
 define('START', microtime(true));
 
 require __DIR__ . '/vendor/autoload.php';

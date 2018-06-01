@@ -70,7 +70,6 @@ class main extends View
                 $agent = $_SERVER['HTTP_USER_AGENT'];
                 $remote_ip = $_SERVER['REMOTE_ADDR'];
                 $method = $_SERVER['REQUEST_METHOD'];
-                $http_status = $_SERVER['REDIRECT_STATUS'];
                 $tokens = $this->GetRandomToken(10);
 
                 Session::Get(operator_authenticator::Instance())->PutSession('ft', $tokens,
@@ -84,7 +83,7 @@ class main extends View
                     'action' => 'Login',
                     'ipaddress' => $remote_ip,
                     'useragent' => $agent,
-                    'httpstatus' => $http_status,
+                    'httpstatus' => 200,
                     'tokens' => $tokens,
                 ));
 
